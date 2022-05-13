@@ -41,7 +41,7 @@
         * le mode connecte (ex : communication telephonique) utilisant le protocole TCP. La connexion durable etablie entre les deux processus permet de ne pas necessairement avoir besoin de l'adresse de destination a chaque envoi de donnees.
         * le mode non connecte (ex: communication par courrier) utilisant le protocole UDP. Ce dernier necessite l'adresse de destination a chaque envoi et il n'y a pas d'accuse de reception de celle ci. 
 
-<p align="center"><img src="schema.png"/></p>
+<p align="center"><img src="medias/schema.png"/></p>
 
 + FONCTIONS
 
