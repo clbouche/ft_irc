@@ -74,8 +74,97 @@
  
 ## Plan du projet 
 
-### Creation d'un serveur de base
+### Creation d'un simple serveur TCP
 
+#### Creation de la main socket
+1. Mise en place de la master socket, celui du serveur grace a la fonction socket()
+```
+(master_socket = socket(AF_INET , SOCK_STREAM , 0))
+```
+
+2. Choix des options de notre socket avec dans notre cas, la possibilite d'avoir une mutiples connexions (de client, pas de multiserver ici)
+
+```
+setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(opt)
+```
+
+3. Faire en sorte que notre reseau TCP puisse se connecter sur le port 6667.
+    + un define du port en question
+    ```
+    #define PORT 6667
+    ```
+    + utilisation de la fonction htons pour recuperer l'adresse du port 
+    ```
+    address.sin_port = htons( PORT );
+    ```
+    + affectation d'un 'nom' a notre socket principale
+    ```
+    bind(master_socket, (struct sockaddr *)&address, sizeof(address))
+    ```
+
+4. On arrive maintenant a l'etape ou attends qu'une action ait lieu sur notre serveur 
+
+```
+listen(master_socket, 3)
+
+```
+**Notre serveur est pret a attendre la connexion d'un client TCP !**
+
+#### Creation des possibles sockets secondaires
+Pour cette seconde et derniere etape de notre premier serveur TCP plutot basique on va placer tous ca dans une boucle while(true).
+1. Tant qu'on atteint pas le nombres maximum de clients autorises dans notre serveur, on va pouvoir associer a chaque client un socket pour pouvoir lire son contenu par la suite. 
+
+```
+//socket descriptor
+sd = client_socket[i];
+
+//if valid socket descriptor then add to read list
+if(sd > 0)
+    FD_SET( sd , &readfds);
+```
+
+2. On arrive a l'etape ou on va attendre que nos chers clients osent prendre la parole
+```
+activity = select( max_sd + 1 , &readfds , NULL , NULL , NULL);
+```
+
+3. Deux cas possibles dans cette situation:
+    + Une action sur notre main socket (notre serveur). Il s'agira ici donc d'une connexion d'un nouveau client. 
+        - Si on a pas encore atteint notre nombres maximums de clients on va pouvoir accepter notre nouveau copain
+        ```
+        new_socket = accept(master_socket, (struct sockaddr *)&address, (socklen_t*)&addrlen)
+        ```
+        - Comme on est vachement polie on va envoyer un petit message a notre serveur pour le plaisir qu'il a un nouveau pote
+        ```
+        printf("New connection , socket fd is %d , ip is : %s , port : %d\n" , new_socket , inet_ntoa(address.sin_addr) , ntohs
+				(address.sin_port));
+        ```
+
+    + Une action provenant des sockets secondaires (un de nos clients, s'ils existent). Pour comprendre de quel type d'action il s'agit, on utilisera toujours le socket
+        - Si le serveur n'arrive pas a lire sur le socket de notre client = deconnexion. 
+        ```
+        if ((valread = read( sd , buffer, 1024)) == 0)
+        ```
+      → Dans ce cas, il faut : detecter de quel client il s'agit, envoyer un message de deconnexion a notre serveur, fermer le sockets de notre client et retirer notre client de notre listes de clients.
+        ```
+        getpeername(sd , (struct sockaddr*)&address , \
+						(socklen_t*)&addrlen);
+		printf("Host disconnected , ip %s , port %d \n" ,
+		inet_ntoa(address.sin_addr) , ntohs(address.sin_port));
+
+		close( sd );
+		client_socket[i] = 0;
+        ```
+
+        - Si le serveur arrive a lire dessus = nouveau message.
+        → Dans ce cas la, on va simplement renvoyer a notre client qu'il a envoye pour lui attester de sa bonne reception 
+        ```
+        send(sd, "Recu : ", 7, 0);
+		buffer[valread] = '\0';
+	    send(sd , buffer , strlen(buffer) , 0 );
+        ```
+
+**TADAM :tada: On va notre beau serveur TCP**
 
 
 <p align="center"><img src="medias/schema2.png"/></p>
@@ -96,4 +185,4 @@
 - [un tres bon resume pas a pas du protocole IRC](http://www.lsv.fr/~rodrigue/teach/npp/2012/tp1.pdf)
 - [un tuto d'implementation d'un serveur IRC en python](https://www.youtube.com/watch?v=3QiPPX-KeSc)
 - [pour comprendre comment utiliser concretement un serveur IRC](https://bioinfo-fr.net/irc-mais-cest-quoi-en-fait)
-- 
+- [creation d'un serveur TCP](https://riptutorial.com/cplusplus/example/23999/hello-tcp-server)
