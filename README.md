@@ -41,12 +41,39 @@
         * le mode connecte (ex : communication telephonique) utilisant le protocole TCP. La connexion durable etablie entre les deux processus permet de ne pas necessairement avoir besoin de l'adresse de destination a chaque envoi de donnees.
         * le mode non connecte (ex: communication par courrier) utilisant le protocole UDP. Ce dernier necessite l'adresse de destination a chaque envoi et il n'y a pas d'accuse de reception de celle ci. 
 
++ FONCTIONS
+    - **socket()** : cree un endpoint pour la communication et return un descriptor.
+    - **setsockopt()** : manipulent les options pour la socket.
+    - **getsockname()** : renvoie l'adresse actuelle a laquelle la socket est lie. 
+    - **getprotobyname()** : lit l'entree suivante depuis la base de donnees du protocole.
+    - **gethostbyname()** : obsolete
+    - **getaddrinfo()** : retourne une ou plus de structures dans laquelle contient l'adresse internet avec laquelle on peut utiliser bind ou connect. 
+    - **freeaddrinfo()**: free the memory 
+    - **bind()** : pour donner un nom assigne a la creation d'une socket, affecte l'adresse spécifiée dans addr à la socket référencée par le descripteur de fichier sockfd. Traditionnellement cette opération est appelée « affectation d'un nom à une socket ».
+    - **connect()** : connecte la socket referencee par le descriptor sockfd indiquee par serv_addr. 
+    - **listen()** : marque la socket referencee par sockfd comme une socket passive, c'est-a-dire comme une socket qui sera utilisee pour accepter les demandes de connexions entrantes en utilisant accept.
+    - **accept()** : utilise avec les sockets utilisant un protocole en mode connecte; extrait la première connexion de la file des connexions en attente de la socket sockfd à l'écoute, crée une nouvelle socket connectée, et renvoie un nouveau descripteur de fichier qui fait référence à cette socket. La nouvelle socket n'est pas en état d'écoute. La socket originale sockfd n'est pas modifiée par l'appel système.
+    - **htons()** : convertit un entier court non signé hostshort depuis l'ordre des octets de l'hôte vers celui du réseau.
+    - **htonl()** : convertit un entier non signé hostlong depuis l'ordre des octets de l'hôte vers celui du réseau.
+    - **ntohs()** : convertit un entier court non signé netshort depuis l'ordre des octets du réseau vers celui de l'hôte.
+    - **ntohl()**: convertit un entier non signé netlong depuis l'ordre des octets du réseau vers celui de l'hôte.
+    - **inet_addr()** : onvertit l'adresse Internet de l'hôte cp depuis la notation IPv4 décimale pointée vers une forme binaire (dans l'ordre d'octet du réseau), et la stocke dans la structure pointée par inp. inet_aton() renvoie une valeur non nulle si l'adresse est valide, et zéro sinon.
+    - **inet_ntoa()** : convertit l'adresse Internet de l'hôte in donne dans l'ordre des octets du réseau en une chaîne de caractères dans la notation numérique pointée. La chaîne est renvoyée dans un tampon alloué statiquement, qui est donc écrasé à chaque appel.
+    - **send()** : permet de transmettre un message à destination d'une autre socket. 
+    - **recv()** :  utilisé pour recevoir des messages depuis une socket.
+    - **signal()** :  installe le gestionnaire handler pour le signal signum.
+    - **lseek()** : place la tête de lecture/écriture à la position offset dans le fichier ouvert associé au descripteur fd en suivant la directive whence.
+    - **fstat()** : recupere les informations d'un fichier.
+    - **fcntl()** : permet de se livrer à l'une des opérations décrites plus loin sur le descripteur de fichier.
+    - **poll (ou équivalent)** :  variation de select, attend que l'un des descripteurs de fichiers parmi un ensemble soit pret pour effectuer des entrees-sorties. 
+
 <p align="center"><img src="schema.png"/></p>
 
 
 ## Plan du projet 
 
-### Creation du serveur 
+### Creation d'un serveur de base
+
 
 ### Implementation des commandes
 
