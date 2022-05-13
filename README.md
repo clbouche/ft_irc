@@ -77,6 +77,9 @@
 ### Creation d'un serveur de base
 
 
+
+<p align="center"><img src="medias/schema2.png"/></p>
+
 ### Implementation des commandes
 
 
