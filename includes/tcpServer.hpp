@@ -41,7 +41,7 @@ class tcpServer
 		 * 
 		 * @param port 
 		 */
-		tcpServer(int	port = PORT);
+		tcpServer(int port = PORT);
 
 		/**
 		 * @brief bzero clients and waiting for new connexions
@@ -59,7 +59,8 @@ class tcpServer
 		 * @brief for disconnexion and send messages
 		 * 
 		 */
-		void	listen_data(void);
+		char	*listen_data(void);
+
 };
 
 #endif
