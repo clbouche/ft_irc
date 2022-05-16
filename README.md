@@ -106,7 +106,6 @@ setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(opt)
 
 ```
 listen(master_socket, 3)
-
 ```
 **Notre serveur est pret a attendre la connexion d'un client TCP !**
 
@@ -117,7 +116,6 @@ Pour cette seconde et derniere etape de notre premier serveur TCP plutot basique
 ```
 //socket descriptor
 sd = client_socket[i];
-
 //if valid socket descriptor then add to read list
 if(sd > 0)
     FD_SET( sd , &readfds);
@@ -151,7 +149,6 @@ activity = select( max_sd + 1 , &readfds , NULL , NULL , NULL);
 						(socklen_t*)&addrlen);
 		printf("Host disconnected , ip %s , port %d \n" ,
 		inet_ntoa(address.sin_addr) , ntohs(address.sin_port));
-
 		close( sd );
 		client_socket[i] = 0;
         ```
@@ -169,7 +166,35 @@ activity = select( max_sd + 1 , &readfds , NULL , NULL , NULL);
 
 <p align="center"><img src="medias/schema2.png"/></p>
 
-### Implementation des commandes
+On mets tous ca au propre dans une class TcpServer et on part pour la suite ! 
+
+### Comprendre le protocole IRC
+
+→ [Pour une lecture optimale du RFC du protocole IRC](https://www.rfcreader.com/#rfc2812)
+
+Globalement, on va vite comprendre le protocole IRC est tres codifie. Ce qui rend donc son implementation minitieuse mais egalement plutot simple a faire. 
+Globalement, on va retrouver a chaque commande : 
+- son parsing 
+- quelques details 
+- les sorties d'erreurs. 
+
+
+<p align="center"><img src="medias/rfc_PASS.png" title="Petite exemple"/></p>
+
+
+#### Inscription
+
+- La commande PASS est facultative. Selon le RFC, cette commande doit etre lance avant USER et NICK qui sont obligatoires.
+Comme son nom l'indique, elle definit le mot de passe de l'utilisateur (mais non???)
+- on instancie ensuite le nickname grace a la commande NICK
+- on termine par lancer la commande USER
+
+Inscription finito :tada: 
+
+
+
+
+
 
 
 ## Notes
