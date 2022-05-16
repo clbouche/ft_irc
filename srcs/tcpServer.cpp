@@ -97,7 +97,7 @@ void	tcpServer::waiting_activity(void)
 void	tcpServer::write_data(void)
 {
 	int 	new_socket;
-	char 	*message = "ECHO Daemon v1.0 \r\n";
+	char 	*message = WELCOME_MESSAGE;
 	int		_addrlen = sizeof(_address);
 
 
