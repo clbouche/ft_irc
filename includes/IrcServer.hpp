@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/16 18:20:25 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:33:20 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,31 @@
 
 #include <map>
 #include "tcpServer.hpp"
-// #include "User.hpp"
+#include "user.hpp"
 
 
 class   IrcServer {
 
-    private:
+	private:
 
-    std::string     _command[3];
+	std::string     _command[3];
 
-    public:
-    
-    tcpServer   _tcpServer;
-    
-    /**
-     * @brief Construct a new Irc Server object
-     * 
-     */
-    IrcServer( int port);
+	public:
+	
+	std::map<int, user>	usersMap;
+	tcpServer			_tcpServer;
+	
+	/**
+	 * @brief Construct a new Irc Server object
+	 * 
+	 */
+	IrcServer( int port);
 
-    void    parse_cmd(char *cmd, IrcServer *server);
+	void    parse_cmd(char *cmd, IrcServer *server);
 
-    void    pass(void);
-    void    nick(void);
-    void    user(void);
+	void    pass(void);
+	void    nick(void);
+	void    user(void);
 
 };
 

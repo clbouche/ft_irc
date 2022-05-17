@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/16 18:25:41 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:09:38 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void    IrcServer::parse_cmd(char *cmd, IrcServer *server)
 
         for (int i = 0; i < 3; i++)
         {
-        //     std::cout << "cmd = " << "[" << cmd << "]"<< std::endl;
+            // std::cout << "cmd = " << "[" << cmd << "]"<< std::endl;
         //     std::cout << "_cmd[i] = " << "[" << _command[i] << "]" << std::endl;
             if (cmd == _command[i])
             {
