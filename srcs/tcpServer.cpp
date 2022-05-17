@@ -176,7 +176,7 @@ std::pair<int, std::string>		tcpServer::listen_data(void)
 				//set the string terminating NULL byte on the end
 				//of the data read
 				// send(sd, "Recu : ", 7, 0);
-				// buffer[valread] = '\0';
+				buffer[valread] = '\0';
 				// send(sd , buffer , strlen(buffer) , 0 );
 				return (std::make_pair(sd, std::string(buffer)));
 			}

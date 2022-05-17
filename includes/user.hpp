@@ -71,7 +71,7 @@ class user
 		 * @brief Access to the sd
 		 * 
 		 */
-		std::string	getSdUser();
+		int		getSdUser();
 
 		/**
 		 * 

@@ -1,13 +1,18 @@
 #include"../includes/user.hpp"
 
-user::user() : _isOper(false)
+user::user() : _isOper(false), _isConnected(false), _nickName(""),
+					_realName(""), _userName(""), _mode("")
 {
 };
 
-user::user(int sd) : _isOper(false), _isConnected(false), _sdUser(sd)
+user::user(int sd) : _isOper(false), _isConnected(false), _sdUser(sd), _nickName(""),
+					_realName(""), _userName(""), _mode("")
 {
 }
 
+user::~user()
+{
+}
 
 		/* ------------------------------------------------------------- */
 		/* ------------------------- FUNCTIONS ------------------------- */	
@@ -32,7 +37,7 @@ user::user(int sd) : _isOper(false), _isConnected(false), _sdUser(sd)
 		return (this->_mode);
 	}
 
-	std::string	user::getSdUser()
+	int			user::getSdUser()
 	{
 		return (this->_sdUser);
 	}
