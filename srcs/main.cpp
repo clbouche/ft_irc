@@ -6,22 +6,24 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/16 14:28:54 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:06:56 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/config.hpp"
-#include "../includes/tcpServer.hpp"
+#include "../includes/IrcServer.hpp"
 
-void    loop(tcpServer *server)
+void    loop(IrcServer *server)
 {
     int     max_sd;
+    char    *buff;
     
     while(TRUE)
     { 
-		server->waiting_activity();
-        server->write_data();
-        server->listen_data();
+		server->_tcpServer.waiting_activity();
+        server->_tcpServer.write_data();
+        buff = server->_tcpServer.listen_data();
+        server->parse_cmd(buff, server);
     }
 
 }
@@ -30,7 +32,7 @@ int main(int argc, char **argv)
 {
     int port = (argc >= 2) ? std::atoi(argv[1]) : PORT;
     
-    tcpServer   server(port);
+    IrcServer   server(port);
 
     loop(&server);
 

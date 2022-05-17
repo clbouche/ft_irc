@@ -140,7 +140,7 @@ void	tcpServer::write_data(void)
 
 }
 
-void	tcpServer::listen_data(void)
+char	*tcpServer::listen_data(void)
 {
 	int sd, valread;
 	char buffer[1025];
@@ -167,6 +167,7 @@ void	tcpServer::listen_data(void)
 				//Close the socket and mark as 0 in list for reuse
 				close( sd );
 				_clientSocket[i] = 0;
+				return ("Disconnected\n");
 			}
 
 			//Echo back the message that came in
@@ -174,10 +175,13 @@ void	tcpServer::listen_data(void)
 			{
 				//set the string terminating NULL byte on the end
 				//of the data read
-				send(sd, "Recu : ", 7, 0);
-				buffer[valread] = '\0';
-				send(sd , buffer , strlen(buffer) , 0 );
+				// send(sd, "Recu : ", 7, 0);
+				// buffer[valread] = '\0';
+				// send(sd , buffer , strlen(buffer) , 0 );
+				return (buffer);
 			}
 		}
 	}
+	return ("");
 }
+
