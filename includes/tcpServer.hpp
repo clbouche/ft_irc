@@ -59,7 +59,9 @@ class tcpServer
 		 * @brief for disconnexion and send messages
 		 * 
 		 */
-		char	*listen_data(void);
+		// char	*listen_data(void);
+		std::pair<int, std::string>		listen_data(void);
+
 
 };
 

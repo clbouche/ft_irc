@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/16 18:20:25 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:02:18 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,20 @@
 
 class   IrcServer {
 
-    private:
-
-    std::string     _command[3];
-
     public:
     
-    tcpServer   _tcpServer;
-    
+    tcpServer       _tcpServer;
+    typedef	void	(*function_for_cmd)(IrcServer *, int, std::string &);
+
+
+    private:
+
+    // std::string     _command[3];
+    std::map<std::string, function_for_cmd>  _pointer_to_valid_cmd;
+    void    create_pointer(void);
+
+
+    public:    
     /**
      * @brief Construct a new Irc Server object
      * 
@@ -36,9 +42,8 @@ class   IrcServer {
 
     void    parse_cmd(char *cmd, IrcServer *server);
 
-    void    pass(void);
-    void    nick(void);
-    void    user(void);
+    function_for_cmd     recup_cmd(std::string cmd);
+
 
 };
 

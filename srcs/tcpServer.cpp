@@ -140,7 +140,7 @@ void	tcpServer::write_data(void)
 
 }
 
-char	*tcpServer::listen_data(void)
+std::pair<int, std::string>		tcpServer::listen_data(void)
 {
 	int sd, valread;
 	char buffer[1025];
@@ -165,9 +165,9 @@ char	*tcpServer::listen_data(void)
 					inet_ntoa(_address.sin_addr) , ntohs(_address.sin_port));
 
 				//Close the socket and mark as 0 in list for reuse
-				close( sd );
-				_clientSocket[i] = 0;
-				return ("Disconnected\n");
+				// close( sd );
+				// _clientSocket[i] = 0;
+				return (std::make_pair(sd, std::string("Disconnected\n")));
 			}
 
 			//Echo back the message that came in
@@ -178,10 +178,10 @@ char	*tcpServer::listen_data(void)
 				// send(sd, "Recu : ", 7, 0);
 				// buffer[valread] = '\0';
 				// send(sd , buffer , strlen(buffer) , 0 );
-				return (buffer);
+				return (std::make_pair(sd, std::string(buffer)));
 			}
 		}
 	}
-	return ("");
+	return (std::make_pair(sd, std::string("")));
 }
 
