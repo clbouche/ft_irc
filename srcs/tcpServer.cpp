@@ -60,7 +60,7 @@ tcpServer::tcpServer(int port)
 		/* ------------------------- FUNCTIONS ------------------------- */	
 		/* ------------------------------------------------------------- */
 
-void	tcpServer::waiting_activity(void)
+void	tcpServer::waiting_activity(std::map<int, user> *usersMap)
 {
 	int 	max_sd, activity;
 
@@ -75,15 +75,16 @@ void	tcpServer::waiting_activity(void)
 	for ( int i = 0 ; i < MAX_CLIENTS ; i++)
 	{
 		//socket descriptor
-		int sd = _clientSocket[i];
+		user* newUser = new user(_clientSocket[i]) ;
+		usersMap->insert(std::make_pair(_clientSocket[i], *newUser));
 
 		//if valid socket descriptor then add to read list
-		if(sd > 0)
-			FD_SET( sd , &_readfds);
+		if(newUser->getSdUser() > 0)
+			FD_SET( newUser->getSdUser() , &_readfds);
 
 		//highest file descriptor number, need it for the select function
-		if(sd > max_sd)
-			max_sd = sd;
+		if(newUser->getSdUser() > max_sd)
+			max_sd = newUser->getSdUser();
 	}
 
 	//wait for an activity on one of the sockets , timeout is NULL ,

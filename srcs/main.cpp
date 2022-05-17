@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/17 16:21:37 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:34:27 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void    loop(IrcServer *server)
     
     while(TRUE)
     { 
-		server->_tcpServer.waiting_activity();
+		server->_tcpServer.waiting_activity(&(server->usersMap));
         server->_tcpServer.write_data();
         buff = server->_tcpServer.listen_data();
         // if (buff.first != NULL)
@@ -34,6 +34,7 @@ void    loop(IrcServer *server)
             // if (buff.second == "Disconnected\n")
                 // return ;
             // else
+            std::cout << "SD :" << server->usersMap.find(buff.first)->second.getSdUser() << ":" << std::endl;
                 parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser()); // ici on recupere le sd mais seulement pour des teste, on veut recuperer le user (enlever .sdUser)
         		// parse_cmd(buff.second, server, 0);
         // }

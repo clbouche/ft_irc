@@ -2,6 +2,7 @@
 # define TCPSERVER_HPP
 
 # include "config.hpp"
+# include "user.hpp"
 # include <netdb.h>
 # include <unistd.h>
 # include <arpa/inet.h>
@@ -47,7 +48,7 @@ class tcpServer
 		 * @brief bzero clients and waiting for new connexions
 		 * 
 		 */
-		void	waiting_activity(void);
+		void	waiting_activity(std::map<int, user> *usersMap);
 
 		/**
 		 * @brief for new connexions
