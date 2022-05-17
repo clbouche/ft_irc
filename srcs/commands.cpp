@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:28 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/17 14:20:22 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:25:57 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,14 @@ void    cmd_nick( IrcServer *serv, int sd, std::string & args )
     std::cout << "enter in cmd_nick" << std::endl;
 }
 
-void    parse_cmd(std::string cmd, IrcServer *IRC, const int sd)
+void    cmd_NULL( IrcServer *serv, int sd, std::string & args )
 {
-    IRC->recup_cmd(cmd)(IRC, sd, cmd);
+    std::cout << "cmd not found" << std::endl;
+}
+
+void    parse_cmd(std::string cmd, IrcServer *IRC, int sd)
+{
+    std::string     commands = "";
+    
+    IRC->recup_cmd(cmd)(IRC, sd, commands);
 }

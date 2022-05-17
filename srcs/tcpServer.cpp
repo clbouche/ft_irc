@@ -165,19 +165,16 @@ std::pair<int, std::string>		tcpServer::listen_data(void)
 					inet_ntoa(_address.sin_addr) , ntohs(_address.sin_port));
 
 				//Close the socket and mark as 0 in list for reuse
-				// close( sd );
-				// _clientSocket[i] = 0;
+				close( sd );
+				_clientSocket[i] = 0;
 				return (std::make_pair(sd, std::string("Disconnected\n")));
 			}
 
 			//Echo back the message that came in
 			else
 			{
-				//set the string terminating NULL byte on the end
-				//of the data read
-				// send(sd, "Recu : ", 7, 0);
+				//set the string terminating NULL byte on the end of the data read
 				buffer[valread] = '\0';
-				// send(sd , buffer , strlen(buffer) , 0 );
 				return (std::make_pair(sd, std::string(buffer)));
 			}
 		}

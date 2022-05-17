@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/17 14:18:53 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:24:47 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,38 @@ class   IrcServer {
 
     public:
     
+    /**
+     * @brief A map where we store our users
+     * 
+     */
 	std::map<int, user>	usersMap;
-    tcpServer       	_tcpServer;
-    typedef	void		(*function_for_cmd)(IrcServer *, int, std::string &);
+    
+    /**
+     * @brief Our tcp server where we setup the main sockets
+     * and the class Users
+     * 
+     */
+    tcpServer       _tcpServer;
+
+    /**
+     * @brief typedef to call function of IRC commands.
+     * 
+     */
+    typedef	void	(*command)(IrcServer *, int, std::string &);
 
 
     private:
 
-    // std::string     _command[3];
-    std::map<std::string, function_for_cmd>  _pointer_to_valid_cmd;
+    /**
+     * @brief map of all the commands and the associated function
+     * 
+     */
+    std::map<std::string, command>  _pointer_to_valid_cmd;
+
+    /**
+     * @brief Create the association between function and command
+     * 
+     */
     void    create_pointer(void);
 
 
@@ -41,9 +64,22 @@ class   IrcServer {
      */
     IrcServer( int port);
 
+    /**
+     * @brief Send to recup args of the command
+     * 
+     * @param cmd the function
+     * @param server IRCserver
+     * @param user User who send the command
+     */
     void    parse_cmd(char *cmd, IrcServer *server);
 
-    function_for_cmd     recup_cmd(std::string cmd);
+    /**
+     * @brief send to the right function 
+     * 
+     * @param cmd command send from the user 
+     * @return function_for_cmd function associated to the command
+     */
+    command     recup_cmd(const std::string & command ) const;
 
 
 };
