@@ -32,6 +32,11 @@ user::user(int sd) : _isOper(false), _isConnected(false), _sdUser(sd)
 		return (this->_mode);
 	}
 
+	std::string	user::getSdUser()
+	{
+		return (this->_sdUser);
+	}
+
 	void	user::setNickName(std::string nickname)
 	{
 		this->_nickName = nickname;

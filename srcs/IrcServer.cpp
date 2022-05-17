@@ -6,12 +6,13 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/17 13:56:52 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:07:35 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/IrcServer.hpp"
 #include "../includes/tcpServer.hpp"
+#include "../includes/user.hpp"
 #include "../includes/commands.hpp"
 #include <iostream>
 

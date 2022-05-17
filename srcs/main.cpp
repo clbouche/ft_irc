@@ -6,12 +6,13 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/17 13:53:09 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:25:07 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/config.hpp"
 #include "../includes/IrcServer.hpp"
+#include "../includes/user.hpp"
 #include "../includes/commands.hpp"
 
 /**
@@ -33,11 +34,10 @@ void    loop(IrcServer *server)
             // if (buff.second == "Disconnected\n")
                 // return ;
             // else
+                parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second);
         		parse_cmd(buff.second, server, 0);
         // }
     }
-
-}
 }
 
 int main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/17 13:56:04 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:18:53 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 
 #include <map>
 #include "tcpServer.hpp"
-// #include "User.hpp"
+#include "user.hpp"
 
 
 class   IrcServer {
 
     public:
     
-    tcpServer       _tcpServer;
-    typedef	void	(*function_for_cmd)(IrcServer *, int, std::string &);
+	std::map<int, user>	usersMap;
+    tcpServer       	_tcpServer;
+    typedef	void		(*function_for_cmd)(IrcServer *, int, std::string &);
 
 
     private:

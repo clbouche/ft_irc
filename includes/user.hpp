@@ -68,6 +68,12 @@ class user
 		std::string	getMode();
 
 		/**
+		 * @brief Access to the sd
+		 * 
+		 */
+		std::string	getSdUser();
+
+		/**
 		 * 
 		 * SETTERS
 		 * 
