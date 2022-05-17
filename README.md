@@ -185,14 +185,58 @@ Globalement, on va retrouver a chaque commande :
 #### Inscription
 
 - La commande PASS est facultative. Selon le RFC, cette commande doit etre lance avant USER et NICK qui sont obligatoires.
-Comme son nom l'indique, elle definit le mot de passe de l'utilisateur (mais non???)
+Comme son nom l'indique, elle definit le mot de passe que l'utilisateur peut (ou doit?) entrer pour se connecter au serveur.
 - on instancie ensuite le nickname grace a la commande NICK
 - on termine par lancer la commande USER
 
-Inscription finito :tada: 
+#### Recuperation des commandes
+
+C'est bien joli de donner la possibilite a notre utilisateur de pouvoir lancer des commandes mais il faut qu'on soit en mesure de les executer pour qu'on puisse considerer le tout commefonctionnel. 
+Pour ca, on est passe par des etapes intermediaire : 
+
+1. Comme on l'a vu dans notre serveur TCP de base, le buffer est renvoye au client sans qu'on puisse l'interpreter pour faire accuse de reception. On va reutiliser cette notion d'accuse de reception mais en faisant en sorte que notre code soit capable de detecter la commande que nous envoie le client. 
+
+2. On passe alors a notre seconde etape d'implementation. On va creer un simple pointeur sur fonctions des premieres fonctions qu'on a vu jusque la (PASS, NICK & USER). 
+
+```
+ 	std::string     _command[3];
+```
+
+```
+    _command[0] = "PASS\n";
+    _command[1] = "NICK\n";
+    _command[2] = "USER\n";
+```
+
+```
+void	(IrcServer::*func[3])(void) = {
+            &IrcServer::pass,
+            &IrcServer::nick,
+            &IrcServer::user,
+        };
+
+        for (int i = 0; i < 3; i++)
+        {
+        //     std::cout << "cmd = " << "[" << cmd << "]"<< std::endl;
+        //     std::cout << "_cmd[i] = " << "[" << _command[i] << "]" << std::endl;
+            if (cmd == _command[i])
+            {
+                (this->*func[i])();
+                return ;
+            }
+        }
+        return ;
+```
+
+On commence a avoir un accuse de reception (qui a terme deviendra l'execution de la commande) deja plus precis. 
+
+3. A present, on se rend compte que fais de cette maniere ce sera a terme, bien degueu et en plus de ca, pas des plus fonctionnel. On va donc remplacer ce joli pointeur sur fonctions par une jolie map qui prendra comme paire une std::string qui represente la commande + un pointeur sur la fonction concerne. 
+
+#### Parsing des commandes 
 
 
 
+#### Execution des commandes
 
 
 
