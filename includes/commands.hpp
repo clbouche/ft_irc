@@ -7,7 +7,6 @@
 
 void	cmd_user ( IrcServer *server, user *user, std::string & args )
 {
-	
 }
 
 #endif
