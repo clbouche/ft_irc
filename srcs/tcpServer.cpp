@@ -60,7 +60,7 @@ tcpServer::tcpServer(int port)
 		/* ------------------------- FUNCTIONS ------------------------- */	
 		/* ------------------------------------------------------------- */
 
-void	tcpServer::waiting_activity(void)
+void	tcpServer::waiting_activity(std::map<int, user> *usersMap)
 {
 	int 	max_sd, activity;
 
@@ -75,15 +75,16 @@ void	tcpServer::waiting_activity(void)
 	for ( int i = 0 ; i < MAX_CLIENTS ; i++)
 	{
 		//socket descriptor
-		int sd = _clientSocket[i];
+		user* newUser = new user(_clientSocket[i]) ;
+		usersMap->insert(std::make_pair(_clientSocket[i], *newUser));
 
 		//if valid socket descriptor then add to read list
-		if(sd > 0)
-			FD_SET( sd , &_readfds);
+		if(newUser->getSdUser() > 0)
+			FD_SET( newUser->getSdUser() , &_readfds);
 
 		//highest file descriptor number, need it for the select function
-		if(sd > max_sd)
-			max_sd = sd;
+		if(newUser->getSdUser() > max_sd)
+			max_sd = newUser->getSdUser();
 	}
 
 	//wait for an activity on one of the sockets , timeout is NULL ,
@@ -140,7 +141,7 @@ void	tcpServer::write_data(void)
 
 }
 
-void	tcpServer::listen_data(void)
+std::pair<int, std::string>		tcpServer::listen_data(void)
 {
 	int sd, valread;
 	char buffer[1025];
@@ -167,17 +168,18 @@ void	tcpServer::listen_data(void)
 				//Close the socket and mark as 0 in list for reuse
 				close( sd );
 				_clientSocket[i] = 0;
+				return (std::make_pair(sd, std::string("Disconnected\n")));
 			}
 
 			//Echo back the message that came in
 			else
 			{
-				//set the string terminating NULL byte on the end
-				//of the data read
-				send(sd, "Recu : ", 7, 0);
+				//set the string terminating NULL byte on the end of the data read
 				buffer[valread] = '\0';
-				send(sd , buffer , strlen(buffer) , 0 );
+				return (std::make_pair(sd, std::string(buffer)));
 			}
 		}
 	}
+	return (std::make_pair(sd, std::string("")));
 }
+

@@ -2,6 +2,7 @@
 # define TCPSERVER_HPP
 
 # include "config.hpp"
+# include "user.hpp"
 # include <netdb.h>
 # include <unistd.h>
 # include <arpa/inet.h>
@@ -41,13 +42,13 @@ class tcpServer
 		 * 
 		 * @param port 
 		 */
-		tcpServer(int	port = PORT);
+		tcpServer(int port = PORT);
 
 		/**
 		 * @brief bzero clients and waiting for new connexions
 		 * 
 		 */
-		void	waiting_activity(void);
+		void	waiting_activity(std::map<int, user> *usersMap);
 
 		/**
 		 * @brief for new connexions
@@ -59,7 +60,10 @@ class tcpServer
 		 * @brief for disconnexion and send messages
 		 * 
 		 */
-		void	listen_data(void);
+		// char	*listen_data(void);
+		std::pair<int, std::string>		listen_data(void);
+
+
 };
 
 #endif
