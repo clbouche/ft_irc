@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/17 17:06:43 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:00:36 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <map>
 #include "tcpServer.hpp"
 #include "user.hpp"
+#include "channels.hpp"
 
+class channels;
 
 class   IrcServer {
 
@@ -27,6 +29,12 @@ class   IrcServer {
      * 
      */
 	std::map<int, user>	usersMap;
+
+    /**
+     * @brief A map where we store our channels
+     * 
+     */
+	std::map<int, channels>	currentChannels;
     
     /**
      * @brief Our tcp server where we setup the main sockets

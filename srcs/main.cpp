@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/18 10:19:54 by claclou          ###   ########.fr       */
+/*   Updated: 2022/05/18 14:41:40 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void    loop(IrcServer *server)
 		server->_tcpServer.waiting_activity(&(server->usersMap));
         server->_tcpServer.write_data();
         buff = server->_tcpServer.listen_data();
-        std::cout << "SD :" << server->usersMap.find(buff.first)->second.getSdUser() << ":" << std::endl;
         parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser()); // ici on recupere le sd mais seulement pour des teste, on veut recuperer le user (enlever .sdUser)
     }
 }
