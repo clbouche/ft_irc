@@ -1,12 +1,12 @@
 #include"../includes/user.hpp"
 
-user::user() : _isOper(false), _isConnected(false), _nickName(""),
-					_realName(""), _userName(""), _mode("")
+user::user() : _nickName(""), _realName(""), _userName(""), _mode(""), _isOper(false)//, _isConnected(false),
+					
 {
 };
 
-user::user(int sd) : _isOper(false), _isConnected(false), _sdUser(sd), _nickName(""),
-					_realName(""), _userName(""), _mode("")
+user::user(int sd) : _nickName(""), _realName(""), _userName(""),  _mode(""), _isOper(false), _sdUser(sd)//, _isConnected(false)
+					
 {
 }
 

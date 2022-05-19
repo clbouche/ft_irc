@@ -15,7 +15,7 @@ class user
 		std::string	_userName;
 		std::string	_mode; // mode(s) of the users, a string wth all the modes
 		bool		_isOper; // is the user operator or not
-		bool		_isConnected; // did the user give the password ?
+//		bool		_isConnected; // did the user give the password ?
 		int			_sdUser; // a token to identify the maybe the sd used for the user ?
 
 	public:
