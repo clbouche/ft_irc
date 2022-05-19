@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 13:36:33 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:25:01 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class   IrcServer {
 	 * @brief A map where we store our channels
 	 * 
 	 */
-	std::map<int, channels>	currentChannels;
+	std::map<std::string, channels>	currentChannels;
 	
 	/**
 	 * @brief Our tcp server where we setup the main sockets

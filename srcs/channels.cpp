@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/19 10:46:31 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:41:19 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,11 @@ void		channels::setOper(user *oper)
 void		channels::addUser(user newUser)
 {
 	this->_currentUsers.insert(std::make_pair(newUser.getSdUser(), &newUser));
+	std::map<int, user*>::const_iterator it;
+	//display all users
+	// std::map<int, user*>::const_iterator user_it = this->getUsers().begin();
+	for (it = this->getUsers().begin(); it != this->getUsers().end(); it++)
+        {
+            std::cout << "DISPLAY USERS:" << it->first << std::endl;
+        }
 }
