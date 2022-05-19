@@ -1,10 +1,10 @@
 #include <vector>
 #include <string>
-#include "../includes/utils.hpp"
-#include "../includes/commands.hpp"
-#include "../includes/channels.hpp"
-#include "../includes/IrcServer.hpp"
-#include "../includes/user.hpp"
+#include "../../includes/utils.hpp"
+#include "../../includes/commands.hpp"
+#include "../../includes/channels.hpp"
+#include "../../includes/IrcServer.hpp"
+#include "../../includes/user.hpp"
 
 void    cmd_join( IrcServer *serv, user	currentUser, std::string & args )
 {

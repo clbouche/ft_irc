@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:52 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/19 15:54:32 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:09:35 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ class tcpServer
 		 * @param port 
 		 */
 		tcpServer(int port = PORT);
-
-		/**
-		 * @brief Check if the client have the good password and set USER & NICK
-		 * 
-		 */
-		bool	tcpServer::check_connexion();
 
 		/**
 		 * @brief bzero clients and waiting for new connexions
