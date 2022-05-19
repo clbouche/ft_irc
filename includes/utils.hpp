@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.hpp                                       :+:      :+:    :+:   */
+/*   utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/17 11:25:00 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 11:15:38 by clbouche         ###   ########.fr       */
+/*   Created: 2022/05/19 11:20:47 by clbouche          #+#    #+#             */
+/*   Updated: 2022/05/19 11:32:37 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef COMMANDS_HPP
-# define COMMANDS_HPP
+#ifndef UTILS_HPP
+# define UTILS_HPP
 
-#include "IrcServer.hpp"
-#include <iostream>
+#include <vector>
 
-void    parse_cmd(std::string args, IrcServer *IRC, const int sd);
+std::vector<std::string>		ft_split(std::string args, std::string delim);
 
-void    cmd_pass(IrcServer *serv, int sd, std::string & args);
-void    cmd_nick(IrcServer *serv, int sd, std::string & args);
-void    cmd_user(IrcServer *serv, int sd, std::string & args);
-
-void    cmd_NULL( IrcServer *serv, int sd, std::string & args );
 
 
 

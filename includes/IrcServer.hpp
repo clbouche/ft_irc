@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 10:53:42 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/19 11:16:04 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ class   IrcServer {
 	 * @param cmd command send from the user 
 	 * @return function_for_cmd function associated to the command
 	 */
-	command     recup_cmd(const std::string & command ) const;
+	command     recup_cmd(const std::string & args ) const;
 
 
 };
