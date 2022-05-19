@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/18 14:41:40 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/19 10:41:18 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@
 
 void    loop(IrcServer *server)
 {
-    std::pair<int, std::string>    buff;
-    
-    while(TRUE)
-    { 
+	std::pair<int, std::string>    buff;
+	
+	while(TRUE)
+	{ 
 		server->_tcpServer.waiting_activity(&(server->usersMap));
-        server->_tcpServer.write_data();
-        buff = server->_tcpServer.listen_data();
-        parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser()); // ici on recupere le sd mais seulement pour des teste, on veut recuperer le user (enlever .sdUser)
-    }
+		server->_tcpServer.write_data();
+		buff = server->_tcpServer.listen_data();
+		parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser()); // ici on recupere le sd mais seulement pour des teste, on veut recuperer le user (enlever .sdUser)
+	}
 }
 
 int main(int argc, char **argv)
 {
-    int port = (argc >= 2) ? std::atoi(argv[1]) : PORT;
-    
-    IrcServer   server(port);
+	int port = (argc >= 2) ? std::atoi(argv[1]) : PORT;
+	
+	IrcServer   server(port);
 
-    loop(&server);
+	loop(&server);
 
-    return 0;
+	return 0;
 }

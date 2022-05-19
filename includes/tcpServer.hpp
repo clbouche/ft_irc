@@ -34,7 +34,7 @@ class tcpServer
 	private:
 
 		std::string						_hostname;
-		int 							_masterSocket , _clientSocket[MAX_CLIENTS], _addrlen;
+		int 							_masterSocket , _clientSocket[MAX_CLIENTS]; //, _addrlen;
 		fd_set							_readfds;
 		struct		sockaddr_in			_address;
 		/* usage of a multimap (map where we can have one key in more than one leaf)*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tcpServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/18 10:18:33 by claclou          ###   ########.fr       */
+/*   Updated: 2022/05/19 09:25:49 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,26 @@ tcpServer::tcpServer()
 tcpServer::tcpServer(int port)
 {
 	int opt = TRUE;
-	char hostname[1024];
+	// char hostname[1024];
 
 	std::memset(&this->_clientSocket, 0, MAX_CLIENTS * sizeof(int));//set the memory for clients socket
 
 	//create the socket for the server (master socket)
 	if((this->_masterSocket = socket(AF_INET , SOCK_STREAM , 0)) == 0)
 	{
-		perror("master socket failed");
+		// perror("master socket failed");
+		std::cerr << std::strerror(errno) << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
 	//set the server's socker to receive multiple connections
 	if(setsockopt(this->_masterSocket, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(opt)) < 0)
 	{
-		perror("master setsockopt failed");
+		// perror("master setsockopt failed");
+		std::cerr << std::strerror(errno) << std::endl;
 		exit(EXIT_FAILURE);
 	}
+
 
 	//type of socket created
 	_address.sin_family = AF_INET;
@@ -52,7 +55,8 @@ tcpServer::tcpServer(int port)
 	//bind the socket to localhost port 8888
 	if (bind(_masterSocket, (struct sockaddr *)&_address, sizeof(_address)) < 0)
 	{
-		perror("bind failed");
+		// perror("bind failed");
+		std::cerr << std::strerror(errno) << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	std::cout << "Listener on port " << port << std::endl;
@@ -60,12 +64,13 @@ tcpServer::tcpServer(int port)
 	//try to specify maximum of 3 pending connections for the master socket
 	if (listen(_masterSocket, MAX_CLIENTS) < 0)
 	{
-		perror("listen");
+		// perror("listen");
+		std::cerr << std::strerror(errno) << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
 	//accept the incoming connection
-	puts("Waiting for connections ...");
+	std::cout << "Waiting for connections ..." << std::endl;
 }
 
 		/* ------------------------------------------------------------- */
@@ -110,7 +115,7 @@ void	tcpServer::waiting_activity(std::map<int, user> *usersMap)
 void	tcpServer::write_data(void)
 {
 	int 	new_socket;
-	char 	*message = WELCOME_MESSAGE;
+	const char 	*message = WELCOME_MESSAGE;
 	int		_addrlen = sizeof(_address);
 
 
@@ -121,21 +126,26 @@ void	tcpServer::write_data(void)
 		if ((new_socket = accept(_masterSocket,
 				(struct sockaddr *)&_address, (socklen_t*)&_addrlen))<0)
 		{
-			perror("accept");
+			// perror("accept");
+			std::cerr << std::strerror(errno) << std::endl;
 			exit(EXIT_FAILURE);
 		}
 
 		//inform user of socket number - used in send and receive commands
-		printf("New connection , socket fd is %d , ip is : %s , port : %d\n" , new_socket , inet_ntoa(_address.sin_addr) , ntohs
-			(_address.sin_port));
+		std::cout << "New connection, socket fd is " << new_socket << ", ip is : " << inet_ntoa(_address.sin_addr)
+			<< ", port : " << ntohs(_address.sin_port) << std::endl; 
+		// printf("New connection , socket fd is %d , ip is : %s , port : %d\n" , new_socket , inet_ntoa(_address.sin_addr) , ntohs
+			// (_address.sin_port));
 
 		//send new connection greeting message
-		if( send(new_socket, message, strlen(message), 0) != strlen(message) )
+		if( send(new_socket, message, strlen(message), 0) != (ssize_t)strlen(message) )
 		{
-			perror("send");
+			// perror("send");
+			std::cerr << std::strerror(errno) << std::endl;
+
 		}
 
-		puts("Welcome message sent successfully");
+		std::cout << "Welcome message sent successfully" << std::endl;
 
 		//add new socket to array of sockets
 		for (int i = 0; i < MAX_CLIENTS; i++)
@@ -144,7 +154,8 @@ void	tcpServer::write_data(void)
 			if(_clientSocket[i] == 0 )
 			{
 				_clientSocket[i] = new_socket;
-				printf("Adding to list of sockets as %d\n" , i);
+				std::cout << "Adding to list of sockets as " << i << std::endl;
+				// printf("Adding to list of sockets as %d\n" , i);
 
 				break;
 			}
@@ -174,8 +185,9 @@ std::pair<int, std::string>		tcpServer::listen_data(void)
 				//Somebody disconnected , get his details and print
 				getpeername(sd , (struct sockaddr*)&_address , \
 					(socklen_t*)&_addrlen);
-				printf("Host disconnected , ip %s , port %d \n" ,
-					inet_ntoa(_address.sin_addr) , ntohs(_address.sin_port));
+				std::cout << "Host disconnected, ip " << inet_ntoa(_address.sin_addr) << " , port " << ntohs(_address.sin_port) << std::endl;
+				// printf("Host disconnected , ip %s , port %d \n" ,
+				// 	inet_ntoa(_address.sin_addr) , ntohs(_address.sin_port));
 
 				//Close the socket and mark as 0 in list for reuse
 				close( sd );

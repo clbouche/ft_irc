@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/18 16:58:54 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/19 10:46:31 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ channels::channels()
 
 channels::channels(std::string name, user *chanOperator)
 {
-	// if (CHECK_NAME == ok)
+	// if (CHECK_NAME == ok) // ->> CHECK IF THE NAME RESPECT THE NORM
 	// {
 		this->setName(name);
 	// }
