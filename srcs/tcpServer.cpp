@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tcpServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/19 09:25:49 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/19 10:54:58 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	tcpServer::waiting_activity(std::map<int, user> *usersMap)
 	for ( int i = 0 ; i < MAX_CLIENTS ; i++)
 	{
 		//socket descriptor
-		user* newUser = new user(_clientSocket[i]) ;
+		user	*newUser = new user(_clientSocket[i]) ;
 		usersMap->insert(std::make_pair(_clientSocket[i], *newUser));
 
 		//if valid socket descriptor then add to read list

@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/18 17:00:11 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/19 11:08:16 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "config.hpp"
 # include "IrcServer.hpp"
 # include "user.hpp"
+#include "channels.hpp"
 
 class channels
 {

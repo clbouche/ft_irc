@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/18 11:40:05 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/19 10:56:22 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ user::user() : _nickName(""), _realName(""), _userName(""), _mode(""), _isOper(f
 };
 
 user::user(int sd) : _nickName(""), _realName(""), _userName(""),  _mode(""), _isOper(false), _sdUser(sd)//, _isConnected(false)
-					
 {
 }
 
