@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 10:59:01 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/19 13:36:33 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ class   IrcServer {
 	 * @brief typedef to call function of IRC commands.
 	 * 
 	 */
-	typedef	void	(*command)(IrcServer *, int, std::string &);
+	typedef	void	(*command)(IrcServer *, user, std::string &);
 
 
 	private:

@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 10:41:18 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/19 13:24:56 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void    loop(IrcServer *server)
 		server->_tcpServer.waiting_activity(&(server->usersMap));
 		server->_tcpServer.write_data();
 		buff = server->_tcpServer.listen_data();
-		parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser()); // ici on recupere le sd mais seulement pour des teste, on veut recuperer le user (enlever .sdUser)
+		parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second); // ici on recupere le sd mais seulement pour des teste, on veut recuperer le user (enlever .sdUser)
 	}
 }
 
