@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/17 16:26:58 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/19 10:53:34 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 	/* ------------------------ CONSTRUCTORS ----------------------- */	
 	/* ------------------------------------------------------------- */
 
-IrcServer::IrcServer(int port) : _tcpServer(port)
+IrcServer::IrcServer(int port, std::string password) : _tcpServer(port), _server_password(password)
 {
     std::cout << "constructor of IRC" << std::endl;
 

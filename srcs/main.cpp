@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/18 10:19:54 by claclou          ###   ########.fr       */
+/*   Updated: 2022/05/19 10:49:38 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,41 @@
 
 void    loop(IrcServer *server)
 {
-    std::pair<int, std::string>    buff;
-    
-    while(TRUE)
-    { 
+	std::pair<int, std::string>    buff;
+	
+	while(TRUE)
+	{ 
 		server->_tcpServer.waiting_activity(&(server->usersMap));
-        server->_tcpServer.write_data();
-        buff = server->_tcpServer.listen_data();
-        std::cout << "SD :" << server->usersMap.find(buff.first)->second.getSdUser() << ":" << std::endl;
-        parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser()); // ici on recupere le sd mais seulement pour des teste, on veut recuperer le user (enlever .sdUser)
-    }
+		server->_tcpServer.write_data();
+		buff = server->_tcpServer.listen_data();
+		std::cout << "SD :" << server->usersMap.find(buff.first)->second.getSdUser() << ":" << std::endl;
+		parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser()); // ici on recupere le sd mais seulement pour des teste, on veut recuperer le user (enlever .sdUser)
+	}
 }
 
 int main(int argc, char **argv)
 {
-    int port = (argc >= 2) ? std::atoi(argv[1]) : PORT;
-    
-    IrcServer   server(port);
+	int port;
+	std::string pass;
+	
+	if (argc >= 2 && argc < 4)
+	{
+		port = (argc >= 2) ? std::atoi(argv[1]) : PORT;
+		// 	if (port <= 0 || port > 0xffff)
+		// 	{
+		// 		std::cerr << "Invalid port number\n";
+		// 		return false;
+		// 	}
+		pass = (argc == 3) ? argv[2] : "";
+	}
+	else
+	{
+		std::cout << "Invalid number of arguments" << std::endl;
+		return 1;
+	}
+	IrcServer   server(port, pass);
 
-    loop(&server);
+	loop(&server);
 
-    return 0;
+	return 0;
 }
