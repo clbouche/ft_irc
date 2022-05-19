@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 11:16:04 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:18:23 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 #include <string>
 #include "tcpServer.hpp"
 #include "user.hpp"
+#include "channels.hpp"
+
 class   IrcServer {
 
 	public:
-	
 	/**
 	 * @brief A map where we store our users
 	 * 
@@ -81,7 +82,6 @@ class   IrcServer {
 	 * @return function_for_cmd function associated to the command
 	 */
 	command     recup_cmd(const std::string & args ) const;
-
 
 };
 
