@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 14:50:59 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/19 17:36:35 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 void    loop(IrcServer *server)
 {
 	std::pair<int, std::string>    buff;
+	bool							check;
 	
 	while(TRUE)
-	{ 
+	{
 		server->_tcpServer.waiting_activity(&(server->usersMap));
 		server->_tcpServer.write_data();
 		buff = server->_tcpServer.listen_data();

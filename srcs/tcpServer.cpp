@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/19 14:38:04 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/19 17:32:25 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ tcpServer::tcpServer(int port)
 		exit(EXIT_FAILURE);
 	}
 
-
 	//type of socket created
 	_address.sin_family = AF_INET;
 	_address.sin_addr.s_addr = INADDR_ANY;
@@ -72,6 +71,13 @@ tcpServer::tcpServer(int port)
 		/* ------------------------------------------------------------- */
 		/* ------------------------- FUNCTIONS ------------------------- */	
 		/* ------------------------------------------------------------- */
+
+bool	tcpServer::check_connexion()
+{
+	if 
+}
+
+
 
 void	tcpServer::waiting_activity(std::map<int, user> *usersMap)
 {
@@ -156,8 +162,8 @@ void	tcpServer::write_data(void)
 
 std::pair<int, std::string>		tcpServer::listen_data(void)
 {
-	int sd, valread;
-	char buffer[1025];
+	int 	sd, valread;
+	char 	buffer[1025];
 	int		_addrlen = sizeof(_address);
 
 
