@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 14:23:53 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:50:59 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ void    loop(IrcServer *server)
 		buff = server->_tcpServer.listen_data();
 		if (buff.first != 0)
 		{
-			parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser()); // ici on recupere le sd mais seulement pour des teste, on veut recuperer le user (enlever .sdUser)
+			parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser());
 		}
 	}
 }
+
 
 int main(int argc, char **argv)
 {
@@ -57,8 +58,9 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	IrcServer   server(port, pass);
-
+	
 	loop(&server);
 
 	return 0;
 }
+

@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/19 13:46:33 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:38:04 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	tcpServer::waiting_activity(std::map<int, user> *usersMap)
 	for ( int i = 0 ; i < MAX_CLIENTS ; i++)
 	{
 		//socket descriptor
-		user* newUser = new user(_clientSocket[i]) ;
+		user	*newUser = new user(_clientSocket[i]) ;
 		usersMap->insert(std::make_pair(_clientSocket[i], *newUser));
 
 		//if valid socket descriptor then add to read list

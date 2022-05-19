@@ -6,9 +6,10 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 14:18:23 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:48:40 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef IRCSERVER_HPP
 # define IRCSERVER_HPP
@@ -19,6 +20,8 @@
 #include "user.hpp"
 #include "channels.hpp"
 
+class channels;
+
 class   IrcServer {
 
 	public:
@@ -27,6 +30,12 @@ class   IrcServer {
 	 * 
 	 */
 	std::map<int, user>	usersMap;
+
+	/**
+	 * @brief A map where we store our channels
+	 * 
+	 */
+	std::map<int, channels>	currentChannels;
 	
 	/**
 	 * @brief Our tcp server where we setup the main sockets
@@ -39,7 +48,7 @@ class   IrcServer {
 	 * @brief typedef to call function of IRC commands.
 	 * 
 	 */
-	typedef	void	(*command)(IrcServer *, int, std::string &);
+	typedef	void	(*command)(IrcServer *, user, std::string &);
 
 
 	private:
@@ -82,6 +91,7 @@ class   IrcServer {
 	 * @return function_for_cmd function associated to the command
 	 */
 	command     recup_cmd(const std::string & args ) const;
+
 
 };
 
