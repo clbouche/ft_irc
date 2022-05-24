@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 14:50:59 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:49:54 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void    loop(IrcServer *server)
 	
 	while(TRUE)
 	{ 
-		server->_tcpServer.waiting_activity(&(server->usersMap));
+		server->_tcpServer.waiting_activity((server->usersMap));
 		server->_tcpServer.write_data();
 		buff = server->_tcpServer.listen_data();
 		if (buff.first != 0)
 		{
-			parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second.getSdUser());
+			parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second);
 		}
 	}
 }

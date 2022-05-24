@@ -6,18 +6,21 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/19 10:56:22 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:42:48 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/user.hpp"
 
 user::user() : _nickName(""), _realName(""), _userName(""), _mode(""), _isOper(false)//, _isConnected(false),
-					
 {
 };
 
 user::user(int sd) : _nickName(""), _realName(""), _userName(""),  _mode(""), _isOper(false), _sdUser(sd)//, _isConnected(false)
+{
+}
+
+user::user(user & src) : _nickName(src._nickName), _realName(src._realName), _userName(src._userName),  _mode(src._mode), _isOper(src._isOper), _sdUser(src._sdUser)
 {
 }
 

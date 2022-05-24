@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:52 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/18 11:39:53 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:49:17 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ class tcpServer
 		 * @brief bzero clients and waiting for new connexions
 		 * 
 		 */
-		void	waiting_activity(std::map<int, user> *usersMap);
+		void	waiting_activity(std::map<int, user*> usersMap);
 
 		/**
 		 * @brief for new connexions

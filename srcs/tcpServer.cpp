@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tcpServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/19 14:38:04 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:52:57 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ tcpServer::tcpServer(int port)
 		/* ------------------------- FUNCTIONS ------------------------- */	
 		/* ------------------------------------------------------------- */
 
-void	tcpServer::waiting_activity(std::map<int, user> *usersMap)
+void	tcpServer::waiting_activity(std::map<int, user*> usersMap)
 {
 	int 	max_sd, activity;
 
@@ -89,7 +89,7 @@ void	tcpServer::waiting_activity(std::map<int, user> *usersMap)
 	{
 		//socket descriptor
 		user	*newUser = new user(_clientSocket[i]) ;
-		usersMap->insert(std::make_pair(_clientSocket[i], *newUser));
+		usersMap.insert(std::make_pair(_clientSocket[i], newUser));
 
 		//if valid socket descriptor then add to read list
 		if(newUser->getSdUser() > 0)

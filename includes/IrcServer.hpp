@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/19 14:48:40 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:51:22 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class   IrcServer {
 	 * @brief A map where we store our users
 	 * 
 	 */
-	std::map<int, user>	usersMap;
+	std::map<int, user*>	usersMap;
 
 	/**
 	 * @brief A map where we store our channels
@@ -48,7 +48,7 @@ class   IrcServer {
 	 * @brief typedef to call function of IRC commands.
 	 * 
 	 */
-	typedef	void	(*command)(IrcServer *, user, std::string &);
+	typedef	void	(*command)(IrcServer *, user*, std::string &);
 
 
 	private:

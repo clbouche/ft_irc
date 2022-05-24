@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/18 11:39:56 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:20:39 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ class user
 		 * @param sd the socket descriptor used for the user
 		 */
 		user(int sd);
+
+		/**
+		 * @brief Construct a new user object
+		 * @param src the user we want to copy
+		 */
+		user(user &src);
 
 		/**
 		 * @brief Destruct a new user object
