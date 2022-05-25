@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/24 18:52:57 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/25 17:39:57 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ tcpServer::tcpServer(int port)
 		/* ------------------------- FUNCTIONS ------------------------- */	
 		/* ------------------------------------------------------------- */
 
-void	tcpServer::waiting_activity(std::map<int, user*> usersMap)
+void	tcpServer::waiting_activity()
 {
 	int 	max_sd, activity;
 
@@ -88,16 +88,16 @@ void	tcpServer::waiting_activity(std::map<int, user*> usersMap)
 	for ( int i = 0 ; i < MAX_CLIENTS ; i++)
 	{
 		//socket descriptor
-		user	*newUser = new user(_clientSocket[i]) ;
-		usersMap.insert(std::make_pair(_clientSocket[i], newUser));
+		// user	*newUser = new user(_clientSocket[i]) ;
+		// usersMap.insert(std::make_pair(_clientSocket[i], newUser));
 
 		//if valid socket descriptor then add to read list
-		if(newUser->getSdUser() > 0)
-			FD_SET( newUser->getSdUser() , &_readfds);
+		if(_clientSocket[i] > 0)
+			FD_SET( _clientSocket[i] , &_readfds);
 
 		//highest file descriptor number, need it for the select function
-		if(newUser->getSdUser() > max_sd)
-			max_sd = newUser->getSdUser();
+		if( _clientSocket[i] > max_sd)
+			max_sd =  _clientSocket[i];
 	}
 
 	//wait for an activity on one of the sockets , timeout is NULL ,
@@ -105,10 +105,10 @@ void	tcpServer::waiting_activity(std::map<int, user*> usersMap)
 	activity = select( max_sd + 1 , &_readfds , NULL , NULL , NULL);
 
 	if ((activity < 0) && (errno!=EINTR))
-		std::cout << "select error" << std::endl;
+		std::cerr << std::strerror(errno) << std::endl;
 }
 
-void	tcpServer::write_data(void)
+void	tcpServer::write_data(std::map<int, user*> usersMap)
 {
 	int 	new_socket;
 	const char 	*message = WELCOME_MESSAGE;
@@ -146,7 +146,8 @@ void	tcpServer::write_data(void)
 			{
 				_clientSocket[i] = new_socket;
 				std::cout << "Adding to list of sockets as " << i << std::endl;
-
+				user	*newUser = new user(_clientSocket[i]) ;
+				usersMap.insert(std::make_pair(_clientSocket[i], newUser));
 				break;
 			}
 		}
