@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/25 18:08:12 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:26:55 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "../includes/user.hpp"
 #include "../includes/commands.hpp"
 #include <iostream>
-
 
 	/* ------------------------------------------------------------- */
 	/* ------------------------ CONSTRUCTORS ----------------------- */	
@@ -32,16 +31,33 @@ IrcServer::IrcServer(int port, std::string password) : _tcpServer(port), _server
 
 void    IrcServer::create_pointer(void)
 {
-    this->_pointer_to_valid_cmd.insert(std::make_pair("USER\n", &cmd_user));
-    this->_pointer_to_valid_cmd.insert(std::make_pair("PASS\n", &cmd_pass));
-    this->_pointer_to_valid_cmd.insert(std::make_pair("NICK\n", &cmd_nick));
-    this->_pointer_to_valid_cmd.insert(std::make_pair("JOIN\n", &cmd_join));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("PASS", &cmd_pass));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("NICK", &cmd_nick));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("USER", &cmd_user));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("JOIN", &cmd_join));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("ADMIN", &cmd_admin));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("AWAY", &cmd_away));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("DIE", &cmd_die));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("INVITE", &cmd_invite));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("KICK", &cmd_kick));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("KILL", &cmd_kill));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("LIST", &cmd_list));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("MODE", &cmd_mode));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("MOTD", &cmd_motd));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("NAMES", &cmd_names));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("NICK", &cmd_nick));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("NOTICE", &cmd_notice));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("OPER", &cmd_oper));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("PART", &cmd_part));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("PING", &cmd_ping));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("PRIVMSG", &cmd_privmsg));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("QUIT", &cmd_quit));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("TIME", &cmd_time));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("TOPIC", &cmd_topic));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("VERSION", &cmd_version));
+    // this->_pointer_to_valid_cmd.insert(std::make_pair("WHO", &cmd_who));
 }
 
-/**
- * @todo ERASE : split_args.begin() pour ne garder que les arguments de la commande a la fonction.
- * 
- */
 IrcServer::command	IrcServer::recup_cmd ( const std::string & command ) const
 {
 	std::map<std::string, IrcServer::command>::const_iterator	it;

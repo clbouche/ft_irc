@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tcpServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/30 14:08:24 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:19:16 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ tcpServer::tcpServer(int port)
 		std::cerr << std::strerror(errno) << std::endl;
 		exit(EXIT_FAILURE);
 	}
-
 
 	//type of socket created
 	_address.sin_family = AF_INET;
@@ -157,8 +156,8 @@ void	tcpServer::write_data(std::map<int, user*> *usersMap)
 
 std::pair<int, std::string>		tcpServer::listen_data(void)
 {
-	int sd, valread;
-	char buffer[1025];
+	int 	sd, valread;
+	char 	buffer[1025];
 	int		_addrlen = sizeof(_address);
 
 

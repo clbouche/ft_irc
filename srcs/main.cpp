@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 13:48:12 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:19:35 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
 #include "../includes/commands.hpp"
-
-/**
- * @brief attendre l'implementation de la map Users dans IRC pour pouvoir recuperer le socket
- * 
- */
 
 void    loop(IrcServer *server)
 {
