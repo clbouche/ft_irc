@@ -6,12 +6,11 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:28 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 14:33:12 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:44:58 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <vector>
-#include <string>
+#include "../includes/headers.hpp"
 #include "../includes/utils.hpp"
 #include "../includes/commands.hpp"
 #include "../includes/channels.hpp"

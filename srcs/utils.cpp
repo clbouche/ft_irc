@@ -6,13 +6,12 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 14:00:58 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/30 16:03:45 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string>
-#include <iostream>
-#include <vector>
+#include "../includes/user.hpp"
+#include "../includes/headers.hpp"
 
 /**
  * @brief Permet de savoir si les 3 commandes necessaires a la connexion ont ete complete
@@ -22,12 +21,12 @@
  * @return true si les 3 sonts sets (si le password existe)
  * @return false s'il manque une des 3 conditions
  */
-// bool		check_connexion(user currentUser)
-// {
-// 	if (!currentUser._nickName || !currentUser._userName || !currentUser._isConnected)
-// 		return false;
-// 	return true;
-// }
+bool		check_connexion(user *currentUser)
+{
+	if (currentUser->getNickName() == "")
+		return false;
+	return true;
+}
 
 std::vector<std::string>		ft_split(std::string args, std::string delim)
 {

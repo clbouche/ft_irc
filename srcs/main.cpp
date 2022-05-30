@@ -6,10 +6,11 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 14:19:35 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:45:12 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/headers.hpp"
 #include "../includes/config.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
@@ -24,7 +25,6 @@ void    loop(IrcServer *server)
 		server->_tcpServer.waiting_activity();
 		server->_tcpServer.write_data(&(server->usersMap));
 		buff = server->_tcpServer.listen_data();
-		std::cout << buff.second  << "caca" << std::endl;
 		if (buff.first != 0)
 		{
 			parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second);

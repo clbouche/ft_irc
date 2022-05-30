@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channels.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/19 10:46:31 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:44:34 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../includes/tcpServer.hpp"
 #include "../includes/user.hpp"
 #include "../includes/commands.hpp"
+#include "../includes/headers.hpp"
 
 	/* ------------------------------------------------------------- */
 	/* ------------------------ CONSTRUCTORS ----------------------- */	

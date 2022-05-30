@@ -6,12 +6,13 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/30 14:19:16 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/30 16:06:14 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/headers.hpp"
 #include"../includes/tcpServer.hpp"
-#include <iostream>
+#include "../includes/utils.hpp"
 #include <sys/time.h>
 
 	/* ------------------------------------------------------------- */
@@ -125,10 +126,11 @@ void	tcpServer::write_data(std::map<int, user*> *usersMap)
 			exit(EXIT_FAILURE);
 		}
 
-		//inform user of socket number - used in send and receive commands
-		std::cout << "New connection, socket fd is " << new_socket << ", ip is : " << inet_ntoa(_address.sin_addr)
-			<< ", port : " << ntohs(_address.sin_port) << std::endl; 
-
+		std::cout	<< GREEN
+					<< "IRC Server now active on "
+					<< inet_ntoa(_address.sin_addr)
+					<< ":" << ntohs(_address.sin_port)
+					<< END << std::endl;
 
 		//add new socket to array of sockets
 		for (int i = 0; i < MAX_CLIENTS; i++)
@@ -143,13 +145,15 @@ void	tcpServer::write_data(std::map<int, user*> *usersMap)
 				break;
 			}
 		}
-		//send new connection greeting message
-		if( send(new_socket, message, strlen(message), 0) != (ssize_t)strlen(message) )
+		if (check_connexion(usersMap->find(new_socket)->second))
 		{
-			std::cerr << std::strerror(errno) << std::endl;
+			//send new connection greeting message
+			if( send(new_socket, message, strlen(message), 0) != (ssize_t)strlen(message) )
+			{
+				std::cerr << std::strerror(errno) << std::endl;
+			}
+			std::cout << "Welcome message sent successfully" << std::endl;
 		}
-
-		std::cout << "Welcome message sent successfully" << std::endl;
 	}
 
 }

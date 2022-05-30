@@ -6,15 +6,15 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 14:26:55 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:45:20 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/headers.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/tcpServer.hpp"
 #include "../includes/user.hpp"
 #include "../includes/commands.hpp"
-#include <iostream>
 
 	/* ------------------------------------------------------------- */
 	/* ------------------------ CONSTRUCTORS ----------------------- */	
