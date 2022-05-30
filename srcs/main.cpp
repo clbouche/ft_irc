@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/25 18:07:00 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:48:12 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    loop(IrcServer *server)
 	while(TRUE)
 	{ 
 		server->_tcpServer.waiting_activity();
-		server->_tcpServer.write_data(server->usersMap);
+		server->_tcpServer.write_data(&(server->usersMap));
 		buff = server->_tcpServer.listen_data();
 		std::cout << buff.second  << "caca" << std::endl;
 		if (buff.first != 0)

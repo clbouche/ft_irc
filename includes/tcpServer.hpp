@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:52 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/25 17:41:24 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:48:23 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ class tcpServer
 		 * @brief for new connexions
 		 * 
 		 */
-		void	write_data(std::map<int, user*> usersMap);
+		void	write_data(std::map<int, user*> *usersMap);
 
 		/**
 		 * @brief for disconnexion and send messages
