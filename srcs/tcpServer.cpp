@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/25 17:39:57 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:08:24 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	tcpServer::waiting_activity()
 		std::cerr << std::strerror(errno) << std::endl;
 }
 
-void	tcpServer::write_data(std::map<int, user*> usersMap)
+void	tcpServer::write_data(std::map<int, user*> *usersMap)
 {
 	int 	new_socket;
 	const char 	*message = WELCOME_MESSAGE;
@@ -130,13 +130,6 @@ void	tcpServer::write_data(std::map<int, user*> usersMap)
 		std::cout << "New connection, socket fd is " << new_socket << ", ip is : " << inet_ntoa(_address.sin_addr)
 			<< ", port : " << ntohs(_address.sin_port) << std::endl; 
 
-		//send new connection greeting message
-		if( send(new_socket, message, strlen(message), 0) != (ssize_t)strlen(message) )
-		{
-			std::cerr << std::strerror(errno) << std::endl;
-		}
-
-		std::cout << "Welcome message sent successfully" << std::endl;
 
 		//add new socket to array of sockets
 		for (int i = 0; i < MAX_CLIENTS; i++)
@@ -147,10 +140,17 @@ void	tcpServer::write_data(std::map<int, user*> usersMap)
 				_clientSocket[i] = new_socket;
 				std::cout << "Adding to list of sockets as " << i << std::endl;
 				user	*newUser = new user(_clientSocket[i]) ;
-				usersMap.insert(std::make_pair(_clientSocket[i], newUser));
+				usersMap->insert(std::make_pair(_clientSocket[i], newUser));
 				break;
 			}
 		}
+		//send new connection greeting message
+		if( send(new_socket, message, strlen(message), 0) != (ssize_t)strlen(message) )
+		{
+			std::cerr << std::strerror(errno) << std::endl;
+		}
+
+		std::cout << "Welcome message sent successfully" << std::endl;
 	}
 
 }
