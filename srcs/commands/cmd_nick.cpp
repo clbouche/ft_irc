@@ -44,14 +44,9 @@
 void    cmd_nick( IrcServer *serv, user	*currentUser, std::string & args )
 {
 	(void)serv;
-	(void)currentUser;
 	
 	std::vector<std::string>	split_args = ft_split(args, " ");
 	std::string					nickname = split_args.front().c_str();
 
-
-	std::cout << "nickname is : " << nickname << std::endl;
 	currentUser->setNickName(nickname);
-
-	std::cout << "nickname of user : " << currentUser->getNickName().c_str() << std::endl;
 }

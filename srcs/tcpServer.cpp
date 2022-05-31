@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/30 17:14:56 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:21:57 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,6 @@ void	tcpServer::waiting_activity()
 	//add child sockets to set
 	for ( int i = 0 ; i < MAX_CLIENTS ; i++)
 	{
-		//socket descriptor
-		// user	*newUser = new user(_clientSocket[i]) ;
-		// usersMap.insert(std::make_pair(_clientSocket[i], newUser));
-
 		//if valid socket descriptor then add to read list
 		if(_clientSocket[i] > 0)
 			FD_SET( _clientSocket[i] , &_readfds);
@@ -110,7 +106,6 @@ void	tcpServer::waiting_activity()
 void	tcpServer::write_data(std::map<int, user*> *usersMap)
 {
 	int 	new_socket;
-	// const char 	*message = WELCOME_MESSAGE;
 	int		_addrlen = sizeof(_address);
 
 
@@ -144,13 +139,6 @@ void	tcpServer::write_data(std::map<int, user*> *usersMap)
 				break;
 			}
 		}
-		
-		// if( send(new_socket, message, strlen(message), 0) != (ssize_t)strlen(message) )
-		// {
-		// 	std::cerr << std::strerror(errno) << std::endl;
-		// }
-
-		// std::cout << "Welcome message sent successfully" << std::endl;
 	}
 
 }

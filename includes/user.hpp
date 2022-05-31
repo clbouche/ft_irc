@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/31 14:00:21 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:21:37 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ class user
 		std::string	_userName;
 		std::string	_mode; // mode(s) of the users, a string wth all the modes
 		bool		_isOper; // is the user operator or not
-//		bool		_isConnected; // did the user give the password ?
+		// bool		_isConnected; // did the user give the password ?
+		bool		_welcomeMsg;
 		int			_sdUser; // a token to identify the maybe the sd used for the user ?
 
 	public:
@@ -92,6 +93,12 @@ class user
 		int		getSdUser();
 
 		/**
+		 * @brief Know if welcome msg was already send
+		 * 
+		 */
+		bool	getWelcomeMsg();
+
+		/**
 		 * 
 		 * SETTERS
 		 * 
@@ -109,6 +116,12 @@ class user
 		void	setRealName(std::string realname);
 
 		/**
+		 * @brief Set the user name
+		 * @param username the username you want to set
+		 */
+		void	setUserName(std::string username);
+
+		/**
 		 * @brief Set the nick name
 		 * @param mode the mode you want to set
 		 */
@@ -119,6 +132,15 @@ class user
 		 * 
 		 */
 		void	setOper();
+
+		/**
+		 * @brief Set true if welcome msg was send
+		 * Set false if not 
+		 * 
+		 */
+		void	setWelcomeMsg(bool welcomeMsg);
+
+
 
 		bool	check_connexion( void );
 

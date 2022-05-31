@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/31 14:49:26 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:24:36 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@
  * @return false s'il manque une des 3 conditions
  */
 
-bool		check_connexion( user *currentUser )
+bool		check_connexion( user *currentUser, int sd )
 {
-	std::string 	check_nickName = currentUser->getNickName();
-
-	std::cout << "nickname check : " << check_nickName << std::endl;
-	return true;
+	const char						*message = WELCOME_MESSAGE;
+	
+	if (currentUser->getNickName() != "" && currentUser->getUserName() != "") //faire une comparaison entre le password envoye par le user et celui stocker par le serveur
+	{
+		if(send(sd, message, strlen(message), 0) != (ssize_t)strlen(message) )
+			std::cerr << std::strerror(errno) << std::endl;
+		std::cout << "Welcome message sent successfully" << std::endl;
+		return true;
+	}
+	return false;
 }
 
 std::vector<std::string>		ft_split(std::string args, std::string delim)

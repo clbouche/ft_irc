@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/31 14:59:11 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:16:18 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 
 void    loop(IrcServer *server)
 {
-	std::pair<int, std::string>    buff;
+	std::pair<int, std::string>		buff;
 	
 	while(TRUE)
 	{ 
 		server->_tcpServer.waiting_activity();
 		server->_tcpServer.write_data(&(server->usersMap));
 		buff = server->_tcpServer.listen_data();
-		
 		if (buff.first != 0)
 		{
-			if (check_connexion(server->usersMap.find(buff.first)->second) == true)
-				std::cout << "LA CONNEXION EST VALIDE" << std::endl;
 			parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second);
+			if (server->usersMap.find(buff.first)->second->getWelcomeMsg() == false)
+				server->usersMap.find(buff.first)->second->setWelcomeMsg(
+					check_connexion(server->usersMap.find(buff.first)->second, buff.first));
 		}
 	}
 }
