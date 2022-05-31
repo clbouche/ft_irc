@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/24 18:20:39 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:00:21 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 class user
 {
 
-	private:
+	protected:
 
 		//user's names
 		std::string	_nickName;
@@ -119,6 +119,10 @@ class user
 		 * 
 		 */
 		void	setOper();
+
+		bool	check_connexion( void );
+
+		
 };
 
 

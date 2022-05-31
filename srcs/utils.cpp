@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 16:03:45 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:49:26 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
  * @return true si les 3 sonts sets (si le password existe)
  * @return false s'il manque une des 3 conditions
  */
-bool		check_connexion(user *currentUser)
+
+bool		check_connexion( user *currentUser )
 {
-	if (currentUser->getNickName() == "")
-		return false;
+	std::string 	check_nickName = currentUser->getNickName();
+
+	std::cout << "nickname check : " << check_nickName << std::endl;
 	return true;
 }
 

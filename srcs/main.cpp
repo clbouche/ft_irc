@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 15:45:12 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:49:33 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
 #include "../includes/commands.hpp"
+#include "../includes/utils.hpp"
 
 void    loop(IrcServer *server)
 {
@@ -24,6 +25,9 @@ void    loop(IrcServer *server)
 	{ 
 		server->_tcpServer.waiting_activity();
 		server->_tcpServer.write_data(&(server->usersMap));
+		if (check_connexion(server->usersMap.find(buff.first)->second) == true)
+			std::cout << "LA CONNEXION EST VALIDE" << std::endl;
+		
 		buff = server->_tcpServer.listen_data();
 		if (buff.first != 0)
 		{

@@ -6,13 +6,12 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/30 16:06:14 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:14:56 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/headers.hpp"
 #include"../includes/tcpServer.hpp"
-#include "../includes/utils.hpp"
 #include <sys/time.h>
 
 	/* ------------------------------------------------------------- */
@@ -111,7 +110,7 @@ void	tcpServer::waiting_activity()
 void	tcpServer::write_data(std::map<int, user*> *usersMap)
 {
 	int 	new_socket;
-	const char 	*message = WELCOME_MESSAGE;
+	// const char 	*message = WELCOME_MESSAGE;
 	int		_addrlen = sizeof(_address);
 
 
@@ -145,15 +144,13 @@ void	tcpServer::write_data(std::map<int, user*> *usersMap)
 				break;
 			}
 		}
-		if (check_connexion(usersMap->find(new_socket)->second))
-		{
-			//send new connection greeting message
-			if( send(new_socket, message, strlen(message), 0) != (ssize_t)strlen(message) )
-			{
-				std::cerr << std::strerror(errno) << std::endl;
-			}
-			std::cout << "Welcome message sent successfully" << std::endl;
-		}
+		
+		// if( send(new_socket, message, strlen(message), 0) != (ssize_t)strlen(message) )
+		// {
+		// 	std::cerr << std::strerror(errno) << std::endl;
+		// }
+
+		// std::cout << "Welcome message sent successfully" << std::endl;
 	}
 
 }
