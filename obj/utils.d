@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 obj/utils.o: srcs/utils.cpp srcs/../includes/user.hpp includes/config.hpp \
 <<<<<<< HEAD
   srcs/../includes/headers.hpp includes/colors.hpp includes/errors.hpp \
@@ -19,3 +20,7 @@ srcs/../includes/headers.hpp:
 includes/colors.hpp:
 includes/errors.hpp:
 includes/defines.hpp:
+=======
+obj/utils.o: srcs/utils.cpp
+srcs/utils.cpp:
+>>>>>>> 61753468442af54c372a245aa30215e92ad842a1

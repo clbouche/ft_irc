@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 obj/IrcServer.o: srcs/IrcServer.cpp srcs/../includes/headers.hpp \
   includes/colors.hpp includes/errors.hpp includes/defines.hpp \
   srcs/../includes/IrcServer.hpp includes/tcpServer.hpp \
@@ -9,6 +10,14 @@ srcs/../includes/headers.hpp:
 includes/colors.hpp:
 includes/errors.hpp:
 includes/defines.hpp:
+=======
+obj/IrcServer.o: srcs/IrcServer.cpp srcs/../includes/IrcServer.hpp \
+  includes/tcpServer.hpp includes/config.hpp includes/user.hpp \
+  includes/channels.hpp includes/IrcServer.hpp \
+  srcs/../includes/tcpServer.hpp srcs/../includes/user.hpp \
+  srcs/../includes/commands.hpp
+srcs/IrcServer.cpp:
+>>>>>>> 61753468442af54c372a245aa30215e92ad842a1
 srcs/../includes/IrcServer.hpp:
 includes/tcpServer.hpp:
 includes/config.hpp:
