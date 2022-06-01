@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 17:07:25 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 10:48:06 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,7 @@ IrcServer::command	IrcServer::recup_cmd ( const std::string & command ) const
         return (&cmd_NULL);
 }
             
+std::string		IrcServer::getServerPassword( void )
+{
+    return (this->_server_password);
+}

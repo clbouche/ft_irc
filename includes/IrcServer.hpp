@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/24 18:51:22 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/01 10:43:16 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ class   IrcServer {
 	 * @return function_for_cmd function associated to the command
 	 */
 	command     recup_cmd(const std::string & args ) const;
+
+	/**
+	 * @brief Get the password of the server
+	 * 
+	 */
+	std::string		getServerPassword( void );
 
 
 };

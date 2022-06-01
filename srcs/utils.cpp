@@ -6,11 +6,12 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/31 17:24:36 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:40:12 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/user.hpp"
+#include "../includes/IrcServer.hpp"
 #include "../includes/headers.hpp"
 
 /**
@@ -22,13 +23,15 @@
  * @return false s'il manque une des 3 conditions
  */
 
-bool		check_connexion( user *currentUser, int sd )
+bool		check_connexion( user *currentUser)
 {
 	const char						*message = WELCOME_MESSAGE;
-	
-	if (currentUser->getNickName() != "" && currentUser->getUserName() != "") //faire une comparaison entre le password envoye par le user et celui stocker par le serveur
+	int								sdUser = currentUser->getSdUser();
+
+	std::cout << "bool of checkPassword = " << currentUser->getCheckPassword() << std::endl;
+	if (currentUser->getNickName() != "" && currentUser->getUserName() != "" && currentUser->getCheckPassword() == true) //faire une comparaison entre le password envoye par le user et celui stocker par le serveur
 	{
-		if(send(sd, message, strlen(message), 0) != (ssize_t)strlen(message) )
+		if(send(sdUser, message, strlen(message), 0) != (ssize_t)strlen(message) )
 			std::cerr << std::strerror(errno) << std::endl;
 		std::cout << "Welcome message sent successfully" << std::endl;
 		return true;
