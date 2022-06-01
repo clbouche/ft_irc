@@ -11,6 +11,7 @@ void    cmd_privmsg( IrcServer *serv, user *currentUser, std::string & args )
 	(void)serv;
 	(void)currentUser;
 	(void)args;
+	std::cout << "ENTERING PRIVMSG FCT" << std::endl;
 	// On determine d'abord si on a un seul user ou un channel
 	// si channel, on stock les users devant recevoir le message dans une stack
 	// on envoie ensuite le message dans une boucle telle que :
@@ -20,5 +21,5 @@ void    cmd_privmsg( IrcServer *serv, user *currentUser, std::string & args )
 	//
 	// Si on a qu'un seul user : 
 	// send directement msg a user
-
+	
 }
