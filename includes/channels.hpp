@@ -6,14 +6,12 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/30 15:33:32 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:00:42 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef		CHANNELS_HPP
 # define	CHANNELS_HPP
-
-# define CHANNEL_PREFIX		"&#+!" // channel name can only begin with one of those characters
 
 # include "config.hpp"
 # include "IrcServer.hpp"

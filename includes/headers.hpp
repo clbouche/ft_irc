@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:42:26 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/31 16:37:50 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:01:07 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 #include "colors.hpp"
 #include "errors.hpp"
+#include "defines.hpp"
 
 
 #endif
