@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 11:55:07 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:30:21 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ IrcServer::IrcServer(int port, std::string password) : _tcpServer(port), _server
 	/* ------------------------------------------------------------- */
 	/* -------------------------- FUNCTIONS ------------------------ */	
 	/* ------------------------------------------------------------- */
+
+user 	*IrcServer::getUser(int fd)
+{
+    return (this->usersMap[fd]);
+}
+
 
 void    IrcServer::create_pointer(void)
 {

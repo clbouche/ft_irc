@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:00 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 11:29:37 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:13:57 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define COMMANDS_HPP
 
 #include "IrcServer.hpp"
+#include "headers.hpp"
 #include <iostream>
 
 void    parse_cmd(std::string cmd, IrcServer *IRC, user	*currentUser);

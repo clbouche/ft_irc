@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 11:29:02 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:33:59 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void    loop(IrcServer *server)
 		if (buff.first != 0)
 		{
 			if (server->getServerPassword() == "")
-				server->usersMap.find(buff.first)->second->setCheckPassword(true);
-			parse_cmd(buff.second, server, server->usersMap.find(buff.first)->second);
-			if (server->usersMap.find(buff.first)->second->getWelcomeMsg() == false)
-				server->usersMap.find(buff.first)->second->setWelcomeMsg(
-					check_connexion(server->usersMap.find(buff.first)->second));
+				server->getUser(buff.first)->setCheckPassword(true);
+			parse_cmd(buff.second, server, server->getUser(buff.first));
+			if (server->getUser(buff.first)->getWelcomeMsg() == false)
+				server->getUser(buff.first)->setWelcomeMsg(
+					check_connexion(server->getUser(buff.first)));
 		}
 	}
 }

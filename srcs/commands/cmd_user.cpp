@@ -6,10 +6,11 @@
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
 
+
+//si le user est deja set, ne pas changer le user, juste sortir de la fonction et rapporter une error
 void    cmd_user( IrcServer *serv, user	*currentUser, std::string & args )
 {
 	(void)serv;
-	(void)currentUser;
 	std::cout << "enter in cmd_user" << std::endl;
 	std::cout << "args are : " << args << std::endl;
 	

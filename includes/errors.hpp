@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/31 15:30:28 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:29:02 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  * currently unused.
  * 
  */
-# define ERR_NICKNAMEINUSE(nickName) (nickName + " :No such nick/channel\n")
+# define ERR_NOSUCHNICK(nickName) (nickName + " :No such nick/channel\n")
 
 /**
  * @brief ERR 402
@@ -116,7 +116,6 @@
  * sent is unknown by the server.
  */
 # define ERR_UNKNOWNCOMMAND(command) (command + " :Unknown command\n")
-# endif
 
 /**
  * @brief ERR 422
@@ -138,93 +137,105 @@
  */
 # define ERR_FILEERROR(fileOp, file) (":File error doing " + fileOp + " on " + file "\n")
 
+/**
+ * @brief ERR 431
+ * Returned when a nickname parameter expected for 
+ * a command and isn't found.
+ * 
+ */
+# define ERR_NONICKNAMEGIVEN() (":No nickname given\n")
 
+/**
+ * @brief ERR 432
+ * Returned after receiving a NICK message which contains
+ * characters which do not fall in the defined set.
+ * See section x.x.x for details on valid nicknames.
+ */
+# define ERR_ERRONEUSNICKNAME(nickName) (nickName + " :Erroneus nickname\n")
 
-//         431     ERR_NONICKNAMEGIVEN
-//                         ":No nickname given"
+/**
+ * @brief ERR 433
+ * Returned when a NICK message is processed that results
+ * in an attempt to change to a currently existing
+ * nickname.
+ */
+# define ERR_NICKNAMEINUSE(nickName) (nickName + " :Nickname is already in use\n")
 
-//                 - Returned when a nickname parameter expected for a
-//                   command and isn't found.
+/**
+ * @brief ERR 436
+ * Returned by a server to a client when it detects a
+ * nickname collision (registered of a NICK that
+ * already exists by another server).
+ */
+# define ERR_NICKCOLLISION(nickName) (nickName + "  :Nickname collision KILL\n")
 
-//         432     ERR_ERRONEUSNICKNAME
-//                         "<nick> :Erroneus nickname"
+/**
+ * @brief ERR 441
+ * Returned by the server to indicate that the target
+ * user of the command is not on the given channel.
+ */
+# define ERR_USERNOTINCHANNEL(nickName, channel) (nickName + channel + "  :They aren't on that channel\n")
 
-//                 - Returned after receiving a NICK message which contains
-//                   characters which do not fall in the defined set.  See
-//                   section x.x.x for details on valid nicknames.
+/**
+ * @brief ERR 442
+ * Returned by the server to indicate that the target
+ * user of the command is not on the given channel.
+ */
+# define ERR_NOTONCHANNEL(channel) (channel + "  :You're not on that channel\n")
 
-//         433     ERR_NICKNAMEINUSE
-//                         "<nick> :Nickname is already in use"
+/**
+ * @brief ERR 443
+ * Returned when a client tries to invite a user to a
+ * channel they are already on.
+ */
+# define ERR_USERONCHANNEL(user, channel) (user + channel + "  :is already on channel\n")
 
-//                 - Returned when a NICK message is processed that results
-//                   in an attempt to change to a currently existing
-//                   nickname.
+/**
+ * @brief ERR 444
+ * Returned by the summon after a SUMMON command for a
+ * user was unable to be performed since they were not
+ * logged in.
+ */
+# define ERR_NOLOGIN(user) (user + "  :User not logged in\n")
 
-//         436     ERR_NICKCOLLISION
-//                         "<nick> :Nickname collision KILL"
+/**
+ * @brief ERR 445
+ * Returned as a response to the SUMMON command.  Must be
+ * returned by any server which does not implement it.
+ */
+# define ERR_SUMMONDISABLED() (":SUMMON has been disabled\n")
 
-//                 - Returned by a server to a client when it detects a
-//                   nickname collision (registered of a NICK that
-//                   already exists by another server).
+/**
+ * @brief ERR 446
+ * Returned as a response to the USERS command.  Must be
+ * returned by any server which does not implement it.
+ */
+# define ERR_USERSDISABLED() (":USERS has been disabled\n")
 
-//         441     ERR_USERNOTINCHANNEL
-//                         "<nick> <channel> :They aren't on that channel"
+/**
+ * @brief ERR 451
+ * Returned by the server to indicate that the client
+ * must be registered before the server will allow it
+ * to be parsed in detail.
+ */
+# define ERR_NOTREGISTERED() (":You have not registered\n")
 
-//                 - Returned by the server to indicate that the target
-//                   user of the command is not on the given channel.
+/**
+ * @brief ERR 461
+ * Returned by the server by numerous commands to
+ * indicate to the client that it didn't supply enough
+ * parameters.
+ */
+# define ERR_NEEDMOREPARAMS(command) (command + " :Not enough parameters\n")
 
-//         442     ERR_NOTONCHANNEL
-//                         "<channel> :You're not on that channel"
+/**
+ * @brief ERR 462
+ * Returned by the server to any link which tries to
+ * change part of the registered details (such as
+ * password or user details from second USER message).
+ */
+# define ERR_ALREADYREGISTRED() (":You may not reregister\n")
 
-//                 - Returned by the server whenever a client tries to
-//                   perform a channel effecting command for which the
-//                   client isn't a member.
-
-//         443     ERR_USERONCHANNEL
-//                         "<user> <channel> :is already on channel"
-
-//                 - Returned when a client tries to invite a user to a
-//                   channel they are already on.
-
-//         444     ERR_NOLOGIN
-//                         "<user> :User not logged in"
-
-//                 - Returned by the summon after a SUMMON command for a
-//                   user was unable to be performed since they were not
-//                   logged in.
-
-//         445     ERR_SUMMONDISABLED
-//                         ":SUMMON has been disabled"
-
-//                 - Returned as a response to the SUMMON command.  Must be
-//                   returned by any server which does not implement it.
-
-//         446     ERR_USERSDISABLED
-//                         ":USERS has been disabled"
-
-//                 - Returned as a response to the USERS command.  Must be
-//                   returned by any server which does not implement it.
-
-//         451     ERR_NOTREGISTERED
-//                         ":You have not registered"
-
-//                 - Returned by the server to indicate that the client
-//                   must be registered before the server will allow it
-//                   to be parsed in detail.
-
-//         461     ERR_NEEDMOREPARAMS
-//                         "<command> :Not enough parameters"
-
-//                 - Returned by the server by numerous commands to
-//                   indicate to the client that it didn't supply enough
-//                   parameters.
-
-//         462     ERR_ALREADYREGISTRED
-//                         ":You may not reregister"
-
-//                 - Returned by the server to any link which tries to
-//                   change part of the registered details (such as
-//                   password or user details from second USER message).
 
 
 //         463     ERR_NOPERMFORHOST
@@ -672,3 +683,6 @@
     //                       (RPL_ADMINLOC2) and finally the administrative
     //                       contact for the server (an email address here
     //                       is required) in RPL_ADMINEMAIL.
+
+
+#endif

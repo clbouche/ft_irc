@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 11:57:12 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:48:07 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ bool		check_connexion( user *currentUser)
 		if(send(sdUser, message, strlen(message), 0) != (ssize_t)strlen(message) )
 			std::cerr << std::strerror(errno) << std::endl;
 		std::cout << "Welcome message sent successfully" << std::endl;
+		currentUser->setConnexion(true);
 		return true;
 	}
 	return false;
