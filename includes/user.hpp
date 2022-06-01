@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/01 11:13:52 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:48:58 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ class user
 		 * @brief Construct a new user object
 		 * @param src the user we want to copy
 		 */
-		user(user &src);
+		user(const user &src);
 
 		/**
 		 * @brief Destruct a new user object

@@ -7,7 +7,6 @@
 
 void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 {
-	(void)serv;
 	(void)currentUser;
 	// On determine d'abord si on a un seul user ou un channel
 	// si channel, on stock les users devant recevoir le message dans une stack
@@ -30,8 +29,16 @@ void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 	{
 		// std::cout << "char :" << args.c_str()[0] << ":" << std::endl;
 		std::cout << "TARGET IS A CHANNEL" << std::endl;
-		channels chanToSend;
+		channels chanToSend = serv->currentChannels.find(target)->second;
 		std::stack<user> receiving;
+		std::map<int, user *>::iterator	it;
+		it = chanToSend.getUsers().begin();
+		while (it != chanToSend.getUsers().end())
+		{
+		std::cout << "user pushed :{" << it->second->getNickName() << "}" << std::endl;
+			receiving.push(*(it->second));
+			it++;
+		}
 
 	}
 	else

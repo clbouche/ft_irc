@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/01 11:41:43 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:17:01 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 						_welcomeMsg(false), _sdUser(sd)//, _isConnected(false)
 	{}
 
-	user::user(user & src) : _nickName(src._nickName), _realName(src._realName), 
+	user::user(const user & src) : _nickName(src._nickName), _realName(src._realName), 
 							_userName(src._userName), _mode(src._mode), 
 							_checkPassword(src._checkPassword), _isOper(src._isOper),
 							_welcomeMsg(src._welcomeMsg), _sdUser(src._sdUser)
