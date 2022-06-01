@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:28 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 15:44:58 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:45:41 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void    parse_cmd(std::string args, IrcServer *IRC, user *currentUser)
 	if (pos != std::string::npos) //si cet espace ne se trouve pas a la fin de notre string = pas d'args
 	{
 		cmd_to_find = tmp.substr(0, pos); //recuperer le premier mot de la ligne
-		args_of_commands = tmp.substr(pos, tmp.length()); //stocker le reste des args
+		args_of_commands = tmp.substr(pos + 1, tmp.length()); //stocker le reste des args
 	}
 	else 
 	{

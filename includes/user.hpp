@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/31 17:21:37 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:13:52 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ class user
 	protected:
 
 		//user's names
-		std::string	_nickName;
-		std::string	_realName;
-		std::string	_userName;
-		std::string	_mode; // mode(s) of the users, a string wth all the modes
-		bool		_isOper; // is the user operator or not
-		// bool		_isConnected; // did the user give the password ?
-		bool		_welcomeMsg;
-		int			_sdUser; // a token to identify the maybe the sd used for the user ?
+		std::string		_nickName;
+		std::string		_realName;
+		std::string		_userName;
+		std::string		_mode; // mode(s) of the users, a string wth all the modes
+		bool			_checkPassword;
+		bool			_isOper; // is the user operator or not
+		// bool			_isConnected; // did the user give the password ?
+		bool			_welcomeMsg;
+		int				_sdUser; // a token to identify the maybe the sd used for the user ?
 
 	public:
 
@@ -79,7 +80,7 @@ class user
 		 * 
 		 */
 		std::string	getUserName();
-
+		
 		/**
 		 * @brief Access to the mode
 		 * 
@@ -87,10 +88,17 @@ class user
 		std::string	getMode();
 
 		/**
+		 * @brief Get the Check Password object
+		 * 
+		 */
+		bool		getCheckPassword();
+
+		/**
 		 * @brief Access to the sd
 		 * 
 		 */
 		int		getSdUser();
+
 
 		/**
 		 * @brief Know if welcome msg was already send
@@ -126,6 +134,14 @@ class user
 		 * @param mode the mode you want to set
 		 */
 		void	setMode(std::string mode);
+
+		/**
+		 * @brief Set the Good Password object
+		 * 
+		 * @param check if the pass send to the client if 
+		 * the same password as the one of the server
+		 */
+		void	setCheckPassword(bool check);
 
 		/**
 		 * @brief Set the user as operator
