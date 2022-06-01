@@ -30,7 +30,7 @@ void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 	{
 		// std::cout << "char :" << args.c_str()[0] << ":" << std::endl;
 		std::cout << "TARGET IS A CHANNEL" << std::endl;
-		channels 
+		channels chanToSend;
 		std::stack<user> receiving;
 
 	}
