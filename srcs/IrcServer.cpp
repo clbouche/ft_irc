@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/30 17:07:25 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:47:00 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void    IrcServer::create_pointer(void)
     // this->_pointer_to_valid_cmd.insert(std::make_pair("OPER", &cmd_oper));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("PART", &cmd_part));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("PING", &cmd_ping));
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("PRIVMSG", &cmd_privmsg));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("PRIVMSG", &cmd_privmsg));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("QUIT", &cmd_quit));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("TIME", &cmd_time));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("TOPIC", &cmd_topic));

@@ -11,4 +11,5 @@ void    cmd_privmsg( IrcServer *serv, user *currentUser, std::string & args )
     (void)serv;
     (void)currentUser;
 	(void)args;
+	std::cout << "ENTERING PRIVMSG FCT" << std::endl;
 }
