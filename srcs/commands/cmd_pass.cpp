@@ -8,9 +8,6 @@
 
 void    cmd_pass( IrcServer *serv, user	*currentUser, std::string & args )
 {
-	(void)serv;
-	(void)currentUser;
-	(void)args;
-	std::cout << "enter in cmd_pass" << std::endl;
-	std::cout << "args are : "<< args << std::endl;
+	if (args == serv->getServerPassword())
+		currentUser->setCheckPassword(true);
 }

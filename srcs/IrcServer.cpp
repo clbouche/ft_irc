@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 11:55:33 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:25:17 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,7 @@ IrcServer::command	IrcServer::recup_cmd ( const std::string & command ) const
         return (&cmd_NULL);
 }
             
+std::string		IrcServer::getServerPassword( void )
+{
+    return (this->_server_password);
+}
