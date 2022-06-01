@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:42:26 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 12:01:07 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:15:21 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <map>
+#include <stack>
 #include <iostream>
 #include <string>
 #include <cstddef>

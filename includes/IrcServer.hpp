@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 10:43:16 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:37:38 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class   IrcServer {
 	 * @brief A map where we store our channels
 	 * 
 	 */
-	std::map<int, channels>	currentChannels;
+	std::map<std::string, channels>	currentChannels;
 	
 	/**
 	 * @brief Our tcp server where we setup the main sockets

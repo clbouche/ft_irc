@@ -1,6 +1,4 @@
-#include <vector>
-#include <string>
-#include "../includes/defines.hpp"
+#include "../includes/headers.hpp"
 #include "../includes/utils.hpp"
 #include "../includes/commands.hpp"
 #include "../includes/channels.hpp"
@@ -11,7 +9,6 @@ void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 {
 	(void)serv;
 	(void)currentUser;
-	(void)args;
 	// On determine d'abord si on a un seul user ou un channel
 	// si channel, on stock les users devant recevoir le message dans une stack
 	// on envoie ensuite le message dans une boucle telle que :
@@ -21,12 +18,24 @@ void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 	//
 	// Si on a qu'un seul user : 
 	// send directement msg a user
+	size_t		pos = args.find_first_of(" ");
+	std::string	target = args.substr(0, pos);
+	std::string	msg = args.substr(pos + 1, args.length());
 	
 	std::cout << "ENTERING PRIVMSG FCT" << std::endl;
-	if (strchr(CHANNEL_PREFIX, args.c_str()[0]) == NULL)
+	std::cout << "target :{" << target << "}" << std::endl;
+	std::cout << "msg :{" << msg << "}" << std::endl;
+
+	if (strchr(CHANNEL_PREFIX, args.c_str()[0]) != NULL)
 	{
-		std::cout << "char :" << args.c_str()[0] << ":" << std::endl;
-		std::cout << "char2 :" << args.c_str()[1] << ":" << std::endl;
+		// std::cout << "char :" << args.c_str()[0] << ":" << std::endl;
+		std::cout << "TARGET IS A CHANNEL" << std::endl;
+		channels 
+		std::stack<user> receiving;
+
+	}
+	else
+	{
 		std::cout << "TARGET IS A USER" << std::endl;
 	}
 	
