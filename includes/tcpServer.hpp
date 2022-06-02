@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:52 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/02 11:14:48 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:13:29 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ class tcpServer
 		 * @brief Send and flush everything in the buffer
 		 */
 		void							send_buff (void);
+
+		/**
+		 * @brief Get the Hostname object
+		 * 
+		 */
+		std::string						getHostname(void);
 
 
 };

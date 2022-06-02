@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/06/02 11:15:45 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:13:54 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ tcpServer::tcpServer()
 tcpServer::tcpServer(int port)
 {
 	int opt = TRUE;
-	// char hostname[1024];
+	char hostname[1024];
+
+	gethostname(hostname, 1024);
+	this->_hostname = std::string(hostname);
 
 	std::memset(&this->_clientSocket, 0, MAX_CLIENTS * sizeof(int));//set the memory for clients socket
 
@@ -200,4 +203,9 @@ void							tcpServer::send_buff (void)
 		it++;
 	}
 	_buff_out.clear();
+}
+
+std::string						tcpServer::getHostname(void)
+{
+	return (this->_hostname);
 }

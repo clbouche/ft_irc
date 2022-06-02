@@ -1,5 +1,3 @@
-#include <vector>
-#include <string>
 #include "../../includes/headers.hpp"
 #include "../../includes/commands.hpp"
 #include "../../includes/channels.hpp"
@@ -7,46 +5,82 @@
 #include "../../includes/user.hpp"
 
 /**
-* Command: NICK
-*   Parameters: <nickname> [ <hopcount> ]
-*
-*  NICK message is used to give user a nickname or change the previous
-*   one.  The <hopcount> parameter is only used by servers to indicate
-*   how far away a nick is from its home server.  A local connection has
-*   a hopcount of 0.  If supplied by a client, it must be ignored.
-*
-*   If a NICK message arrives at a server which already knows about an
-*   identical nickname for another client, a nickname collision occurs.
-*   As a result of a nickname collision, all instances of the nickname
-*   are removed from the server's database, and a KILL command is issued
-*   to remove the nickname from all other server's database. If the NICK
-*   message causing the collision was a nickname change, then the
-*   original (old) nick must be removed as well.
-*
-*   If the server recieves an identical NICK from a client which is
-*   directly connected, it may issue an ERR_NICKCOLLISION to the local
-*   client, drop the NICK command, and not generate any kills.
-*
-*   Numeric Replies:
-*
-*           ERR_NONICKNAMEGIVEN             ERR_ERRONEUSNICKNAME
-*           ERR_NICKNAMEINUSE               ERR_NICKCOLLISION
-*
-*   Example:
-*
-*   NICK Wiz                        ; Introducing new nick "Wiz".
-*
-*   :WiZ NICK Kilroy                ; WiZ changed his nickname to Kilroy.
-*
-*/
+ Command: NICK
+   Parameters: <nickname>
+
+   NICK command is used to give user a nickname or change the existing
+   one.
+
+   Numeric Replies:
+
+           ERR_NONICKNAMEGIVEN             ERR_ERRONEUSNICKNAME
+           ERR_NICKNAMEINUSE               ERR_NICKCOLLISION
+           ERR_UNAVAILRESOURCE             ERR_RESTRICTED
+
+   Examples:
+
+   NICK Wiz                ; Introducing new nick "Wiz" if session is
+                           still unregistered, or user changing his
+                           nickname to "Wiz"
+
+   :WiZ!jto@tolsun.oulu.fi NICK Kilroy
+                           ; Server telling that WiZ changed his
+                           nickname to Kilroy.
+ */
+
+bool	checkValidNickName(std::string nickname)
+{
+	if (nickname.length() > 9)
+		return false;
+	for (size_t i = 0; i < nickname.length(); i++)
+	{
+		if (!std::strchr(NICKNAME_VALID_CHAR, nickname[i]))
+			return false;
+	}
+	return true;
+}
+
+bool	checkNicknameInUse(IrcServer *serv, user *currentUser, std::string args)
+{
+	std::string		checkNickName;
+
+	for (std::map<int, user *>::iterator it = serv->usersMap.begin() ; it != serv->usersMap.end() ; it++)
+	{
+		if (&(*it->second) != &(*currentUser))
+		{
+			checkNickName = it->second->getNickName();
+			if (args == checkNickName)
+				return false;
+		}
+	}
+	return true;
+}
+
+static bool		check_args(IrcServer *serv, user *currentUser, std::string args)
+{
+	if (args == "")
+	{
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(431, currentUser, serv)));
+		return false;
+	}
+	if (checkNicknameInUse(serv, currentUser, args) == false)
+	{
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(433, currentUser, serv, args)));
+		return false;
+	}
+	if (checkValidNickName(args) == false)
+	{
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(432, currentUser, serv, args)));
+		return false;
+	}
+	return true;
+}
 
 
 void    cmd_nick( IrcServer *serv, user	*currentUser, std::string & args )
 {
-	(void)serv;
-	
-	std::vector<std::string>	split_args = ft_split(args, " ");
-	std::string					nickname = split_args.front().c_str();
-
-	currentUser->setNickName(nickname);
+	if (check_args(serv, currentUser, args) == true)
+	{
+		currentUser->setNickName(args);
+	}
 }

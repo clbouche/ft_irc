@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_pass ✅.cpp                                     :+:      :+:    :+:   */
+/*   cmd_pass.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 16:50:43 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/02 11:25:23 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 12:19:18 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
            PASS secretpasswordhere
 */
 
-bool	check_args(IrcServer *serv, user *currentUser, std::string args)
+static bool	check_args(IrcServer *serv, user *currentUser, std::string args)
 {
 	if (args == "")
 	{
