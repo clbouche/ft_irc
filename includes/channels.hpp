@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/01 12:00:42 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:58:54 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class channels
 
 		void					setName(std::string name);
 		void					setOper(user *oper);
-		void					addUser(user newUser);		
+		void					addUser(user *newUser);		
 };
 
 

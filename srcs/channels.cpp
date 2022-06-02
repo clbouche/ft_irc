@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channels.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/30 15:44:34 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:59:09 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ channels::channels(std::string name, user *chanOperator)
 		this->setName(name);
 	// }
 	this->setOper(chanOperator);
-	this->addUser(*chanOperator);
+	this->addUser(chanOperator);
 }
 
 channels::~channels()
@@ -68,7 +68,7 @@ void		channels::setOper(user *oper)
 	this->_oper = oper;
 }
 
-void		channels::addUser(user newUser)
+void		channels::addUser(user *newUser)
 {
-	this->_currentUsers.insert(std::make_pair(newUser.getSdUser(), &newUser));
+	this->_currentUsers.insert(std::make_pair(newUser->getSdUser(), 	newUser));
 }

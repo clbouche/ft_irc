@@ -25,18 +25,19 @@ void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 	std::cout << "target :{" << target << "}" << std::endl;
 	std::cout << "msg :{" << msg << "}" << std::endl;
 
-	if (strchr(CHANNEL_PREFIX, args.c_str()[0]) != NULL)
+	if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 	{
 		// std::cout << "char :" << args.c_str()[0] << ":" << std::endl;
 		std::cout << "TARGET IS A CHANNEL" << std::endl;
 		channels chanToSend = serv->currentChannels.find(target)->second;
-		std::stack<user> receiving;
 		std::map<int, user *>::iterator	it;
 		it = chanToSend.getUsers().begin();
 		while (it != chanToSend.getUsers().end())
 		{
+		std::cout << "current pushed :{" << currentUser->getNickName() << "}" << std::endl;
+		std::cout << "Channel name :{" << chanToSend.getName() << "}" << std::endl;
 		std::cout << "user pushed :{" << it->second->getNickName() << "}" << std::endl;
-			receiving.push(*(it->second));
+			// receiving.push(*(it->second)); CONNARD YA DEJA UNE MAP DE USER, UTILISE LA
 			it++;
 		}
 

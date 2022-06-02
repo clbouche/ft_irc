@@ -16,11 +16,17 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
     std::cout << "args:" << args << ":" << std::endl;
 	if (args == "")
 	{
-		args = "#coco_channel";
+		args = "#coco";
     	channels	*newChan = new channels(args, currentUser);
 		serv->currentChannels.insert(std::make_pair(args	, *newChan));
     	std::cout << "CHANNEL NAME :" << serv->currentChannels.begin()->second.getName() << std::endl;
 	}
-	serv->currentChannels.begin()->second.addUser(*currentUser);
+	else
+	{
+		user *toAdd = new user(*currentUser);
+		serv->currentChannels.begin()->second.addUser(toAdd);
+		// usersMap->insert(std::make_pair(_clientSocket[i], newUser));
+		// serv->currentChannels.begin()->second.addUser(*currentUser);
+	}
     std::cout << "quitting cmd_join" << std::endl;
 }
