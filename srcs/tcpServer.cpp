@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/31 15:21:57 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 11:15:45 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ tcpServer::tcpServer(int port)
 		/* ------------------------- FUNCTIONS ------------------------- */	
 		/* ------------------------------------------------------------- */
 
-void	tcpServer::waiting_activity()
+void							tcpServer::waiting_activity()
 {
 	int 	max_sd, activity;
 
@@ -103,7 +103,7 @@ void	tcpServer::waiting_activity()
 		std::cerr << std::strerror(errno) << std::endl;
 }
 
-void	tcpServer::write_data(std::map<int, user*> *usersMap)
+void							tcpServer::write_data(std::map<int, user*> *usersMap)
 {
 	int 	new_socket;
 	int		_addrlen = sizeof(_address);
@@ -184,3 +184,20 @@ std::pair<int, std::string>		tcpServer::listen_data(void)
 	return (std::make_pair(sd, std::string("")));
 }
 
+void							tcpServer::add_to_buffer ( std::pair<int, std::string> buff )
+{
+	this->_buff_out.insert(buff);
+}
+
+
+void							tcpServer::send_buff (void)
+{
+	std::map<int, std::string>::iterator	it = _buff_out.begin();
+
+	while (it != _buff_out.end())
+	{
+		send(it->first, it->second.c_str(), std::strlen(it->second.c_str()), MSG_NOSIGNAL);
+		it++;
+	}
+	_buff_out.clear();
+}

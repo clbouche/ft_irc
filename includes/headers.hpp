@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:42:26 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 14:49:12 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 11:25:07 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 #include "colors.hpp"
 #include "errors.hpp"
+#include "utils.hpp"
 
 
 #endif

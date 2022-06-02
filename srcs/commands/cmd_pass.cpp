@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_pass.cpp                                       :+:      :+:    :+:   */
+/*   cmd_pass ✅.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 16:50:43 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 16:51:12 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 11:25:23 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.hpp"
 #include "../../includes/commands.hpp"
 #include "../../includes/channels.hpp"
 #include "../../includes/IrcServer.hpp"
 #include "../../includes/user.hpp"
 #include "../../includes/headers.hpp"
-
 
 /**
  * @brief 
@@ -40,16 +38,16 @@
            PASS secretpasswordhere
 */
 
-bool	check_args(user *currentUser, std::string args)
+bool	check_args(IrcServer *serv, user *currentUser, std::string args)
 {
 	if (args == "")
 	{
-		std::cout << ERR_NEEDMOREPARAMS(args) << std::endl;
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(461, currentUser, serv, "PASS")));
 		return false;
 	}
 	else if (currentUser->getConnexion() == true)
 	{
-		std::cout << ERR_ALREADYREGISTRED() << std::endl;
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(462, currentUser, serv)));
 		return false;
 	}
 	return true;
@@ -57,7 +55,7 @@ bool	check_args(user *currentUser, std::string args)
 
 void    cmd_pass( IrcServer *serv, user	*currentUser, std::string & args )
 {
-	if (check_args(currentUser, args) == true)
+	if (check_args(serv, currentUser, args) == true)
 	{
 		if (args == serv->getServerPassword())
 			currentUser->setCheckPassword(true);
