@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/01 14:48:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:46:19 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 	user::user(int sd) : _nickName(""), _realName(""), _userName(""), 
 						_mode(""), _checkPassword(false), _isOper(false),
-						_welcomeMsg(false), _sdUser(sd), _isConnected(false)
+						_welcomeMsg(false), _isConnected(false), _sdUser(sd)
 	{}
 
 	user::user(user & src) : _nickName(src._nickName), _realName(src._realName), 

@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/01 14:48:47 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:45:25 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ class user
 		bool			_checkPassword;
 		bool			_isOper; // is the user operator or not
 		bool			_welcomeMsg;
-		int				_sdUser; // a token to identify the maybe the sd used for the user ?
 		bool			_isConnected; // did the user give the password ?
+		int				_sdUser; // a token to identify the maybe the sd used for the user ?
 
 	public:
 
