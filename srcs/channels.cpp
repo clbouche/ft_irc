@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/02 14:59:09 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:57:22 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ user		*channels::getOper()
 	return (this->_oper);
 }
 
-std::map<int, user*>	channels::getUsers()
+std::map<int, user*>&	channels::getUsers()
 {
 	return (this->_currentUsers);
 }
