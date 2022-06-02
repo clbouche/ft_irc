@@ -13,6 +13,11 @@ static bool		check_args(IrcServer *serv, user *currentUser, std::string args)
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(461, currentUser, serv, "USER")));
 		return false;
 	}
+	if (currentUser->getUserName() != "" || currentUser->getRealName() != "")
+	{
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(462, currentUser, serv)));
+		return false;
+	}
 	return true;
 }
 
