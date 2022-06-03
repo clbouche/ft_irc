@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:00 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 09:46:28 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:16:49 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,27 @@ void    cmd_pass(IrcServer *serv, user	*currentUser, std::string & args);
 void    cmd_nick(IrcServer *serv, user	*currentUser, std::string & args);
 void    cmd_user(IrcServer *serv, user	*currentUser, std::string & args);
 void    cmd_join(IrcServer *serv, user	*currentUser, std::string & args);
-// void	cmd_admin(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_away(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_die(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_invite(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_kick(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_kill(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_list(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_mode(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_motd(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_names(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_nick(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_notice(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_oper(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_part(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_ping(Ircserver *serv, user *currentUser, std::string &args);
+// void	cmd_admin(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_away(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_die(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_invite(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_kick(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_kill(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_list(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_mode(IrcServer *serv, user *currentUser, std::string &args);
+void	cmd_motd(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_names(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_nick(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_notice(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_oper(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_part(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_ping(IrcServer *serv, user *currentUser, std::string &args);
 void    cmd_privmsg( IrcServer *serv, user *currentUser, std::string & args);
-void	cmd_quit(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_time(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_topic(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_version(Ircserver *serv, user *currentUser, std::string &args);
-// void	cmd_who(Ircserver *serv, user *currentUser, std::string &args);
+void	cmd_quit(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_time(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_topic(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_version(IrcServer *serv, user *currentUser, std::string &args);
+// void	cmd_who(IrcServer *serv, user *currentUser, std::string &args);
 
 void    cmd_NULL( IrcServer *serv, user	*currentUser, std::string & args );
 

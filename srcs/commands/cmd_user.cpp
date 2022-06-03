@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 09:31:55 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 09:39:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:23:12 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,15 @@
 
 static bool		check_args(IrcServer *serv, user *currentUser, std::string args)
 {
-
-	//check si le realname a été donné ou pas
-	if (args.substr(line.find(":")).size() < 1)
+	//check s'il y a bien tous les args necessaire a la cmd USER
+	if (args.size() < 4)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 		 					send_replies(461, currentUser, serv, "USER")));
 		return false;
 	}
-	//check s'il y a bien tous les args necessaire a la cmd USER
-	if (args.size() < 4)
+	//check si le realname a été donné ou pas
+	if (args.find(":") == std::string::npos)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 		 					send_replies(461, currentUser, serv, "USER")));
