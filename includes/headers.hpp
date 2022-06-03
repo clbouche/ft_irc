@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:42:26 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 10:10:45 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:36:29 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@
 # include <cerrno>
 
 #include "colors.hpp"
-#include "errors.hpp"
 #include "defines.hpp"
+#include "responses_and_errors.hpp"
 #include "utils.hpp"
+#include "config.hpp"
 
 
 #endif

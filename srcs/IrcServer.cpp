@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 10:40:10 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:40:50 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void    IrcServer::create_pointer(void)
     // this->_pointer_to_valid_cmd.insert(std::make_pair("KILL", &cmd_kill));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("LIST", &cmd_list));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("MODE", &cmd_mode));
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("MOTD", &cmd_motd));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("MOTD", &cmd_motd));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("NAMES", &cmd_names));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("NICK", &cmd_nick));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("NOTICE", &cmd_notice));

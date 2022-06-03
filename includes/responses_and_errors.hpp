@@ -1,17 +1,80 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.hpp                                         :+:      :+:    :+:   */
+/*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/02 17:17:52 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:44:37 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_HPP
-# define ERRORS_HPP
+#ifndef RESPONSES_AND_ERRORS_HPP
+# define RESPONSES_AND_ERRORS_HPP
+
+	/* ------------------------------------------------------------- */
+	/* --------------------- RESPONSES REPLIES --------------------- */	
+	/* ------------------------------------------------------------- */
+
+    /**
+     * The server sends Replies 001 to 004 to a user upon
+        successful registration.
+    */
+/**
+ * @brief RPL 001
+ * 
+ */
+# define RPL_WELCOME(nick, user, host) ("Welcome to the Internet Relay Network " \
+               + nick + "!" + user + "@" + host + "\r\n")
+
+/**
+ * @brief RPL 002
+ * 
+ */
+# define RPL_YOURHOST(servername, ver) ("Your host is " + servername + ", running version " + ver + "\r\n")
+
+/**
+ * @brief RPL 003
+ * 
+ */
+# define RPL_CREATED(date) ("This server was created " + date + "\r\n")
+
+/**
+ * @brief RPL 004
+ * 
+ */
+# define RPL_MYINFO(servername, version, userModes, channelModes) (servername + \
+                    " " + version + " " + userModes + " " + channelModes + "\r\n")
+
+    /**
+     *  When responding to the MOTD message and the MOTD file
+        is found, the file is displayed line by line, with
+        each line no longer than 80 characters, using
+        RPL_MOTD format replies.  These MUST be surrounded
+        by a RPL_MOTDSTART (before the RPL_MOTDs) and an
+        RPL_ENDOFMOTD (after).
+ */
+    
+/**
+ * @brief RPL 375 
+ * 
+ */
+# define RPL_MOTDSTART(server) (":- " + server + " Message of the day - \r\n")
+
+/**
+ * @brief RPL 372 
+ * 
+ */
+# define RPL_MOTD(text) (":- " + text + "\r\n")
+
+/**
+ * @brief RPL 376
+ * 
+ */
+# define RPL_ENDOFMOTD() (":End of MOTD command\r\n")
+
+
 
 	/* ------------------------------------------------------------- */
 	/* ----------------------- ERROR REPLIES ----------------------- */	

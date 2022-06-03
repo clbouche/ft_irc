@@ -6,27 +6,30 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/03 10:08:51 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:42:24 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/user.hpp"
 #include "../includes/headers.hpp"
 
-	user::user() : _nickName(""), _realName(""), _userName(""), _mode(""),
-				_checkPassword(false), _isOper(false), _welcomeMsg(false)
-				, _isConnected(false)
+	user::user() : _nickName(""), _realName(""), _userName(""), _hostName(""),
+				_mode(""), _checkPassword(false), _isOper(false), _welcomeMsg(false),
+				_isConnected(false)
 	{};
 
-	user::user(int sd) : _nickName(""), _realName(""), _userName(""), 
-						_mode(""), _checkPassword(false), _isOper(false),
-						_welcomeMsg(false), _isConnected(false), _sdUser(sd)
+	user::user(int sd, std::string hostname) : _nickName(""), _realName(""),
+									_userName(""), _hostName(hostname), 
+									_mode(""), _checkPassword(false),
+									_isOper(false),_welcomeMsg(false), 
+									_isConnected(false), _sdUser(sd)
 	{}
 
 	user::user(const user & src) : _nickName(src._nickName), _realName(src._realName), 
-							_userName(src._userName), _mode(src._mode), 
-							_checkPassword(src._checkPassword), _isOper(src._isOper),
-							_welcomeMsg(src._welcomeMsg), _sdUser(src._sdUser)
+							_userName(src._userName), _hostName(src._hostName),
+							_mode(src._mode), _checkPassword(src._checkPassword), 
+							_isOper(src._isOper), _welcomeMsg(src._welcomeMsg),
+							_sdUser(src._sdUser)
 	{}
 
 	user::~user()
@@ -120,6 +123,3 @@
 	}
 
 	/* ------------------------- OTHERS ------------------------- */
-
-
-

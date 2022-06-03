@@ -6,13 +6,14 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/02 11:02:34 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:20:30 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/user.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/headers.hpp"
+#include "../includes/commands.hpp"
 
 /**
  * @brief Permet de savoir si les 3 commandes necessaires a la connexion ont ete complete
@@ -23,16 +24,34 @@
  * @return false s'il manque une des 3 conditions
  */
 
-bool		check_connexion( user *currentUser)
+bool		check_connexion( user *currentUser, IrcServer *serv)
 {
-	const char						*message = WELCOME_MESSAGE;
-	int								sdUser = currentUser->getSdUser();
+	std::string						args = "";
+	const char						*date = DATE;
+	const char						*version = VERSION;
+	const char						*usersmodes = USERSMODES;
+	const char						*channelsmodes = CHANNELSMODES;
 
-	if (currentUser->getNickName() != "" && currentUser->getUserName() != "" && currentUser->getCheckPassword() == true) 
+	if (currentUser->getNickName() != "" && currentUser->getUserName() != "" 
+			&& currentUser->getCheckPassword() == true) 
 	{
-		if(send(sdUser, message, strlen(message), 0) != (ssize_t)strlen(message) )
-			std::cerr << std::strerror(errno) << std::endl;
+		// if(send(sdUser, message, strlen(message), 0) != (ssize_t)strlen(message) )
+		// 	std::cerr << std::strerror(errno) << std::endl;
 		std::cout << "Welcome message sent successfully" << std::endl;
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
+							send_replies(1, currentUser, serv, 
+								currentUser->getNickName(), currentUser->getUserName(),
+								serv->_tcpServer.getHostname())));
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
+							send_replies(2, currentUser, serv, 
+								serv->_tcpServer.getHostname(),version)));
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
+							send_replies(3, currentUser, serv, date)));
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
+							send_replies(4, currentUser, serv, 
+								serv->_tcpServer.getHostname(), version, 
+								usersmodes, channelsmodes)));
+		cmd_motd(serv, currentUser, args);
 		currentUser->setConnexion(true);
 		return true;
 	}

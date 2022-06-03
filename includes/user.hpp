@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/03 10:08:39 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:37:38 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class user
 		std::string		_nickName;
 		std::string		_realName;
 		std::string		_userName;
+		std::string		_hostName;
 		std::string		_mode; // mode(s) of the users, a string wth all the modes
 		bool			_checkPassword;
 		bool			_isOper; // is the user operator or not
@@ -44,7 +45,7 @@ class user
 		 * @brief Construct a new user object
 		 * @param sd the socket descriptor used for the user
 		 */
-		user(int sd);
+		user(int sd, std::string hostname);
 
 		/**
 		 * @brief Construct a new user object
@@ -81,6 +82,12 @@ class user
 		 */
 		std::string	getUserName();
 		
+		/**
+		 * @brief Get the Host Name object
+		 * 
+		 */
+		std::string getHostName();
+
 		/**
 		 * @brief Access to the mode
 		 * 
@@ -136,6 +143,13 @@ class user
 		 * @param username the username you want to set
 		 */
 		void	setUserName(std::string username);
+
+		/**
+		 * @brief Set the Host Name object
+		 * 
+		 * @param hostname the name of the user's hostname
+		 */
+		void	setHostName(std::string hostname);
 
 		/**
 		 * @brief Set the nick name

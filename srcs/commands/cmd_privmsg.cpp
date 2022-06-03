@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:03:10 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/03 17:23:30 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 18:21:10 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@ void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 {
 	size_t		pos = args.find_first_of(" ");
 	std::string	target = args.substr(0, pos);
-	std::string	msg = "PRIVMSG " + target + " :" + args.substr(pos + 1, args.length()) + "\n";
+	std::string	msg = "PRIVMSG " + target + " :" + args.substr(pos + 1, args.length()) + "\r\n";
 	
 	if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 	{
 		channels *chanToSend = serv->currentChannels.find(target)->second;
+		if (chanToSend == NULL)
+		{
+			serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(401, currentUser, serv, target)));
+			return ;
+		}
 		std::map<int, user *>::iterator	it;
         for (it = chanToSend->getUsers().begin(); it != chanToSend->getUsers().end(); it++)
 		{
@@ -53,6 +58,6 @@ void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 			ERR_NORECIPIENT                 ERR_NOTEXTTOSEND
          	ERR_CANNOTSENDTOCHAN            ERR_NOTOPLEVEL
            	ERR_WILDTOPLEVEL                ERR_TOOMANYTARGETS
-           	ERR_NOSUCHNICK
+           	ERR_NOSUCHNICK✅
            	RPL_AWAY
 */

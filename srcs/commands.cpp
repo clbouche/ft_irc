@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:28 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/02 11:25:39 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:23:00 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void    cmd_NULL( IrcServer *serv, user	*currentUser, std::string & args )
 	std::cout << "cmd not found" << std::endl;
 }
 
+
 /**
  * @brief Permet de delimiter la commande (pour l'envoyer a la bonne fonction)
  * des arguments, stocker dans une meme string pour definir le parsing selon 
@@ -37,6 +38,7 @@ void    parse_cmd(std::string args, IrcServer *IRC, user *currentUser)
 {
 	std::vector<std::string>		commands;
 	std::string						args_of_commands, cmd_to_find;
+	IrcServer::command				cmd_ptr;
 	
 	commands = ft_split(args, "\n");
 	std::string	tmp = commands.front(); //la cmd elle meme + args
@@ -52,5 +54,14 @@ void    parse_cmd(std::string args, IrcServer *IRC, user *currentUser)
 		cmd_to_find = tmp.substr(0, pos);
 		args_of_commands = "";
 	}
-	IRC->recup_cmd(cmd_to_find)(IRC, currentUser, args_of_commands);
+	cmd_ptr = IRC->recup_cmd(cmd_to_find);
+	if (currentUser->getConnexion() == false && (cmd_ptr != &cmd_user && cmd_ptr != &cmd_nick && cmd_ptr != &cmd_pass
+			&& cmd_ptr != &cmd_NULL))
+	{
+		IRC->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
+						send_replies(451, currentUser, IRC)));
+		return ;
+	}
+	if (cmd_ptr != &cmd_NULL)
+		IRC->recup_cmd(cmd_to_find)(IRC, currentUser, args_of_commands);
 }
