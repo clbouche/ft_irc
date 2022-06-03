@@ -58,16 +58,19 @@ bool	checkNicknameInUse(IrcServer *serv, user *currentUser, std::string args)
 
 static bool		check_args(IrcServer *serv, user *currentUser, std::string args)
 {
+	//check si cmd NICK a des args 
 	if (args == "")
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(431, currentUser, serv)));
 		return false;
 	}
+	//check si le nouveau nickname n'est pas deja pris
 	if (checkNicknameInUse(serv, currentUser, args) == false)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(433, currentUser, serv, args)));
 		return false;
 	}
+	//check si les caracteres du nouveau nickname sont OK
 	if (checkValidNickName(args) == false)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(432, currentUser, serv, args)));

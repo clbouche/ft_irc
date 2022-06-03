@@ -8,6 +8,7 @@
 
 void    cmd_quit( IrcServer *serv, user *currentUser, std::string & args )
 {
+    std::cout << "enter in function quit" << std::endl;
     (void)serv;
     (void)currentUser;
 	(void)args;
