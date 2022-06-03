@@ -41,7 +41,7 @@ void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 			if (it->second != currentUser)
 			{
 				//send message
-				std::cout << RED << "SENDING MESSAGE" << END << std::endl;
+				std::cout << PURPLE << "SENDING MESSAGE" << END << std::endl;
 			}
 			// receiving.push(*(it->second)); CONNARD YA DEJA UNE MAP DE USER, UTILISE LA
 			// it++;
