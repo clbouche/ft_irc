@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/06/02 17:13:54 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:36:05 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ void							tcpServer::waiting_activity()
 
 void							tcpServer::write_data(std::map<int, user*> *usersMap)
 {
-	int 	new_socket;
-	int		_addrlen = sizeof(_address);
-
+	int 		new_socket;
+	int			_addrlen = sizeof(_address);
+	char		_hostName[1024];
 
 	//If something happened on the master socket ,
 	//then its an incoming connection
@@ -122,13 +122,14 @@ void							tcpServer::write_data(std::map<int, user*> *usersMap)
 			std::cerr << std::strerror(errno) << std::endl;
 			exit(EXIT_FAILURE);
 		}
-
+		getnameinfo((struct sockaddr *)&_address, _addrlen, _hostName, 1024, NULL, 0, 0);
 		std::cout	<< GREEN
-					<< "IRC Server now active on "
-					<< inet_ntoa(_address.sin_addr)
-					<< ":" << ntohs(_address.sin_port)
+					<< "IRC Server now active on : " << std::endl
+					<< "socket fd: " << new_socket
+					<< "\t ip: " << inet_ntoa(_address.sin_addr)
+					<< "\t port: " << ntohs(_address.sin_port)
+					<< "\thostname: " << _hostName 
 					<< END << std::endl;
-
 		//add new socket to array of sockets
 		for (int i = 0; i < MAX_CLIENTS; i++)
 		{
@@ -137,7 +138,7 @@ void							tcpServer::write_data(std::map<int, user*> *usersMap)
 			{
 				_clientSocket[i] = new_socket;
 				std::cout << "Adding to list of sockets as " << i << std::endl;
-				user	*newUser = new user(_clientSocket[i]) ;
+				user	*newUser = new user(_clientSocket[i], _hostName) ;
 				usersMap->insert(std::make_pair(_clientSocket[i], newUser));
 				break;
 			}

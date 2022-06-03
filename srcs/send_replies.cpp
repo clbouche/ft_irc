@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/02 17:19:36 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:22:35 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ std::string					ft_to_string(int value)
 	return (sign + output);
 }
 
-std::string		send_replies(const int code, user *user, IrcServer *serv, std::string arg1)
+std::string		send_replies(const int code, user *user, IrcServer *serv, std::string arg1, std::string arg2, std::string arg3, std::string arg4)
 {
-	(void)user;
-	(void)serv;
 	std::string		reply = ":";
 
 	reply.append(serv->_tcpServer.getHostname());
@@ -62,12 +60,28 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 	reply.append(" ");
 	switch(code)
 	{
+		case 1:
+			return reply + RPL_WELCOME(arg1, arg2, arg3);
+		case 2:
+			return reply + RPL_YOURHOST(arg1, arg2);
+		case 3:
+			return reply + RPL_CREATED(arg1);
+		case 4:
+			return reply + RPL_MYINFO(arg1, arg2, arg3, arg4);
+		case 372:
+			return reply + RPL_MOTD(arg1);
+		case 375:
+			return reply + RPL_MOTDSTART(arg1);
+		case 376:
+			return reply + RPL_ENDOFMOTD();
 		case 431:
 			return reply + ERR_NONICKNAMEGIVEN();
 		case 432:
 			return reply + ERR_ERRONEUSNICKNAME(arg1);
 		case 433:
 			return reply + ERR_NICKNAMEINUSE(arg1);
+		case 451:
+			return reply + ERR_NOTREGISTERED();
 		case 461:
 			return reply + ERR_NEEDMOREPARAMS(arg1);
 		case 462:

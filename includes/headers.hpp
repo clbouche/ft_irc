@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:42:26 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/02 11:25:07 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:25:36 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@
 # include <cerrno>
 
 #include "colors.hpp"
-#include "errors.hpp"
+#include "responses_and_errors.hpp"
 #include "utils.hpp"
+#include "config.hpp"
 
 
 #endif

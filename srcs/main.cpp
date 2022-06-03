@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/02 11:25:45 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:18:32 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 void    loop(IrcServer *server)
 {
 	std::pair<int, std::string>		buff;
+	std::string						args = "";
 	
 	while(TRUE)
 	{ 
@@ -31,8 +32,10 @@ void    loop(IrcServer *server)
 				server->getUser(buff.first)->setCheckPassword(true);
 			parse_cmd(buff.second, server, server->getUser(buff.first));
 			if (server->getUser(buff.first)->getWelcomeMsg() == false)
+			{
 				server->getUser(buff.first)->setWelcomeMsg(
-					check_connexion(server->getUser(buff.first)));
+					check_connexion(server->getUser(buff.first), server));
+			}
 		}
 		server->_tcpServer.send_buff();
 	}
