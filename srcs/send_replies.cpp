@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_replies.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/02 17:19:36 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:21:17 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 	reply.append(" ");
 	switch(code)
 	{
+		case 401:
+			return reply + ERR_NOSUCHNICK(arg1);
 		case 431:
 			return reply + ERR_NONICKNAMEGIVEN();
 		case 432:

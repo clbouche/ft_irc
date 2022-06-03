@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:03:10 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/03 10:03:11 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:23:30 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,50 +19,40 @@
 
 void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args)
 {
-	(void)currentUser;
-	// On determine d'abord si on a un seul user ou un channel
-	// si channel, on stock les users devant recevoir le message dans une stack
-	// on envoie ensuite le message dans une boucle telle que :
-	// tant que stack.size != 0:
-	//      send msg a stack.top()   -> send msg a user
-	//		stack.pop()    -> supprimer le user a qui on vient de send msg de la stack
-	//
-	// Si on a qu'un seul user : 
-	// send directement msg a user
 	size_t		pos = args.find_first_of(" ");
 	std::string	target = args.substr(0, pos);
-	std::string	msg = args.substr(pos + 1, args.length());
+	std::string	msg = "PRIVMSG " + target + " :" + args.substr(pos + 1, args.length()) + "\n";
 	
-	std::cout << "ENTERING PRIVMSG FCT" << std::endl;
-	std::cout << "target :{" << target << "}" << std::endl;
-	std::cout << "msg :{" << msg << "}" << std::endl;
-
 	if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 	{
-		// std::cout << "char :" << args.c_str()[0] << ":" << std::endl;
-		std::cout << "TARGET IS A CHANNEL" << std::endl;
 		channels *chanToSend = serv->currentChannels.find(target)->second;
 		std::map<int, user *>::iterator	it;
-		// it = chanToSend.getUsers().begin();
-		// while (it != chanToSend.getUsers().end())
         for (it = chanToSend->getUsers().begin(); it != chanToSend->getUsers().end(); it++)
 		{
-			std::cout << "current pushed :{" << currentUser->getNickName() << "}" << std::endl;
-			std::cout << "Channel name :{" << chanToSend->getName() << "}" << std::endl;
-			std::cout << "user pushed :{" << it->second->getNickName() << "}" << std::endl;
-			if (it->second != currentUser)
+			if (it->second->getNickName() != currentUser->getNickName())
 			{
-				//send message
-				std::cout << PURPLE << "SENDING MESSAGE" << END << std::endl;
+				serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
 			}
-			// receiving.push(*(it->second)); CONNARD YA DEJA UNE MAP DE USER, UTILISE LA
-			// it++;
 		}
-
 	}
 	else
 	{
-		std::cout << "TARGET IS A USER" << std::endl;
+		std::map<int, user *>::iterator	it;
+        for (it = serv->usersMap.begin(); it != serv->usersMap.end(); it++)
+		{
+			if (it->second->getNickName() == target)
+			{
+				serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
+				return ;
+			}
+		}
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(401, currentUser, serv, target)));
 	}
-	
 }
+/*
+			ERR_NORECIPIENT                 ERR_NOTEXTTOSEND
+         	ERR_CANNOTSENDTOCHAN            ERR_NOTOPLEVEL
+           	ERR_WILDTOPLEVEL                ERR_TOOMANYTARGETS
+           	ERR_NOSUCHNICK
+           	RPL_AWAY
+*/
