@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_user.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 09:31:55 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 09:39:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:14:22 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static bool		check_args(IrcServer *serv, user *currentUser, std::string args)
 {
 
 	//check si le realname a été donné ou pas
-	if (args.substr(line.find(":")).size() < 1)
+	if (args.substr(args.find(":")).size() < 1)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 		 					send_replies(461, currentUser, serv, "USER")));

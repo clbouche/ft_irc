@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:00 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 10:09:42 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:13:43 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    cmd_join(IrcServer *serv, user	*currentUser, std::string & args);
 // void	cmd_part(Ircserver *serv, user *currentUser, std::string &args);
 // void	cmd_ping(Ircserver *serv, user *currentUser, std::string &args);
 void    cmd_privmsg(IrcServer *serv, user *currentUser, std::string & args);
-void	cmd_quit(Ircserver *serv, user *currentUser, std::string &args);
+void	cmd_quit(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_time(Ircserver *serv, user *currentUser, std::string &args);
 // void	cmd_topic(Ircserver *serv, user *currentUser, std::string &args);
 // void	cmd_version(Ircserver *serv, user *currentUser, std::string &args);
