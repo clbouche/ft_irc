@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/31 15:21:57 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:13:54 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ tcpServer::tcpServer()
 tcpServer::tcpServer(int port)
 {
 	int opt = TRUE;
-	// char hostname[1024];
+	char hostname[1024];
+
+	gethostname(hostname, 1024);
+	this->_hostname = std::string(hostname);
 
 	std::memset(&this->_clientSocket, 0, MAX_CLIENTS * sizeof(int));//set the memory for clients socket
 
@@ -72,7 +75,7 @@ tcpServer::tcpServer(int port)
 		/* ------------------------- FUNCTIONS ------------------------- */	
 		/* ------------------------------------------------------------- */
 
-void	tcpServer::waiting_activity()
+void							tcpServer::waiting_activity()
 {
 	int 	max_sd, activity;
 
@@ -103,7 +106,7 @@ void	tcpServer::waiting_activity()
 		std::cerr << std::strerror(errno) << std::endl;
 }
 
-void	tcpServer::write_data(std::map<int, user*> *usersMap)
+void							tcpServer::write_data(std::map<int, user*> *usersMap)
 {
 	int 	new_socket;
 	int		_addrlen = sizeof(_address);
@@ -184,3 +187,25 @@ std::pair<int, std::string>		tcpServer::listen_data(void)
 	return (std::make_pair(sd, std::string("")));
 }
 
+void							tcpServer::add_to_buffer ( std::pair<int, std::string> buff )
+{
+	this->_buff_out.insert(buff);
+}
+
+
+void							tcpServer::send_buff (void)
+{
+	std::map<int, std::string>::iterator	it = _buff_out.begin();
+
+	while (it != _buff_out.end())
+	{
+		send(it->first, it->second.c_str(), std::strlen(it->second.c_str()), MSG_NOSIGNAL);
+		it++;
+	}
+	_buff_out.clear();
+}
+
+std::string						tcpServer::getHostname(void)
+{
+	return (this->_hostname);
+}

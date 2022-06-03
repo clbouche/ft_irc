@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/01 16:48:58 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:08:39 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ class user
 		std::string		_mode; // mode(s) of the users, a string wth all the modes
 		bool			_checkPassword;
 		bool			_isOper; // is the user operator or not
-		// bool			_isConnected; // did the user give the password ?
 		bool			_welcomeMsg;
+		bool			_isConnected; // did the user give the password ?
 		int				_sdUser; // a token to identify the maybe the sd used for the user ?
 
 	public:
@@ -107,6 +107,14 @@ class user
 		bool	getWelcomeMsg();
 
 		/**
+		 * @brief Get the Connexion object
+		 * 
+		 * @return true if the user is already connected to the server
+		 * @return false if not
+		 */
+		bool	getConnexion();
+
+		/**
 		 * 
 		 * SETTERS
 		 * 
@@ -156,7 +164,12 @@ class user
 		 */
 		void	setWelcomeMsg(bool welcomeMsg);
 
-
+		/**
+		 * @brief Set true if the user is connected
+		 * Set false if not
+		 * 
+		 */
+		void	setConnexion(bool connect);
 
 		bool	check_connexion( void );
 

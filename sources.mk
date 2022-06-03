@@ -8,6 +8,7 @@ SOURCES		+=                          		\
 		srcs/utils.cpp                     	\
 		srcs/channels.cpp                  	\
 		srcs/IrcServer.cpp                 	\
+		srcs/send_replies.cpp              	\
 		srcs/user.cpp                      	\
 		srcs/tcpServer.cpp                 	\
 

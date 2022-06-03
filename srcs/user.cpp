@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/01 16:17:01 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:08:51 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 	user::user() : _nickName(""), _realName(""), _userName(""), _mode(""),
 				_checkPassword(false), _isOper(false), _welcomeMsg(false)
-				//, _isConnected(false),
+				, _isConnected(false)
 	{};
 
 	user::user(int sd) : _nickName(""), _realName(""), _userName(""), 
 						_mode(""), _checkPassword(false), _isOper(false),
-						_welcomeMsg(false), _sdUser(sd)//, _isConnected(false)
+						_welcomeMsg(false), _isConnected(false), _sdUser(sd)
 	{}
 
 	user::user(const user & src) : _nickName(src._nickName), _realName(src._realName), 
@@ -70,7 +70,12 @@
 	bool		user::getWelcomeMsg()
 	{
 		return (this->_welcomeMsg);
-	}	
+	}
+
+	bool		user::getConnexion()
+	{
+		return (this->_isConnected);
+	}
 
 	/* ------------------------- SETTER ------------------------- */
 
@@ -107,6 +112,11 @@
 	void	user::setWelcomeMsg(bool welcomeMsg)
 	{
 		this->_welcomeMsg = welcomeMsg;
+	}
+
+	void	user::setConnexion(bool connect)
+	{
+		this->_isConnected = connect;
 	}
 
 	/* ------------------------- OTHERS ------------------------- */

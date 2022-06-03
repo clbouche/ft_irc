@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 12:28:26 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:11:08 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ IrcServer::IrcServer(int port, std::string password) : _tcpServer(port), _server
 	/* ------------------------------------------------------------- */
 	/* -------------------------- FUNCTIONS ------------------------ */	
 	/* ------------------------------------------------------------- */
+
+user 	*IrcServer::getUser(int fd)
+{
+    return (this->usersMap[fd]);
+}
+
 
 void    IrcServer::create_pointer(void)
 {
@@ -51,7 +57,7 @@ void    IrcServer::create_pointer(void)
     // this->_pointer_to_valid_cmd.insert(std::make_pair("PART", &cmd_part));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("PING", &cmd_ping));
     this->_pointer_to_valid_cmd.insert(std::make_pair("PRIVMSG", &cmd_privmsg));
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("QUIT", &cmd_quit));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("QUIT", &cmd_quit));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("TIME", &cmd_time));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("TOPIC", &cmd_topic));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("VERSION", &cmd_version));

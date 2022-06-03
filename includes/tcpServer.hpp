@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:52 by elaachac          #+#    #+#             */
-/*   Updated: 2022/05/30 14:22:32 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:13:29 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ class tcpServer
 {
 	private:
 
-		std::string						_hostname;
-		int 							_masterSocket , _clientSocket[MAX_CLIENTS]; //, _addrlen;
-		fd_set							_readfds;
-		struct		sockaddr_in			_address;
+		std::string							_hostname;
+		int 								_masterSocket , _clientSocket[MAX_CLIENTS]; //, _addrlen;
+		fd_set								_readfds;
+		struct sockaddr_in					_address;
 		/* usage of a multimap (map where we can have one key in more than one leaf)*/
 		/*					to store the client's inputs 							*/
-		std::multimap<int, std::string>	_buffer_out;
+		std::multimap<int, std::string>		_buff_out;
 	
 	public:
 		
@@ -60,19 +60,36 @@ class tcpServer
 		 * @brief bzero clients and waiting for new connexions
 		 * 
 		 */
-		void	waiting_activity();
+		void							waiting_activity();
 
 		/**
 		 * @brief for new connexions
 		 * 
 		 */
-		void	write_data(std::map<int, user*> *usersMap);
+		void							write_data(std::map<int, user*> *usersMap);
 
 		/**
 		 * @brief for disconnexion and send messages
 		 * 
 		 */
 		std::pair<int, std::string>		listen_data(void);
+
+		/**
+		 * @brief To send replies or errors
+		 * 
+		 */
+		void							add_to_buffer (std::pair<int, std::string> buff);
+
+		/**
+		 * @brief Send and flush everything in the buffer
+		 */
+		void							send_buff (void);
+
+		/**
+		 * @brief Get the Hostname object
+		 * 
+		 */
+		std::string						getHostname(void);
 
 
 };

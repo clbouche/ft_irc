@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/02 17:50:03 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:02:07 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "channels.hpp"
 
 class channels;
-
+class user;
 class   IrcServer {
 
 	public:
@@ -74,6 +74,14 @@ class   IrcServer {
 	 * 
 	 */
 	IrcServer( int port, std::string password);
+
+	/**
+	 * @brief Get the User object 
+	 * 
+	 * @param fd socket of the user 
+	 * @return User* pointer to the user
+	 */
+	user 	*getUser(int fd);
 
 	/**
 	 * @brief Send to recup args of the command

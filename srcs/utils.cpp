@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/01 11:57:12 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/02 11:02:34 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ bool		check_connexion( user *currentUser)
 	const char						*message = WELCOME_MESSAGE;
 	int								sdUser = currentUser->getSdUser();
 
-	if (currentUser->getNickName() != "" && currentUser->getUserName() != "" && currentUser->getCheckPassword() == true) //faire une comparaison entre le password envoye par le user et celui stocker par le serveur
+	if (currentUser->getNickName() != "" && currentUser->getUserName() != "" && currentUser->getCheckPassword() == true) 
 	{
 		if(send(sdUser, message, strlen(message), 0) != (ssize_t)strlen(message) )
 			std::cerr << std::strerror(errno) << std::endl;
 		std::cout << "Welcome message sent successfully" << std::endl;
+		currentUser->setConnexion(true);
 		return true;
 	}
 	return false;
