@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/03 17:42:24 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:22:03 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "../includes/headers.hpp"
 
 	user::user() : _nickName(""), _realName(""), _userName(""), _hostName(""),
-				_mode(""), _checkPassword(false), _isOper(false), _welcomeMsg(false),
+				_mode("+"), _checkPassword(false), _isOper(false), _welcomeMsg(false),
 				_isConnected(false)
 	{};
 
 	user::user(int sd, std::string hostname) : _nickName(""), _realName(""),
 									_userName(""), _hostName(hostname), 
-									_mode(""), _checkPassword(false),
+									_mode("+"), _checkPassword(false),
 									_isOper(false),_welcomeMsg(false), 
 									_isConnected(false), _sdUser(sd)
 	{}

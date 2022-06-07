@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/07 10:13:18 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:20:47 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_CREATED(arg1);
 		case 4:
 			return reply + RPL_MYINFO(arg1, arg2, arg3, arg4);
+		case 221:
+			return reply + RPL_UMODEIS(arg1);
 		case 372:
 			return reply + RPL_MOTD(arg1);
 		case 375:
