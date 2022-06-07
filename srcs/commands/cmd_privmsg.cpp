@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:03:10 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/06 16:50:40 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/07 10:01:56 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 {
 	size_t pos = args.find_first_of(" ");
 	std::string target = args.substr(0, pos);
-	std::string msg_to_check = args.substr(pos + 1, args.length());
+	std::string msg_to_check;
+	pos == std::string::npos ? msg_to_check = "" : msg_to_check = args.substr(pos + 1, args.length());
+	// std::string msg_to_check = args.substr(pos + 1, args.length());
 	// check if args are right
 	if (check_args(target, msg_to_check, currentUser, serv))
 	{
