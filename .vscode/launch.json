@@ -20,7 +20,7 @@
 		  }
 		],
 		"preLaunchTask": "C/C++: Build project",
-		"miDebuggerPath": "/usr/bin/gdb"
+		"miDebuggerPath": "/usr/local/bin/gdb"
 	  }
 	]
   }

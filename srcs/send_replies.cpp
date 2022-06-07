@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 17:38:03 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:50:28 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_ENDOFMOTD();
 		case 401:
 			return reply + ERR_NOSUCHNICK(arg1);
+		case 404:
+			return reply + ERR_CANNOTSENDTOCHAN(arg1);
+		case 411:
+			return reply + ERR_NORECIPIENT(arg1);
 		case 431:
 			return reply + ERR_NONICKNAMEGIVEN();
 		case 432:
