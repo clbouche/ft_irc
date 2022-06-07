@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_privmsg.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:03:10 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/07 10:01:56 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:01:23 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 		{
 			channels *chanToSend = serv->currentChannels.find(target)->second;
 			std::map<int, user *>::iterator it;
-			if (chanToSend->getUsers().find(currentUser->getSdUser()) != chanToSend->getUsers().end())
+			if (chanToSend->UserInChan(currentUser) == true)
 			{
 				for (it = chanToSend->getUsers().begin(); it != chanToSend->getUsers().end(); it++)
 				{

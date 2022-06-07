@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 17:44:37 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:22:48 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,21 @@
  */
 # define RPL_MYINFO(servername, version, userModes, channelModes) (servername + \
                     " " + version + " " + userModes + " " + channelModes + "\r\n")
+
+
+
+/**
+ * @brief RPL 331
+ * 
+ */
+# define RPL_NOTOPIC(channel) (channel + " :No topic is set\r\n")
+
+/**
+ * @brief RPL 332
+ * 
+ */
+# define RPL_TOPIC(channel, topic) (channel + " :" + topic + "\r\n")
+
 
     /**
      *  When responding to the MOTD message and the MOTD file

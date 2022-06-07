@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/03 17:42:24 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:48:53 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@
 	{
 		return (this->_userName);
 	}
+
+	std::string		user::getHostNameUser()
+	{
+		return (this->_hostName);
+	}
+
 
 	std::string		user::getMode()
 	{

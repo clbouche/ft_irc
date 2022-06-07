@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channels.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/02 17:57:22 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/07 16:54:00 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 	/* ------------------------ CONSTRUCTORS ----------------------- */	
 	/* ------------------------------------------------------------- */
 
-channels::channels()
+channels::channels() : _topic("")
 {
 }
 
-channels::channels(std::string name, user *chanOperator)
+channels::channels(std::string name, user *chanOperator) : _topic("")
 {
 	// if (CHECK_NAME == ok) // ->> CHECK IF THE NAME RESPECT THE NORM
 	// {
@@ -58,6 +58,11 @@ std::map<int, user*>&	channels::getUsers()
 	return (this->_currentUsers);
 }
 
+std::string			channels::getTopic()
+{
+	return (this->_topic);
+}
+
 void		channels::setName(std::string name)
 {
 	this->_name = name;
@@ -68,7 +73,19 @@ void		channels::setOper(user *oper)
 	this->_oper = oper;
 }
 
+void		channels::setTopic(std::string topic)
+{
+	this->_topic = topic;
+}
+
 void		channels::addUser(user *newUser)
 {
 	this->_currentUsers.insert(std::make_pair(newUser->getSdUser(), 	newUser));
+}
+
+bool		channels::UserInChan(user *user)
+{
+	if (getUsers().find(user->getSdUser()) != getUsers().end())
+		return true;
+	return false;
 }

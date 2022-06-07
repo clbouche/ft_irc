@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 17:20:30 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:49:37 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool		check_connexion( user *currentUser, IrcServer *serv)
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
 							send_replies(1, currentUser, serv, 
 								currentUser->getNickName(), currentUser->getUserName(),
-								serv->_tcpServer.getHostname())));
+								currentUser->getHostNameUser())));
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
 							send_replies(2, currentUser, serv, 
 								serv->_tcpServer.getHostname(),version)));
@@ -51,7 +51,7 @@ bool		check_connexion( user *currentUser, IrcServer *serv)
 							send_replies(4, currentUser, serv, 
 								serv->_tcpServer.getHostname(), version, 
 								usersmodes, channelsmodes)));
-		cmd_motd(serv, currentUser, args);
+		// cmd_motd(serv, currentUser, args);
 		currentUser->setConnexion(true);
 		return true;
 	}
