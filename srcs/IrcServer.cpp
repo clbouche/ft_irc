@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 11:01:38 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:59:31 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 IrcServer::IrcServer(int port, std::string password) : _tcpServer(port), _server_password(password)
 {
-    this->create_pointer();
+	this->create_pointer();
 }
 
 	/* ------------------------------------------------------------- */
@@ -31,7 +31,20 @@ IrcServer::IrcServer(int port, std::string password) : _tcpServer(port), _server
 
 user 	*IrcServer::getUser(int fd)
 {
-    return (this->usersMap[fd]);
+	return (this->usersMap[fd]);
+}
+
+user	*IrcServer::getUserByNick(std::string nick)
+{
+	std::map<int, user*>::iterator	it;
+	it = this->usersMap.begin();
+	while (it != this->usersMap.end())
+	{
+		if (it->second->getNickName() == nick)
+			return (it->second);
+		it++;
+	}
+	return (NULL);
 }
 
 
@@ -46,7 +59,7 @@ void    IrcServer::create_pointer(void)
     // this->_pointer_to_valid_cmd.insert(std::make_pair("KICK", &cmd_kick));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("KILL", &cmd_kill));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("LIST", &cmd_list));
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("MODE", &cmd_mode));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("MODE", &cmd_mode));
     this->_pointer_to_valid_cmd.insert(std::make_pair("MOTD", &cmd_motd));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("NAMES", &cmd_names));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("NICK", &cmd_nick));
@@ -66,13 +79,13 @@ IrcServer::command	IrcServer::recup_cmd ( const std::string & command ) const
 	std::map<std::string, IrcServer::command>::const_iterator	it;
 
 	it = this->_pointer_to_valid_cmd.find(command);
-    if (it != this->_pointer_to_valid_cmd.end())
-        return (it->second);
+	if (it != this->_pointer_to_valid_cmd.end())
+		return (it->second);
 	else
-        return (&cmd_NULL);
+		return (&cmd_NULL);
 }
-            
+			
 std::string		IrcServer::getServerPassword( void )
 {
-    return (this->_server_password);
+	return (this->_server_password);
 }

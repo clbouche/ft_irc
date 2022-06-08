@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_replies.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 10:53:36 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 14:00:04 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_CREATED(arg1);
 		case 4:
 			return reply + RPL_MYINFO(arg1, arg2, arg3, arg4);
+		case 221:
+			return reply + RPL_UMODEIS(arg1);
 		case 331:
 			return reply + RPL_NOTOPIC(arg1);
 		case 332:
@@ -102,6 +104,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_NEEDMOREPARAMS(arg1);
 		case 462:
 			return reply + ERR_ALREADYREGISTRED();
+		case 502:
+			return reply + ERR_USERSDONTMATCH();
 	
 	}
 	return (reply);

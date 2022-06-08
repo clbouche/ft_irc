@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/07 17:31:43 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:58:08 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,11 +392,12 @@
 //                   message was sent with a nickname parameter and that
 //                   the a mode flag sent was not recognized.
 
-//         502     ERR_USERSDONTMATCH
-//                         ":Cant change mode for other users"
-
-//                 - Error sent to any user trying to view or change the
-//                   user mode for a user other than themselves.
+/**
+ * @brief ERR 502
+ * Error sent to any user trying to view or change the
+ * user mode for a user other than themselves.
+ */
+# define ERR_USERSDONTMATCH() (":Cannot change mode for other users\r\n")
 
 
 	/* ------------------------------------------------------------- */
@@ -724,7 +725,12 @@
 
     //                     - To answer a query about a client's own mode,
     //                       RPL_UMODEIS is sent back.
-
+/**
+ * @brief ERR 221
+ *         - To answer a query about a client's own mode,
+ *          RPL_UMODEIS is sent back.
+ */
+# define RPL_UMODEIS(userModes) ("Your user mode is [" + userModes + "]\r\n")
     //     251     RPL_LUSERCLIENT
     //                     ":There are <integer> users and <integer> \
     //                      invisible on <integer> servers"

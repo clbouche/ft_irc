@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/07 13:48:53 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 14:00:23 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "../includes/headers.hpp"
 
 	user::user() : _nickName(""), _realName(""), _userName(""), _hostName(""),
-				_mode(""), _checkPassword(false), _isOper(false), _welcomeMsg(false),
+				_mode("+"), _checkPassword(false), _isOper(false), _welcomeMsg(false),
 				_isConnected(false)
 	{};
 
 	user::user(int sd, std::string hostname) : _nickName(""), _realName(""),
 									_userName(""), _hostName(hostname), 
-									_mode(""), _checkPassword(false),
+									_mode("+"), _checkPassword(false),
 									_isOper(false),_welcomeMsg(false), 
 									_isConnected(false), _sdUser(sd)
 	{}
@@ -103,9 +103,18 @@
 		this->_userName = username;
 	}
 
-	void	user::setMode(std::string mode)
+	void	user::setMode(std::string newMode)
 	{
-		this->_mode = mode;
+		size_t	inMode, i = 0;
+
+		while (i < newMode.length())
+		{
+			inMode = this->_mode.find_first_of(newMode.c_str()[i]);
+			if (inMode == std::string::npos)
+				this->_mode += newMode.c_str()[i];
+			i++;
+		}
+		// this->_mode = mode;
 	}
 
 	void	user::setCheckPassword(bool check)

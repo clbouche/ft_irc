@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:00 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 09:55:18 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:56:45 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void    cmd_join(IrcServer *serv, user	*currentUser, std::string & args);
 // void	cmd_kick(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_kill(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_list(IrcServer *serv, user *currentUser, std::string &args);
-// void	cmd_mode(IrcServer *serv, user *currentUser, std::string &args);
+void	cmd_mode(IrcServer *serv, user *currentUser, std::string &args);
 void	cmd_motd(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_names(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_nick(IrcServer *serv, user *currentUser, std::string &args);

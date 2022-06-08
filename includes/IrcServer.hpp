@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 10:02:07 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:49:20 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,13 @@ class   IrcServer {
 	 * @brief Get the User object 
 	 * 
 	 * @param fd socket of the user 
+	 * @return User* pointer to the user
+	 */
+	user 	 *getUserByNick(std::string nick);
+	/**
+	 * @brief Get the User object 
+	 * 
+	 * @param nick nickname of the user 
 	 * @return User* pointer to the user
 	 */
 	user 	*getUser(int fd);
