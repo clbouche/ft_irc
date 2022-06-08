@@ -35,14 +35,15 @@ void    cmd_mode( IrcServer *serv, user *currentUser, std::string & args )
 
 	user	*userTarget = serv->getUserByNick(target);
 	if (userTarget == NULL)
-		std::cout << "c cassé" << std::endl;
-	else
-		std::cout << "USERTARGET : {" << userTarget->getNickName() << "}" << std::endl;
+	{
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(502, currentUser, serv)));
+		return ;
+	}
 
 	pos == std::string::npos ? mode = "" : mode = args.substr(pos + 1 - mode.length(), tmpPos);
 	tmpPos == std::string::npos ? modeParams = "" : modeParams = tmp.substr(tmpPos + 1, tmp.length());
 	
-	std::cout << "TARGET : {" << target << "}" << std::endl << "MODE : {" << mode << "}" << std::endl << "MODEPARAMS : {" << modeParams << "}" << std::endl;
+	// std::cout << "TARGET : {" << target << "}" << std::endl << "MODE : {" << mode << "}" << std::endl << "MODEPARAMS : {" << modeParams << "}" << std::endl;
 
 	if (check_args(target, mode, modeParams, currentUser, serv))
 	{
@@ -52,7 +53,14 @@ void    cmd_mode( IrcServer *serv, user *currentUser, std::string & args )
 		}
 		else
 		{
-			userTarget->setMode(mode);
+			if (mode.c_str()[0] == '+')
+			{
+				userTarget->setMode(mode);
+			}
+			else
+			{
+				//FAIRE UN AUTRE BAIL
+			}
 			serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(221, currentUser, serv, currentUser->getMode())));
 		}
 	}

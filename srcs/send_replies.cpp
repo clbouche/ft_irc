@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/07 17:20:47 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:43:11 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_NEEDMOREPARAMS(arg1);
 		case 462:
 			return reply + ERR_ALREADYREGISTRED();
+		case 502:
+			return reply + ERR_USERSDONTMATCH();
 	
 	}
 	return (reply);

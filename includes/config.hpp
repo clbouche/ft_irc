@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:46 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/03 15:32:45 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:54:30 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define NICKNAME_VALID_CHAR "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_[]{}\\`|"
 
+# define CHANNEL_PREFIX		"&#+!" // channel name can only begin with one of those characters
 # define DATE "02.06.2022"
 # define VERSION "1.0"
 # define USERSMODES "aiwroOs"

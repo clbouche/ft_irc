@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/07 17:07:12 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:47:32 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,11 +375,12 @@
 //                   message was sent with a nickname parameter and that
 //                   the a mode flag sent was not recognized.
 
-//         502     ERR_USERSDONTMATCH
-//                         ":Cant change mode for other users"
-
-//                 - Error sent to any user trying to view or change the
-//                   user mode for a user other than themselves.
+/**
+ * @brief ERR 502
+ * Error sent to any user trying to view or change the
+ * user mode for a user other than themselves.
+ */
+# define ERR_USERSDONTMATCH() (":Cannot change mode for other users\r\n")
 
 
 	/* ------------------------------------------------------------- */
