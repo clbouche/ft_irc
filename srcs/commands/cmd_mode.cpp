@@ -52,6 +52,7 @@ void    cmd_mode( IrcServer *serv, user *currentUser, std::string & args )
 		}
 		else
 		{
+			userTarget->setMode(mode);
 			serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(221, currentUser, serv, currentUser->getMode())));
 		}
 	}
