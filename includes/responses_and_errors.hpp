@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/07 15:22:48 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:31:43 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@
  * 
  */
 # define RPL_TOPIC(channel, topic) (channel + " :" + topic + "\r\n")
+
+
 
 
     /**

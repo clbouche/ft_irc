@@ -9,6 +9,6 @@
 void    cmd_version( IrcServer *serv, user *currentUser, std::string & args )
 {
     (void)serv;
-    (void)currentUser;
+	(void)currentUser;
 	(void)args;
 }
