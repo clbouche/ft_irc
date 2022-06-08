@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/03 17:37:38 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:56:09 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,15 @@ class user
 
 		/**
 		 * @brief Set the nick name
-		 * @param mode the mode you want to set
+		 * @param mode the mode.s you want to set
 		 */
-		void	setMode(std::string mode);
+		void	setMode(std::string newMode);
+
+		/**
+		 * @brief Remove the nick name
+		 * @param mode the mode.s you want to remove
+		 */
+		void	removeMode(std::string newMode);
 
 		/**
 		 * @brief Set the Good Password object

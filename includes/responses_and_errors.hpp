@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 13:47:32 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 14:47:25 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,6 +374,14 @@
 //                 - Returned by the server to indicate that a MODE
 //                   message was sent with a nickname parameter and that
 //                   the a mode flag sent was not recognized.
+
+/**
+ * @brief ERR 501
+ * Returned by the server to indicate that a MODE
+ * message was sent with a nickname parameter and that
+ * the a mode flag sent was not recognized.
+ */
+# define ERR_UMODEUNKNOWNFLAG() (":Unknown MODE flag\r\n")
 
 /**
  * @brief ERR 502

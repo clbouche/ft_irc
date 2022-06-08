@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/08 11:45:06 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:28:22 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,19 @@
 				this->_mode += newMode.c_str()[i];
 			i++;
 		}
-		// this->_mode = mode;
+	}
+
+	void	user::removeMode(std::string newMode)
+	{
+		size_t	inMode, i = 0;
+
+		while (i < newMode.length())
+		{
+			inMode = this->_mode.find_first_of(newMode.c_str()[i]);
+			if (inMode != std::string::npos)
+				this->_mode.erase(std::remove(this->_mode.begin(),this->_mode.end(),newMode.c_str()[i]));
+			i++;
+		}
 	}
 
 	void	user::setCheckPassword(bool check)
