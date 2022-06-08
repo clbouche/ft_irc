@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:39:32 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/07 17:23:58 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:04:30 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../includes/channels.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
+#include "../includes/utils.hpp"
 
 /**
  Command: TOPIC
@@ -73,6 +74,9 @@ void    cmd_topic( IrcServer *serv, user *currentUser, std::string & args )
 	pos == std::string::npos ? topic = "" : topic = args.substr(pos + 2, args.length());
     channels		*channel_topic = serv->currentChannels.find(channel)->second;
     
+
+    if (channel_topic == NULL)
+        return ;
     if (check_args(serv, currentUser, args, channel_topic) == true)
     {
         if (args.find_first_of(":") == std::string::npos)

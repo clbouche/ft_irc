@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:28 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 14:23:00 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:57:07 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "../includes/channels.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
+#include "../includes/utils.hpp"
+
  
 void    cmd_NULL( IrcServer *serv, user	*currentUser, std::string & args )
 {

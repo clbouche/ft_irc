@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/07 16:54:00 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:59:09 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ channels::channels() : _topic("")
 {
 }
 
-channels::channels(std::string name, user *chanOperator) : _topic("")
+channels::channels(std::string name, user *chanOperator) : _topic(""), _password(""), 
+									_passSet(false), _userLimit(INT32_MAX) 
 {
 	// if (CHECK_NAME == ok) // ->> CHECK IF THE NAME RESPECT THE NORM
 	// {
@@ -48,6 +49,11 @@ std::string	channels::getName()
 	return (this->_name);
 }
 
+std::string	channels::getMode()
+{
+	return (this->_mode);
+}
+
 user		*channels::getOper()
 {
 	return (this->_oper);
@@ -61,6 +67,21 @@ std::map<int, user*>&	channels::getUsers()
 std::string			channels::getTopic()
 {
 	return (this->_topic);
+}
+
+int					channels::getUserLimit()
+{
+	return (this->_userLimit);
+}
+
+int					channels::getNbUsers()
+{
+	return (this->_nbUsers);
+}
+
+bool				channels::getPassSet()
+{
+	return (this->_passSet);
 }
 
 void		channels::setName(std::string name)
@@ -86,6 +107,16 @@ void		channels::addUser(user *newUser)
 bool		channels::UserInChan(user *user)
 {
 	if (getUsers().find(user->getSdUser()) != getUsers().end())
+		return true;
+	return false;
+}
+
+bool		channels::UserIsBan(user *currentUser)
+{
+	std::vector<std::string>::iterator	it;
+	
+	it = std::find(_banUsers.begin(), _banUsers.end(), currentUser->getNickName());
+	if (it != _banUsers.end())
 		return true;
 	return false;
 }

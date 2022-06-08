@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 16:50:43 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 09:37:50 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:01:07 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../../includes/IrcServer.hpp"
 #include "../../includes/user.hpp"
 #include "../../includes/headers.hpp"
+#include "../includes/utils.hpp"
 
 /**
  * @brief 

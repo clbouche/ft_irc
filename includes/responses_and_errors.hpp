@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 13:58:08 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:53:46 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,35 @@
 # define ERR_ALREADYREGISTRED() (":Unauthorized command (already registered)\r\n")
 
 
+/**
+ * @brief ERR 471
+ * 
+ */
+# define ERR_CHANNELISFULL(channel) (channel + " :Cannot join channel (+l)\r\n")
 
+/**
+ * @brief ERR 473
+ * 
+ */
+# define    ERR_INVITEONLYCHAN(channel) (channel + " :Cannot join channel (+i)\r\n")
+
+/**
+ * @brief ERR 474
+ * 
+ */
+# define ERR_BANNEDFROMCHAN(channel) (channel + " :Cannot join channel (+b)\r\n")
+
+/**
+ * @brief ERR 475
+ * 
+ */
+# define ERR_BADCHANNELKEY(channel) (channel + " :Cannot join channel (+k)\r\n")
+
+/**
+ * @brief ERR 476
+ * 
+ */
+# define ERR_BADCHANMASK(channel) (channel + " :Bad Channel Mask\r\n")
 
 
 
@@ -345,16 +373,11 @@
 
 //         467     ERR_KEYSET
 //                         "<channel> :Channel key already set"
-//         471     ERR_CHANNELISFULL
-//                         "<channel> :Cannot join channel (+l)"
+
 //         472     ERR_UNKNOWNMODE
 //                         "<char> :is unknown mode char to me"
-//         473     ERR_INVITEONLYCHAN
-//                         "<channel> :Cannot join channel (+i)"
-//         474     ERR_BANNEDFROMCHAN
-//                         "<channel> :Cannot join channel (+b)"
-//         475     ERR_BADCHANNELKEY
-//                         "<channel> :Cannot join channel (+k)"
+
+
 //         481     ERR_NOPRIVILEGES
 //                         ":Permission Denied- You're not an IRC operator"
 

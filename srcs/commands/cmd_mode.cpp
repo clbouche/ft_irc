@@ -5,6 +5,8 @@
 #include "../includes/channels.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
+#include "../includes/utils.hpp"
+
 
 static bool check_args(std::string target, std::string mode, std::string modeParams, user *currentUser, IrcServer *serv)
 {

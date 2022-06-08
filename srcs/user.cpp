@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/08 14:00:23 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 14:59:05 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,22 @@
 
 	user::user() : _nickName(""), _realName(""), _userName(""), _hostName(""),
 				_mode("+"), _checkPassword(false), _isOper(false), _welcomeMsg(false),
-				_isConnected(false)
+				_isConnected(false), _channelsJoined(0)
 	{};
 
 	user::user(int sd, std::string hostname) : _nickName(""), _realName(""),
 									_userName(""), _hostName(hostname), 
 									_mode("+"), _checkPassword(false),
 									_isOper(false),_welcomeMsg(false), 
-									_isConnected(false), _sdUser(sd)
+									_isConnected(false), _sdUser(sd),
+									_channelsJoined(0)
 	{}
 
 	user::user(const user & src) : _nickName(src._nickName), _realName(src._realName), 
 							_userName(src._userName), _hostName(src._hostName),
 							_mode(src._mode), _checkPassword(src._checkPassword), 
 							_isOper(src._isOper), _welcomeMsg(src._welcomeMsg),
-							_sdUser(src._sdUser)
+							_sdUser(src._sdUser), _channelsJoined(src._channelsJoined)
 	{}
 
 	user::~user()
@@ -85,6 +86,12 @@
 	{
 		return (this->_isConnected);
 	}
+
+	int			user::getChannelsJoined()
+	{
+		return (this->_channelsJoined);
+	}
+
 
 	/* ------------------------- SETTER ------------------------- */
 

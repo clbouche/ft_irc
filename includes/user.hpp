@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/07 13:48:58 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 14:58:36 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class user
 		bool			_welcomeMsg;
 		bool			_isConnected; // did the user give the password ?
 		int				_sdUser; // a token to identify the maybe the sd used for the user ?
+		int				_channelsJoined;
 
 	public:
 
@@ -120,6 +121,13 @@ class user
 		 * @return false if not
 		 */
 		bool	getConnexion();
+
+		/**
+		 * @brief Get the Channels Joined object
+		 * 
+		 * @return int numbers of channels where the user is
+		 */
+		int		getChannelsJoined();
 
 		/**
 		 * 

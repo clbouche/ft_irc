@@ -3,6 +3,7 @@
 #include "../../includes/channels.hpp"
 #include "../../includes/IrcServer.hpp"
 #include "../../includes/user.hpp"
+#include "../includes/utils.hpp"
 
 /**
  Command: NICK

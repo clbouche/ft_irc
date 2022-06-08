@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_replies.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 14:00:04 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:54:05 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,12 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_ENDOFMOTD();
 		case 401:
 			return reply + ERR_NOSUCHNICK(arg1);
+		case 403:
+			return reply + ERR_NOSUCHCHANNEL(arg1);
 		case 404:
 			return reply + ERR_CANNOTSENDTOCHAN(arg1);
+		case 405:
+			return reply + ERR_TOOMANYCHANNELS(arg1);
 		case 411:
 			return reply + ERR_NORECIPIENT(arg1);
 		case 412:
@@ -104,6 +108,16 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_NEEDMOREPARAMS(arg1);
 		case 462:
 			return reply + ERR_ALREADYREGISTRED();
+		case 471:
+			return reply + ERR_CHANNELISFULL(arg1);
+		case 473:
+			return reply + ERR_INVITEONLYCHAN(arg1);
+		case 474:
+			return reply + ERR_BANNEDFROMCHAN(arg1);
+		case 475:
+			return reply + ERR_BADCHANNELKEY(arg1);
+		case 476:
+			return reply + ERR_BADCHANMASK(arg1);
 		case 502:
 			return reply + ERR_USERSDONTMATCH();
 	

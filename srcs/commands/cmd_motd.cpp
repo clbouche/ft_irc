@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:04:48 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 10:59:50 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:00:51 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../includes/channels.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
+#include "../includes/utils.hpp"
 
 void    cmd_motd(IrcServer *serv, user *currentUser, std::string & args)
 {
