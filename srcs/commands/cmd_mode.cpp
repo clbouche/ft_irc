@@ -32,9 +32,18 @@ void    cmd_mode( IrcServer *serv, user *currentUser, std::string & args )
    	size_t		tmpPos = tmp.find_first_of(" ");
 	std::string mode;
 	std::string modeParams = "";
+
+	user	*userTarget = serv->getUserByNick(target);
+	if (userTarget == NULL)
+		std::cout << "c cassé" << std::endl;
+	else
+		std::cout << "USERTARGET : {" << userTarget->getNickName() << "}" << std::endl;
+
 	pos == std::string::npos ? mode = "" : mode = args.substr(pos + 1 - mode.length(), tmpPos);
 	tmpPos == std::string::npos ? modeParams = "" : modeParams = tmp.substr(tmpPos + 1, tmp.length());
+	
 	std::cout << "TARGET : {" << target << "}" << std::endl << "MODE : {" << mode << "}" << std::endl << "MODEPARAMS : {" << modeParams << "}" << std::endl;
+
 	if (check_args(target, mode, modeParams, currentUser, serv))
 	{
 		if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
