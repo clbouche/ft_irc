@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/07 16:33:46 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:53:36 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_NORECIPIENT(arg1);
 		case 412:
 			return reply + ERR_NOTEXTTOSEND();
+		case 422:
+			return reply + ERR_NOMOTD();
 		case 431:
 			return reply + ERR_NONICKNAMEGIVEN();
 		case 432:

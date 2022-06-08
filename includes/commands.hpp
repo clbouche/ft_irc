@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:00 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/07 17:30:09 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 09:55:18 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void    cmd_privmsg( IrcServer *serv, user *currentUser, std::string & args);
 void	cmd_quit(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_time(IrcServer *serv, user *currentUser, std::string &args);
 void	cmd_topic(IrcServer *serv, user *currentUser, std::string &args);
-void	cmd_version(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_who(IrcServer *serv, user *currentUser, std::string &args);
 
 void    cmd_NULL( IrcServer *serv, user	*currentUser, std::string & args );
