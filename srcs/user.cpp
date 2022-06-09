@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/08 14:59:05 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:39:55 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,10 @@
 		return (this->_channelsJoined);
 	}
 
+	std::list<channels *>	user::getListOfChans()
+	{
+		return (this->_listOfChans);
+	}
 
 	/* ------------------------- SETTER ------------------------- */
 
@@ -143,5 +147,16 @@
 	{
 		this->_isConnected = connect;
 	}
+
+	void	user::setChannelsJoined(int	nb)
+	{
+		this->_channelsJoined = nb;
+	}
+	
+	void	user::setListOfChans(channels *chan)
+	{
+		_listOfChans.push_back(chan);
+	}
+
 
 	/* ------------------------- OTHERS ------------------------- */

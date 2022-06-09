@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:52 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/02 17:13:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:39:10 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,9 @@
 
 # include "config.hpp"
 # include "user.hpp"
-# include <netdb.h>
-# include <unistd.h>
-# include <arpa/inet.h>
-# include <sys/types.h>
-# include <sys/socket.h>
-# include <netinet/in.h>
-# include <sys/time.h>
-# include <algorithm>
-# include <string>
-# include <cstring>
-# include <unistd.h>
-# include <cerrno>
-# include <map>
+# include "headers.hpp"
+
+class user;
 
 class tcpServer
 {

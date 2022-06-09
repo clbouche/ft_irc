@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:00 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 13:56:45 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:41:28 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 #include "IrcServer.hpp"
 #include "headers.hpp"
-#include <iostream>
 
 void    parse_cmd(std::string cmd, IrcServer *IRC, user	*currentUser);
 
@@ -38,7 +37,7 @@ void	cmd_motd(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_nick(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_notice(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_oper(IrcServer *serv, user *currentUser, std::string &args);
-// void	cmd_part(IrcServer *serv, user *currentUser, std::string &args);
+void	cmd_part(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_ping(IrcServer *serv, user *currentUser, std::string &args);
 void    cmd_privmsg( IrcServer *serv, user *currentUser, std::string & args);
 void	cmd_quit(IrcServer *serv, user *currentUser, std::string &args);

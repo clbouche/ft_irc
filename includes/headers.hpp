@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:42:26 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 17:56:16 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:33:26 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <vector>
 #include <map>
 #include <stack>
+#include <list>
 #include <iostream>
 #include <string>
 #include <cstddef>
@@ -29,13 +30,13 @@
 # include <sys/time.h>
 # include <algorithm>
 # include <cstring>
-# include <unistd.h>
 #include <stdint.h>
 # include <cerrno>
+
 
 #include "colors.hpp"
 #include "responses_and_errors.hpp"
 #include "config.hpp"
-
+#include "utils.hpp"
 
 #endif

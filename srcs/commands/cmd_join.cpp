@@ -6,14 +6,13 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 18:06:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:21:35 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/headers.hpp"
 #include "../../includes/commands.hpp"
-#include "../../includes/channels.hpp"
 #include "../../includes/IrcServer.hpp"
 #include "../../includes/user.hpp"
 #include "../../includes/utils.hpp"
@@ -78,18 +77,8 @@
                                    on channel #Twilight_zone
 
  */
-static bool		check_args(IrcServer *serv, user *currentUser, std::string & args)
+static bool		check_args(IrcServer *serv, user *currentUser, std::string & chan_name)
 {
-	std::vector<std::string>		split_args = ft_split(args," ");
-	
-	//si JOIN n'a pas de nom de channel a rejoindre
-	if (args == "")
-	{
-		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-		 					send_replies(461, currentUser, serv, "JOIN")));
-		return false;
-	}
-	std::string						chan_name = split_args[0];
 	//si le prefix du nom de channel n'est pas valide
 	if ((strchr(CHANNEL_PREFIX, chan_name.c_str()[0]) == NULL))
 	{
@@ -114,7 +103,7 @@ static bool		check_args(IrcServer *serv, user *currentUser, std::string & args)
 	return true;
 }
 
-bool		check_chan(IrcServer *serv, user *currentUser, channels *channel)
+bool		check_chan(IrcServer *serv, user *currentUser, channels *channel, std::string password)
 {
 	//si l'ajout de l'utilisateur fait depasser le nombre maximum de users
 	if (channel->getNbUsers() == channel->getUserLimit())
@@ -138,7 +127,7 @@ bool		check_chan(IrcServer *serv, user *currentUser, channels *channel)
 		return false;
 	}
 	// si l'utilisateur n'a pas entre la bonne clef 
-	if (channel->getPassSet() == true && )
+	if (channel->getPassSet() == true && channel->getPassword() != password)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 					send_replies(475, currentUser, serv, channel->getName())));
@@ -148,26 +137,85 @@ bool		check_chan(IrcServer *serv, user *currentUser, channels *channel)
 }
 
 void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
-{	
-	if(check_args(serv, currentUser, args) == true)
+{
+	channels		*channel;
+	std::string		chan_name;
+	std::string		pass_chan;
+	size_t 			j = 0;
+	size_t			pos = args.find_first_of(" ");
+	std::string		chans = args.substr(0, pos);
+	
+	// la regle "JOIN 0" permet a l'user de quitter tous les chans dans lequel il est
+	if (args[args.size() - 1] == '0')
 	{
-		std::vector<std::string>		split_args = ft_split(args," ");
-		std::string						chan_name = split_args[0];
-
-		channels	*channel = serv->currentChannels.find(chan_name)->second;
-		//si le channel n'existe pas encore
-		if(channel == NULL)
+		std::list<channels *>				chansOfUser;
+		std::list<channels *>::iterator		chan_it;
+		
+		chansOfUser = currentUser->getListOfChans();
+		for (chan_it = chansOfUser.begin() ; chan_it != chansOfUser.end() ; chan_it++ )
 		{
-			channels	*newChan = new channels(chan_name, currentUser);
-			serv->currentChannels.insert(std::make_pair(chan_name, newChan));
+			chan_name = (*chan_it)->getName();
+			cmd_part(serv, currentUser, chan_name);
 		}
-		else if (check_chan(serv, currentUser, channel) == true)
-		{
-			user *toAdd = new user(*currentUser);
-			channel->addUser(toAdd);
-			serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-					send_replies(332, currentUser, serv, channel->getName(), 
-					channel->getTopic())));
-		}
+		currentUser->setChannelsJoined(0);
+		
 	}
+
+	//si JOIN n'a pas de nom de channel a rejoindre
+	if (chans == "")
+	{
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+		 					send_replies(461, currentUser, serv, "JOIN")));
+		return ;
+	}
+	
+	std::string		passwords;
+	pos == std::string::npos ? passwords = "" : passwords = args.substr(pos + 1, args.size());
+	std::vector<std::string>		split_channels = ft_split(chans, ",");
+	std::vector<std::string>		split_passwords = ft_split(passwords, ",");
+
+	std::vector<std::string>::iterator	it;
+	for (it = split_channels.begin() ; it != split_channels.end(); it++)
+	{
+		chan_name = split_channels[j];
+		j >= split_passwords.size() ? pass_chan = "" : pass_chan = split_passwords[j];
+		
+		serv->currentChannels.find(chan_name) == serv->currentChannels.end() ? 
+			channel = NULL : channel = serv->currentChannels.find(chan_name)->second;
+			
+		if(check_args(serv, currentUser, chan_name) == true)
+		{
+			if(channel == NULL)
+			{
+				std::cout << "enter ici" << std::endl;
+				//si le channel n'existe pas encore, creation du chan + ajout du user
+				channels	*newChan = new channels(chan_name, currentUser);
+				serv->currentChannels.insert(std::make_pair(chan_name, newChan));
+				currentUser->setListOfChans(newChan);
+				currentUser->setChannelsJoined(currentUser->getChannelsJoined() + 1);
+
+			}
+			else if (check_chan(serv, currentUser, channel, pass_chan) == true)
+			{
+				std::cout << "enter here" << std::endl;
+				//si le chan existe : 
+				// check si le user n'est pas deja dans le chan 
+				// sinon ajout du user 
+				if (channel->UserInChan(currentUser) == false)
+				{
+					user *toAdd = new user(*currentUser);
+					channel->addUser(toAdd);
+					currentUser->setListOfChans(channel);
+					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+							send_replies(332, currentUser, serv, channel->getName(), 
+							channel->getTopic())));
+					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+							send_replies(353, currentUser, serv, channel->getName(),
+							currentUser->getNickName())));
+				}
+			}
+		}
+		j++;
+	}
+
 }

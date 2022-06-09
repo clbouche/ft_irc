@@ -6,17 +6,18 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/08 17:59:24 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 15:20:35 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef		CHANNELS_HPP
 # define	CHANNELS_HPP
 
-# include "config.hpp"
 # include "IrcServer.hpp"
 # include "user.hpp"
-#include "headers.hpp"
+# include "headers.hpp"
+
+class user;
 
 class channels
 {
@@ -45,6 +46,7 @@ class channels
 		user					*getOper();
 		std::map<int, user*>&	getUsers();
 		std::string				getTopic();
+		std::string				getPassword();
 		int						getUserLimit();
 		int						getNbUsers();
 		bool					getPassSet();

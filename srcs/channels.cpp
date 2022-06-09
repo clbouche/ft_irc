@@ -6,14 +6,14 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/08 17:59:09 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:33:47 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/channels.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/tcpServer.hpp"
-#include "../includes/user.hpp"
+// #include "../includes/user.hpp"
 #include "../includes/commands.hpp"
 #include "../includes/headers.hpp"
 
@@ -26,7 +26,7 @@ channels::channels() : _topic("")
 }
 
 channels::channels(std::string name, user *chanOperator) : _topic(""), _password(""), 
-									_passSet(false), _userLimit(INT32_MAX) 
+									_passSet(false), _userLimit(INT32_MAX), _nbUsers(0)
 {
 	// if (CHECK_NAME == ok) // ->> CHECK IF THE NAME RESPECT THE NORM
 	// {
@@ -68,6 +68,12 @@ std::string			channels::getTopic()
 {
 	return (this->_topic);
 }
+
+std::string			channels::getPassword()
+{
+	return (this->_password);
+}
+
 
 int					channels::getUserLimit()
 {

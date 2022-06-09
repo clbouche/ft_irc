@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 16:53:46 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:14:29 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@
 # define RPL_TOPIC(channel, topic) (channel + " :" + topic + "\r\n")
 
 
-
+    //     353     RPL_NAMREPLY
+    //                     "<channel> :[[@|+]<nick> [[@|+]<nick> [...]]]"
 
     /**
      *  When responding to the MOTD message and the MOTD file
@@ -78,6 +79,12 @@
  * 
  */
 # define RPL_MOTDSTART(server) (":- " + server + " Message of the day - \r\n")
+
+/**
+ * @brief RPL 353
+ * 
+ */
+# define RPL_NAMREPLY(channel) ("= " + channel + " :")																// 353
 
 /**
  * @brief RPL 372 
@@ -572,8 +579,7 @@
     //               after processing each list item with <name> being
     //               the item.
 
-    //     353     RPL_NAMREPLY
-    //                     "<channel> :[[@|+]<nick> [[@|+]<nick> [...]]]"
+
     //     366     RPL_ENDOFNAMES
     //                     "<channel> :End of /NAMES list"
 
