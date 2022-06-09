@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 16:28:21 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:37:35 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_MYINFO(arg1, arg2, arg3, arg4);
 		case 221:
 			return reply + RPL_UMODEIS(arg1);
+		case 322:
+			return reply + RPL_LIST(arg1, arg2);
+		case 323:
+			return reply + RPL_LISTEND();
 		case 331:
 			return reply + RPL_NOTOPIC(arg1);
 		case 332:
@@ -84,6 +88,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_ENDOFMOTD();
 		case 401:
 			return reply + ERR_NOSUCHNICK(arg1);
+		case 402:
+			return reply + ERR_NOSUCHSERVER(arg1);
 		case 403:
 			return reply + ERR_NOSUCHCHANNEL(arg1);
 		case 404:

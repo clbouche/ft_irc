@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 16:28:15 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:12:51 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,24 @@
 # define RPL_MYINFO(servername, version, userModes, channelModes) (servername + \
                     " " + version + " " + userModes + " " + channelModes + "\r\n")
 
+/**
+ * @brief ERR 322
+ * 
+ */
+# define RPL_LIST(channel, topic) (channel + " :" + topic + "\r\n")
+
+/**
+ * @brief ERR 323
+ * 
+ */
+# define RPL_LISTEND() (":End of LIST\r\n")
+/**
+ *      - Replies RPL_LIST, RPL_LISTEND mark the actual replies
+           with data and end of the server's response to a LIST
+           command.  If there are no channels available to return,
+           only the end reply MUST be sent.
+ * 
+ */
 
 
 /**
@@ -61,9 +79,12 @@
  */
 # define RPL_TOPIC(channel, topic) (channel + " :" + topic + "\r\n")
 
+/**
+ * @brief RPL 353
+ * 
+ */
+# define RPL_NAMREPLY(channel, nickname) ("= " + channel + " :" + nickname + "\r\n")																// 353
 
-    //     353     RPL_NAMREPLY
-    //                     "<channel> :[[@|+]<nick> [[@|+]<nick> [...]]]"
 
     /**
      *  When responding to the MOTD message and the MOTD file
@@ -79,12 +100,6 @@
  * 
  */
 # define RPL_MOTDSTART(server) (":- " + server + " Message of the day - \r\n")
-
-/**
- * @brief RPL 353
- * 
- */
-# define RPL_NAMREPLY(channel, nickname) ("= " + channel + " :" + nickname + "\r\n")																// 353
 
 /**
  * @brief RPL 372 

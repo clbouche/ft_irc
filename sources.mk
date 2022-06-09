@@ -17,10 +17,8 @@ SOURCES		+=                          		\
 
 SOURCES		+=                          		\
 		srcs/commands/cmd_privmsg.cpp      	\
-		srcs/commands/cmd_admin.cpp        	\
 		srcs/commands/cmd_join.cpp         	\
 		srcs/commands/cmd_user.cpp         	\
-		srcs/commands/cmd_time.cpp         	\
 		srcs/commands/cmd_mode.cpp         	\
 		srcs/commands/cmd_list.cpp         	\
 		srcs/commands/cmd_motd.cpp         	\
@@ -32,12 +30,9 @@ SOURCES		+=                          		\
 		srcs/commands/cmd_ping.cpp         	\
 		srcs/commands/cmd_who.cpp          	\
 		srcs/commands/cmd_pass.cpp         	\
-		srcs/commands/cmd_kill.cpp         	\
 		srcs/commands/cmd_nick.cpp         	\
 		srcs/commands/cmd_quit.cpp         	\
 		srcs/commands/cmd_invite.cpp       	\
-		srcs/commands/cmd_die.cpp          	\
 		srcs/commands/cmd_part.cpp         	\
-		srcs/commands/cmd_away.cpp         	\
 
 

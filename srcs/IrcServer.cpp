@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 11:41:18 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:22:34 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ void    IrcServer::create_pointer(void)
     this->_pointer_to_valid_cmd.insert(std::make_pair("NICK", &cmd_nick));
     this->_pointer_to_valid_cmd.insert(std::make_pair("USER", &cmd_user));
     this->_pointer_to_valid_cmd.insert(std::make_pair("JOIN", &cmd_join));    
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("DIE", &cmd_die));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("INVITE", &cmd_invite));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("KICK", &cmd_kick));
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("KILL", &cmd_kill));
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("LIST", &cmd_list));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("LIST", &cmd_list));
     this->_pointer_to_valid_cmd.insert(std::make_pair("MODE", &cmd_mode));
     this->_pointer_to_valid_cmd.insert(std::make_pair("MOTD", &cmd_motd));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("NAMES", &cmd_names));
@@ -69,7 +67,6 @@ void    IrcServer::create_pointer(void)
     // this->_pointer_to_valid_cmd.insert(std::make_pair("PING", &cmd_ping));
     this->_pointer_to_valid_cmd.insert(std::make_pair("PRIVMSG", &cmd_privmsg));
     this->_pointer_to_valid_cmd.insert(std::make_pair("QUIT", &cmd_quit));
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("TIME", &cmd_time));
     this->_pointer_to_valid_cmd.insert(std::make_pair("TOPIC", &cmd_topic));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("WHO", &cmd_who));
 }
