@@ -6,13 +6,13 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/06/03 15:36:05 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:34:20 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/headers.hpp"
 #include"../includes/tcpServer.hpp"
-#include <sys/time.h>
+#include "../includes/user.hpp"
 
 	/* ------------------------------------------------------------- */
 	/* ------------------------ CONSTRUCTORS ----------------------- */	
@@ -40,7 +40,7 @@ tcpServer::tcpServer(int port)
 		exit(EXIT_FAILURE);
 	}
 
-	//set the server's socker to receive multiple connections
+	//set the server's socket to receive multiple connections
 	if(setsockopt(this->_masterSocket, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(opt)) < 0)
 	{
 		std::cerr << std::strerror(errno) << std::endl;

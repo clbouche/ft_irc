@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_user.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 09:31:55 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 10:29:15 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:00:30 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../includes/channels.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
+#include "../includes/utils.hpp"
 
 /**
   Command: USER

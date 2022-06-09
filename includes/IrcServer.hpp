@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 10:49:20 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:56:08 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #ifndef IRCSERVER_HPP
 # define IRCSERVER_HPP
 
-#include <map>
-#include <string>
+#include "headers.hpp"
 #include "tcpServer.hpp"
 #include "user.hpp"
 #include "channels.hpp"

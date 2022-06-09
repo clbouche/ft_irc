@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 11:47:43 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:27:00 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,24 @@
 # define RPL_MYINFO(servername, version, userModes, channelModes) (servername + \
                     " " + version + " " + userModes + " " + channelModes + "\r\n")
 
+
+
+/**
+ * @brief RPL 331
+ * 
+ */
+# define RPL_NOTOPIC(channel) (channel + " :No topic is set\r\n")
+
+/**
+ * @brief RPL 332
+ * 
+ */
+# define RPL_TOPIC(channel, topic) (channel + " :" + topic + "\r\n")
+
+
+    //     353     RPL_NAMREPLY
+    //                     "<channel> :[[@|+]<nick> [[@|+]<nick> [...]]]"
+
     /**
      *  When responding to the MOTD message and the MOTD file
         is found, the file is displayed line by line, with
@@ -61,6 +79,12 @@
  * 
  */
 # define RPL_MOTDSTART(server) (":- " + server + " Message of the day - \r\n")
+
+/**
+ * @brief RPL 353
+ * 
+ */
+# define RPL_NAMREPLY(channel) ("= " + channel + " :")																// 353
 
 /**
  * @brief RPL 372 
@@ -300,7 +324,35 @@
 # define ERR_ALREADYREGISTRED() (":Unauthorized command (already registered)\r\n")
 
 
+/**
+ * @brief ERR 471
+ * 
+ */
+# define ERR_CHANNELISFULL(channel) (channel + " :Cannot join channel (+l)\r\n")
 
+/**
+ * @brief ERR 473
+ * 
+ */
+# define    ERR_INVITEONLYCHAN(channel) (channel + " :Cannot join channel (+i)\r\n")
+
+/**
+ * @brief ERR 474
+ * 
+ */
+# define ERR_BANNEDFROMCHAN(channel) (channel + " :Cannot join channel (+b)\r\n")
+
+/**
+ * @brief ERR 475
+ * 
+ */
+# define ERR_BADCHANNELKEY(channel) (channel + " :Cannot join channel (+k)\r\n")
+
+/**
+ * @brief ERR 476
+ * 
+ */
+# define ERR_BADCHANMASK(channel) (channel + " :Bad Channel Mask\r\n")
 
 
 
@@ -328,8 +380,7 @@
 
 //         467     ERR_KEYSET
 //                         "<channel> :Channel key already set"
-//         471     ERR_CHANNELISFULL
-//                         "<channel> :Cannot join channel (+l)"
+
 //         472     ERR_UNKNOWNMODE
 //                         "<char> :is unknown mode char to me"
 /**
@@ -546,8 +597,7 @@
     //               after processing each list item with <name> being
     //               the item.
 
-    //     353     RPL_NAMREPLY
-    //                     "<channel> :[[@|+]<nick> [[@|+]<nick> [...]]]"
+
     //     366     RPL_ENDOFNAMES
     //                     "<channel> :End of /NAMES list"
 

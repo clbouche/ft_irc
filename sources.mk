@@ -30,7 +30,6 @@ SOURCES		+=                          		\
 		srcs/commands/cmd_notice.cpp       	\
 		srcs/commands/cmd_topic.cpp        	\
 		srcs/commands/cmd_ping.cpp         	\
-		srcs/commands/cmd_version.cpp      	\
 		srcs/commands/cmd_who.cpp          	\
 		srcs/commands/cmd_pass.cpp         	\
 		srcs/commands/cmd_kill.cpp         	\

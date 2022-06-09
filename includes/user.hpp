@@ -6,15 +6,16 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/08 16:56:09 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:27:11 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef		USER_HPP
 # define	USER_HPP
 
-# include <iostream>
-# include "config.hpp"
+# include "headers.hpp"
+
+class channels;
 
 class user
 {
@@ -22,16 +23,18 @@ class user
 	protected:
 
 		//user's names
-		std::string		_nickName;
-		std::string		_realName;
-		std::string		_userName;
-		std::string		_hostName;
-		std::string		_mode; // mode(s) of the users, a string wth all the modes
-		bool			_checkPassword;
-		bool			_isOper; // is the user operator or not
-		bool			_welcomeMsg;
-		bool			_isConnected; // did the user give the password ?
-		int				_sdUser; // a token to identify the maybe the sd used for the user ?
+		std::string				_nickName;
+		std::string				_realName;
+		std::string				_userName;
+		std::string				_hostName;
+		std::string				_mode; // mode(s) of the users, a string wth all the modes
+		bool					_checkPassword;
+		bool					_isOper; // is the user operator or not
+		bool					_welcomeMsg;
+		bool					_isConnected; // did the user give the password ?
+		int						_sdUser; // a token to identify the maybe the sd used for the user ?
+		int						_channelsJoined;
+		std::list<channels *>	_listOfChans;
 
 	public:
 
@@ -86,7 +89,7 @@ class user
 		 * @brief Get the Host Name object
 		 * 
 		 */
-		std::string getHostName();
+		std::string getHostNameUser();
 
 		/**
 		 * @brief Access to the mode
@@ -120,6 +123,20 @@ class user
 		 * @return false if not
 		 */
 		bool	getConnexion();
+
+		/**
+		 * @brief Get the Channels Joined object
+		 * 
+		 * @return int numbers of channels where the user is
+		 */
+		int		getChannelsJoined();
+
+		/**
+		 * @brief Get the List Of Chans object
+		 * 
+		 * @return std::list<channels *> list of all the users's channels
+		 */
+		std::list<channels *>	getListOfChans();
 
 		/**
 		 * 
@@ -190,6 +207,19 @@ class user
 		 * 
 		 */
 		void	setConnexion(bool connect);
+
+		/**
+		 * @brief Set the nb of the chans
+		 * 
+		 */
+		void	setChannelsJoined(int	nb);
+
+		/**
+		 * @brief Set the Channels Joined object
+		 * 
+		 * @param chan Add a channel where the user is in
+		 */
+		void	setListOfChans(channels *chan);
 
 		bool	check_connexion( void );
 

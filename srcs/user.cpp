@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 14:38:37 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:27:29 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,22 @@
 
 	user::user() : _nickName(""), _realName(""), _userName(""), _hostName(""),
 				_mode("+"), _checkPassword(false), _isOper(false), _welcomeMsg(false),
-				_isConnected(false)
+				_isConnected(false), _channelsJoined(0)
 	{};
 
 	user::user(int sd, std::string hostname) : _nickName(""), _realName(""),
 									_userName(""), _hostName(hostname), 
 									_mode("+"), _checkPassword(false),
 									_isOper(false),_welcomeMsg(false), 
-									_isConnected(false), _sdUser(sd)
+									_isConnected(false), _sdUser(sd),
+									_channelsJoined(0)
 	{}
 
 	user::user(const user & src) : _nickName(src._nickName), _realName(src._realName), 
 							_userName(src._userName), _hostName(src._hostName),
 							_mode(src._mode), _checkPassword(src._checkPassword), 
 							_isOper(src._isOper), _welcomeMsg(src._welcomeMsg),
-							_sdUser(src._sdUser)
+							_sdUser(src._sdUser), _channelsJoined(src._channelsJoined)
 	{}
 
 	user::~user()
@@ -55,6 +56,12 @@
 		return (this->_userName);
 	}
 
+	std::string		user::getHostNameUser()
+	{
+		return (this->_hostName);
+	}
+
+
 	std::string		user::getMode()
 	{
 		return (this->_mode);
@@ -78,6 +85,16 @@
 	bool		user::getConnexion()
 	{
 		return (this->_isConnected);
+	}
+
+	int			user::getChannelsJoined()
+	{
+		return (this->_channelsJoined);
+	}
+
+	std::list<channels *>	user::getListOfChans()
+	{
+		return (this->_listOfChans);
 	}
 
 	/* ------------------------- SETTER ------------------------- */
@@ -142,5 +159,16 @@
 	{
 		this->_isConnected = connect;
 	}
+
+	void	user::setChannelsJoined(int	nb)
+	{
+		this->_channelsJoined = nb;
+	}
+	
+	void	user::setListOfChans(channels *chan)
+	{
+		_listOfChans.push_back(chan);
+	}
+
 
 	/* ------------------------- OTHERS ------------------------- */

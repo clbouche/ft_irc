@@ -6,10 +6,11 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/03 17:20:30 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:56:30 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/utils.hpp"
 #include "../includes/user.hpp"
 #include "../includes/IrcServer.hpp"
 #include "../includes/headers.hpp"
@@ -41,7 +42,7 @@ bool		check_connexion( user *currentUser, IrcServer *serv)
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
 							send_replies(1, currentUser, serv, 
 								currentUser->getNickName(), currentUser->getUserName(),
-								serv->_tcpServer.getHostname())));
+								currentUser->getHostNameUser())));
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
 							send_replies(2, currentUser, serv, 
 								serv->_tcpServer.getHostname(),version)));
