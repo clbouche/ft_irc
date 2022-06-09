@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 14:47:25 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:47:43 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,6 +332,12 @@
 //                         "<channel> :Cannot join channel (+l)"
 //         472     ERR_UNKNOWNMODE
 //                         "<char> :is unknown mode char to me"
+/**
+ * @brief ERR 472
+ * Returned by the server to indicate that a MODE
+ * flag does not exist.
+ */
+# define ERR_UNKNOWNMODE(flag, target) (flag + ":is unknown mode char to me for " + target + "\r\n")
 //         473     ERR_INVITEONLYCHAN
 //                         "<channel> :Cannot join channel (+i)"
 //         474     ERR_BANNEDFROMCHAN

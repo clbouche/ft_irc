@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 14:48:21 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:47:47 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_NEEDMOREPARAMS(arg1);
 		case 462:
 			return reply + ERR_ALREADYREGISTRED();
+		case 472:
+			return reply + ERR_UNKNOWNMODE(arg1, arg2);
 		case 501:
 			return reply + ERR_UMODEUNKNOWNFLAG();
 		case 502:
