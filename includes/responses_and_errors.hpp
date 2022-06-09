@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 16:14:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:28:15 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@
  * @brief RPL 353
  * 
  */
-# define RPL_NAMREPLY(channel) ("= " + channel + " :")																// 353
+# define RPL_NAMREPLY(channel, nickname) ("= " + channel + " :" + nickname + "\r\n")																// 353
 
 /**
  * @brief RPL 372 
