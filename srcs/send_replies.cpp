@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 16:27:22 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:35:18 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,10 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_NEEDMOREPARAMS(arg1);
 		case 462:
 			return reply + ERR_ALREADYREGISTRED();
-<<<<<<< HEAD
-		case 472:
-			return reply + ERR_UNKNOWNMODE(arg1, arg2);
-		case 501:
-			return reply + ERR_UMODEUNKNOWNFLAG();
-=======
 		case 471:
 			return reply + ERR_CHANNELISFULL(arg1);
+		case 472:
+			return reply + ERR_UNKNOWNMODE(arg1, arg2);
 		case 473:
 			return reply + ERR_INVITEONLYCHAN(arg1);
 		case 474:
@@ -126,7 +122,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_BADCHANNELKEY(arg1);
 		case 476:
 			return reply + ERR_BADCHANMASK(arg1);
->>>>>>> main
+		case 501:
+			return reply + ERR_UMODEUNKNOWNFLAG();
 		case 502:
 			return reply + ERR_USERSDONTMATCH();
 	

@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 16:27:29 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:53:57 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,22 @@
 	std::list<channels *>	user::getListOfChans()
 	{
 		return (this->_listOfChans);
+	}
+
+	// channels	*user::findChanInList(std::string target)
+	// {
+	// }
+
+	bool	user::isChanInList(std::string	target)
+	{
+		(void)target;
+		std::list<channels *>::iterator	it;
+			for (it = this->_listOfChans.begin(); it != this->_listOfChans.end(); it++)
+			{
+				std::cout << (**it).getName() << std::endl;
+				// if ( it-> )
+			}
+			return (false);
 	}
 
 	/* ------------------------- SETTER ------------------------- */

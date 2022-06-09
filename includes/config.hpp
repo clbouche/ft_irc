@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:46 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 16:26:33 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:29:33 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,5 @@
 # define VERSION				"1.0"
 # define USERSMODES				"io"
 # define CHANNELSMODES			"OovaimnpsrtklbeI"
-
-
->>>>>>> main
 
 #endif

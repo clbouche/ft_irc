@@ -83,13 +83,13 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 	{
 		if (check_args(target, &mode, modeParams, currentUser, serv))
 		{
-			std::cout << RED << "MODE OUT FCT :" << mode << ":" << END << std::endl;
 			if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 			{
-				std::cout << "TARGET IS A CHANNEL" << std::endl;
-				channels *currentChannel
-				currentUser->LISTCHAN.find(target) == serv->currentChannels.end() ? 
-            ERR_USERNOTINCHANNEL : currentChannel = serv->currentChannels.find(target)->second;
+				std::cout << RED << "TARGET IS A CHANNEL" << END << std::endl;
+				currentUser->isChanInList(target);
+				// channels *currentChannel
+			// 	currentUser->LISTCHAN.find(target) == serv->currentChannels.end() ? 
+            // ERR_USERNOTINCHANNEL : currentChannel = serv->currentChannels.find(target)->second;
 				// AFICHAGE MODES CHANNEL serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(324, currentUser, serv, currentUser->getMode())));
 			}
 			else

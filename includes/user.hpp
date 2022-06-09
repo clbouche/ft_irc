@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 16:27:11 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:57:47 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,23 @@ class user
 		 * @return std::list<channels *> list of all the users's channels
 		 */
 		std::list<channels *>	getListOfChans();
+
+		/**
+		 * @brief Get a chan in the list of joined channels
+		 * 
+		 * @return channels * which is the channels with the name target
+		 * @param target the name of the channel we want to find
+		 */
+		channels	*findChanInList(std::string	target);
+
+		/**
+		 * @brief Know if a chan is in the list of joined channels or not
+		 * 
+		 * @return true if user has joined the target channel
+		 * @return false if user has not joined the target channel
+		 * @param target the name of the channel we want to find
+		 */
+		bool	isChanInList(std::string	target);
 
 		/**
 		 * 
