@@ -6,7 +6,7 @@
 /*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:00 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/10 14:50:34 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/10 16:20:49 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    cmd_join(IrcServer *serv, user	*currentUser, std::string & args);
 void	cmd_list(IrcServer *serv, user *currentUser, std::string &args);
 void	cmd_mode(IrcServer *serv, user *currentUser, std::string &args);
 void	cmd_motd(IrcServer *serv, user *currentUser, std::string &args);
-// void	cmd_names(IrcServer *serv, user *currentUser, std::string &args);
+void	cmd_names(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_nick(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_notice(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_oper(IrcServer *serv, user *currentUser, std::string &args);

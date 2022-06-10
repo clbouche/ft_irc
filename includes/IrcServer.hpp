@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 17:56:08 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:54:28 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,14 @@ class   IrcServer {
 	 * @return User* pointer to the user
 	 */
 	user 	*getUser(int fd);
+
+	/**
+	 * @brief Get the Channel object
+	 * 
+	 * @param name recup the channel with name
+	 * @return channels* return pointer to the chan
+	 */
+	// channels	*getChannel(std::string name);
 
 	/**
 	 * @brief Send to recup args of the command

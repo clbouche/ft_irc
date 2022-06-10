@@ -6,7 +6,7 @@
 /*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/10 14:44:40 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/10 17:00:23 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_TOPIC(arg1, arg2);
 		case 353:
 			return reply + RPL_NAMREPLY(arg1, arg2);
+		case 366:
+			return reply + RPL_ENDOFNAMES(arg1);
 		case 372:
 			return reply + RPL_MOTD(arg1);
 		case 375:

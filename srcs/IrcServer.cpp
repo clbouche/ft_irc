@@ -6,7 +6,7 @@
 /*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/10 14:50:43 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/10 16:54:22 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,18 @@ user	*IrcServer::getUserByNick(std::string nick)
 	return (NULL);
 }
 
+// channels	*IrcServer::getChannel(std::string name)
+// {
+// 	std::map<std::string, channels *>::iterator	it;
+// 	for(it = currentChannels.begin() ; it != currentChannels.end() ; it++)
+// 	{
+// 		if (it->first == name)
+// 			return it->second;
+// 	}
+// 	return it->second;
+// }
+
+
 
 void    IrcServer::create_pointer(void)
 {
@@ -59,7 +71,7 @@ void    IrcServer::create_pointer(void)
     this->_pointer_to_valid_cmd.insert(std::make_pair("LIST", &cmd_list));
     this->_pointer_to_valid_cmd.insert(std::make_pair("MODE", &cmd_mode));
     this->_pointer_to_valid_cmd.insert(std::make_pair("MOTD", &cmd_motd));
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("NAMES", &cmd_names));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("NAMES", &cmd_names));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("NICK", &cmd_nick));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("NOTICE", &cmd_notice));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("OPER", &cmd_oper));

@@ -90,5 +90,4 @@ void    cmd_nick( IrcServer *serv, user	*currentUser, std::string & args )
 	{
 		currentUser->setNickName(args);
 	}
-	std::cout << "nickname is [" << currentUser->getNickName() << "]" << std::endl; 
 }

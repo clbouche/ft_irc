@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 17:12:51 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:30:39 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,31 @@
  */
 # define RPL_TOPIC(channel, topic) (channel + " :" + topic + "\r\n")
 
+
+    /**
+     * To reply to a NAMES message, a reply pair consisting
+        of RPL_NAMREPLY and RPL_ENDOFNAMES is sent by the
+        server back to the client.  If there is no channel
+        found as in the query, then only RPL_ENDOFNAMES is
+
+        returned.  The exception to this is when a NAMES
+        message is sent with no parameters and all visible
+        channels and contents are sent back in a series of
+        RPL_NAMEREPLY messages with a RPL_ENDOFNAMES to mark
+        the end.
+     * 
+     */
 /**
  * @brief RPL 353
  * 
  */
 # define RPL_NAMREPLY(channel, nickname) ("= " + channel + " :" + nickname + "\r\n")																// 353
 
+/**
+ * @brief ERR 366
+ * 
+ */
+# define RPL_ENDOFNAMES(channel) (channel + ":End of NAMES list\r\n")
 
     /**
      *  When responding to the MOTD message and the MOTD file
