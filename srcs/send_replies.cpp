@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_replies.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 17:37:35 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/10 14:44:40 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_CANNOTSENDTOCHAN(arg1);
 		case 405:
 			return reply + ERR_TOOMANYCHANNELS(arg1);
+		case 409:
+			return reply + ERR_NOORIGIN();
 		case 411:
 			return reply + ERR_NORECIPIENT(arg1);
 		case 412:

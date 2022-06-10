@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:00 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 17:22:30 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/10 14:50:34 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	cmd_motd(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_notice(IrcServer *serv, user *currentUser, std::string &args);
 // void	cmd_oper(IrcServer *serv, user *currentUser, std::string &args);
 void	cmd_part(IrcServer *serv, user *currentUser, std::string &args);
-// void	cmd_ping(IrcServer *serv, user *currentUser, std::string &args);
+void	cmd_ping(IrcServer *serv, user *currentUser, std::string &args);
 void    cmd_privmsg( IrcServer *serv, user *currentUser, std::string & args);
 void	cmd_quit(IrcServer *serv, user *currentUser, std::string &args);
 void	cmd_topic(IrcServer *serv, user *currentUser, std::string &args);

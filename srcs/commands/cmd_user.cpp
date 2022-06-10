@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_user.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 09:31:55 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 18:00:30 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/10 14:35:34 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ void    cmd_user( IrcServer *serv, user	*currentUser, std::string & args )
 		currentUser->setRealName(split_args[1]);
 		split_args = ft_split(args, " ");
 		currentUser->setUserName(split_args[0]);
-		currentUser->setMode(split_args[1]);
+		currentUser->setMode("i");
 	}
 }
