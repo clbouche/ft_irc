@@ -15,9 +15,6 @@ static bool		check_args(IrcServer *serv, user *currentUser, std::string & args)
 	}
 	if (args != serv->_tcpServer.getHostname())
 	{
-		std::cout << "ping servername is : [" << args << "]" << std::endl;
-		std::cout << "good servername is : [" << serv->_tcpServer.getHostname() << "]" << std::endl;
-
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
 				send_replies(402, currentUser, serv, args)));
 		return false;
