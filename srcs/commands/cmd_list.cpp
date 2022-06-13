@@ -47,13 +47,14 @@ void	listAllChans(IrcServer *serv, user *currentUser)
 
 void    cmd_list( IrcServer *serv, user *currentUser, std::string & args )
 {
+	std::vector<std::string>		split_args = ft_split(args, " ");
+
     //si LIST n'a pas d'argument, on liste toutes les channels + topics
-    if (args == "")
+	if (split_args.size() == 0)
     {
         listAllChans(serv, currentUser);
 		return ;
     }
-	std::vector<std::string>		split_args = ft_split(args, " ");
 	if (split_args.size() == 2)
 	{
 		//si le nom donne n'est pas le serveur actuel, ERR

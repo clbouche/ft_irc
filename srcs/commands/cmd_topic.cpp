@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:39:32 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 11:42:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 12:10:50 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@
 
 static bool     check_args(IrcServer *serv, user *currentUser, std::string args, channels *channel)
 {
-    if (args.size() < 1)
+    std::vector<std::string>	split_args = ft_split(args, " ");
+    if (split_args.size() == 0)
     {
         serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 		 					send_replies(461, currentUser, serv, "TOPIC")));
