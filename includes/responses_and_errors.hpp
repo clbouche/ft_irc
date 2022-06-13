@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/10 16:30:39 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/13 10:23:28 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,13 @@
  * @brief RPL 353
  * 
  */
-# define RPL_NAMREPLY(channel, nickname) ("= " + channel + " :" + nickname + "\r\n")																// 353
+# define RPL_NAMREPLY(channel) ("= " + channel + " :")																// 353
 
 /**
  * @brief ERR 366
  * 
  */
-# define RPL_ENDOFNAMES(channel) (channel + ":End of NAMES list\r\n")
+# define RPL_ENDOFNAMES(channel) (channel + " :End of NAMES list\r\n")
 
     /**
      *  When responding to the MOTD message and the MOTD file

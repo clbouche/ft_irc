@@ -40,7 +40,6 @@ Command: NAMES
 
 void	listAllChannels(IrcServer *serv, user *currentUser)
 {
-	std::cout << "aaaaaallllls chans"<< std::endl;
 	std::map<std::string, channels *>::iterator	it;
     std::map<int, user *>::iterator             ite;
 
@@ -53,7 +52,7 @@ void	listAllChannels(IrcServer *serv, user *currentUser)
         for(ite = usersMap.begin() ; ite != usersMap.end() ; ite++)
         {
 			user 		*user = ite->second;
-			if (!user->getMode().find("i"))
+			if (user->getMode().find("i") == std::string::npos)
 			{
 				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 						send_replies(353, currentUser, serv, chan->getName(),
@@ -68,8 +67,8 @@ void	listAllChannels(IrcServer *serv, user *currentUser)
 
 void	listSelectedChans(IrcServer *serv, user *currentUser, std::vector<std::string> listOfChans)
 {
-	std::cout << "liiiiist of chans"<< std::endl;
-    std::map<int, user *>::iterator             ite;
+    std::map<int, user *>::iterator		ite;
+	std::string							rpl_nicknames;		
 
 	for (size_t i = 0; i < listOfChans.size(); i++)
 	{
@@ -80,22 +79,27 @@ void	listSelectedChans(IrcServer *serv, user *currentUser, std::vector<std::stri
 				chan = NULL : chan = serv->currentChannels.find(listOfChans[i])->second;
 		if (chan != NULL)
 		{
+			rpl_nicknames = send_replies(353, currentUser, serv, chan->getName());
 			std::map<int, user *>   usersMap;
 
 			usersMap = chan->getUsers();
 			for(ite = usersMap.begin() ; ite != usersMap.end() ; ite++)
 			{
 				user 		*user = ite->second;
-				if (!user->getMode().find("i"))
+				if (user->getMode().find("i") == std::string::npos)
 				{
-					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-							send_replies(353, currentUser, serv, chan->getName(),
-							user->getNickName())));
+					rpl_nicknames.append("@");
+					rpl_nicknames.append(user->getNickName());
+					rpl_nicknames.append(" ");
 				}
 			}
-			serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-			send_replies(366, currentUser, serv, chan->getName())));
+			rpl_nicknames.append("\r\n");
+			serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), rpl_nicknames));
+			// serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+			// 						send_replies(366, currentUser, serv, chan->getName())));
 		}
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+						send_replies(366, currentUser, serv, listOfChans[i])));
 	}
 }
 
@@ -105,7 +109,7 @@ void    cmd_names( IrcServer *serv, user *currentUser, std::string & args )
         listAllChannels(serv, currentUser);
 	else 
 	{
-		std::vector<std::string>	split_args = ft_split(args, "");
+		std::vector<std::string>	split_args = ft_split(args, " ");
 		std::vector<std::string>	listOfChans;
 		if (split_args.size() > 1 && split_args[1] != serv->_tcpServer.getHostname())
 		{

@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 16:42:22 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 11:24:06 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,9 +195,10 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 									send_replies(332, currentUser, serv, chan_name, 
 				newChan->getTopic())));
-				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-									send_replies(353, currentUser, serv, chan_name,
-									currentUser->getNickName())));
+				cmd_names(serv, currentUser, chan_name);
+				// serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+				// 					send_replies(353, currentUser, serv, chan_name,
+				// 					currentUser->getNickName())));
 
 			}
 			else if (check_chan(serv, currentUser, channel, pass_chan) == true)
@@ -213,9 +214,10 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 							send_replies(332, currentUser, serv, channel->getName(), 
 							channel->getTopic())));
-					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-							send_replies(353, currentUser, serv, channel->getName(),
-							currentUser->getNickName())));
+					cmd_names(serv, currentUser, chan_name);
+					// serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+					// 		send_replies(353, currentUser, serv, channel->getName(),
+					// 		currentUser->getNickName())));
 				}
 			}
 		}
