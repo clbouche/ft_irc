@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 11:30:59 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:00:36 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,15 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 		case 2:
 			return reply + RPL_YOURHOST(arg1, arg2);
 		case 3:
-			return reply + RPL_CREATED(arg1);
+			return reply + RPL_CREATED();
 		case 4:
 			return reply + RPL_MYINFO(arg1, arg2, arg3, arg4);
 		case 221:
 			return reply + RPL_UMODEIS(arg1);
+		case 322:
+			return reply + RPL_LIST(arg1, arg2);
+		case 323:
+			return reply + RPL_LISTEND();
 		case 324:
 			return reply + RPL_CHANNELMODEIS(arg1, arg2, arg3);
 		case 331:
@@ -78,6 +82,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_TOPIC(arg1, arg2);
 		case 353:
 			return reply + RPL_NAMREPLY(arg1);
+		case 366:
+			return reply + RPL_ENDOFNAMES(arg1);
 		case 372:
 			return reply + RPL_MOTD(arg1);
 		case 375:
@@ -86,12 +92,16 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_ENDOFMOTD();
 		case 401:
 			return reply + ERR_NOSUCHNICK(arg1);
+		case 402:
+			return reply + ERR_NOSUCHSERVER(arg1);
 		case 403:
 			return reply + ERR_NOSUCHCHANNEL(arg1);
 		case 404:
 			return reply + ERR_CANNOTSENDTOCHAN(arg1);
 		case 405:
 			return reply + ERR_TOOMANYCHANNELS(arg1);
+		case 409:
+			return reply + ERR_NOORIGIN();
 		case 411:
 			return reply + ERR_NORECIPIENT(arg1);
 		case 412:

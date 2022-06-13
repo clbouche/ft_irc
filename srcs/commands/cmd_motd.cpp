@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:04:48 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 18:00:51 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 15:12:03 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void    cmd_motd(IrcServer *serv, user *currentUser, std::string & args)
         {
             serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
                                     send_replies(372, currentUser, serv, line)));
-            
         }
         serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
                                 send_replies(376, currentUser, serv)));

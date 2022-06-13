@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:39:32 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 18:04:30 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 12:10:50 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@
 
 static bool     check_args(IrcServer *serv, user *currentUser, std::string args, channels *channel)
 {
-    if (args.size() < 2)
+    std::vector<std::string>	split_args = ft_split(args, " ");
+    if (split_args.size() == 0)
     {
         serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 		 					send_replies(461, currentUser, serv, "TOPIC")));
@@ -70,13 +71,11 @@ void    cmd_topic( IrcServer *serv, user *currentUser, std::string & args )
 {
 	size_t 			pos = args.find_first_of(" :");
 	std::string		channel = args.substr(0, pos);
+    channels        *channel_topic;
 	std::string		topic;
 	pos == std::string::npos ? topic = "" : topic = args.substr(pos + 2, args.length());
-    channels		*channel_topic = serv->currentChannels.find(channel)->second;
-    
-
-    if (channel_topic == NULL)
-        return ;
+    serv->currentChannels.find(channel) == serv->currentChannels.end()?
+            channel_topic = NULL : channel_topic = serv->currentChannels.find(channel)->second;
     if (check_args(serv, currentUser, args, channel_topic) == true)
     {
         if (args.find_first_of(":") == std::string::npos)
@@ -85,15 +84,12 @@ void    cmd_topic( IrcServer *serv, user *currentUser, std::string & args )
             {
 				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 							send_replies(331, currentUser, serv, channel)));
-            }
-            else
-			{
-            	serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-							send_replies(332, currentUser, serv, channel, 
-							channel_topic->getTopic())));
+                return ;
             }
         }
-        else 
-            channel_topic->setTopic(topic);
+        channel_topic->setTopic(topic);
+        serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+                    send_replies(332, currentUser, serv, channel, 
+                    channel_topic->getTopic())));
     }
 }

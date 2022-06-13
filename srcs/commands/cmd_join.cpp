@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 16:21:35 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 11:24:06 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,17 +187,22 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 		{
 			if(channel == NULL)
 			{
-				std::cout << "enter ici" << std::endl;
 				//si le channel n'existe pas encore, creation du chan + ajout du user
 				channels	*newChan = new channels(chan_name, currentUser);
 				serv->currentChannels.insert(std::make_pair(chan_name, newChan));
 				currentUser->setListOfChans(newChan);
 				currentUser->setChannelsJoined(currentUser->getChannelsJoined() + 1);
+				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+									send_replies(332, currentUser, serv, chan_name, 
+				newChan->getTopic())));
+				cmd_names(serv, currentUser, chan_name);
+				// serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+				// 					send_replies(353, currentUser, serv, chan_name,
+				// 					currentUser->getNickName())));
 
 			}
 			else if (check_chan(serv, currentUser, channel, pass_chan) == true)
 			{
-				std::cout << "enter here" << std::endl;
 				//si le chan existe : 
 				// check si le user n'est pas deja dans le chan 
 				// sinon ajout du user 
@@ -209,9 +214,10 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 							send_replies(332, currentUser, serv, channel->getName(), 
 							channel->getTopic())));
-					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-							send_replies(353, currentUser, serv, channel->getName(),
-							currentUser->getNickName())));
+					cmd_names(serv, currentUser, chan_name);
+					// serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+					// 		send_replies(353, currentUser, serv, channel->getName(),
+					// 		currentUser->getNickName())));
 				}
 			}
 		}

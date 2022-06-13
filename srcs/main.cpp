@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 11:34:01 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 15:09:47 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void    loop(IrcServer *server)
 		{
 			if (server->getServerPassword() == "")
 				server->getUser(buff.first)->setCheckPassword(true);
+			std::cout << buff.second << std::endl;
 			parse_cmd(buff.second, server, server->getUser(buff.first));
 			if (server->getUser(buff.first)->getWelcomeMsg() == false)
 			{

@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 17:56:08 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 13:43:12 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,14 @@ class   IrcServer {
 	user 	*getUser(int fd);
 
 	/**
+	 * @brief Get the Channel object
+	 * 
+	 * @param name recup the channel with name
+	 * @return channels* return pointer to the chan
+	 */
+	// channels	*getChannel(std::string name);
+
+	/**
 	 * @brief Send to recup args of the command
 	 * 
 	 * @param cmd the function
@@ -104,7 +112,7 @@ class   IrcServer {
 	 * @param cmd command send from the user 
 	 * @return function_for_cmd function associated to the command
 	 */
-	command     recup_cmd(const std::string & args ) const;
+	command     recup_cmd( std::string & args ) const;
 
 	/**
 	 * @brief Get the password of the server

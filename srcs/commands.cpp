@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:28 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 17:57:07 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 15:09:29 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,31 @@ void    parse_cmd(std::string args, IrcServer *IRC, user *currentUser)
 	IrcServer::command				cmd_ptr;
 	
 	commands = ft_split(args, "\n");
-	std::string	tmp = commands.front(); //la cmd elle meme + args
-	size_t	pos = tmp.find_first_of(' '); //recuperer la position du 1e espace de notre commands
-	
-	if (pos != std::string::npos) //si cet espace ne se trouve pas a la fin de notre string = pas d'args
+	while(commands.size())
 	{
-		cmd_to_find = tmp.substr(0, pos); //recuperer le premier mot de la ligne
-		args_of_commands = tmp.substr(pos + 1, tmp.length()); //stocker le reste des args
+		std::string	tmp = trim_copy(commands.front()); //la cmd elle meme + args
+		size_t	pos = tmp.find_first_of(' '); //recuperer la position du 1e espace de notre commands
+		
+		if (pos != std::string::npos) //si cet espace ne se trouve pas a la fin de notre string = pas d'args
+		{
+			cmd_to_find = tmp.substr(0, pos); //recuperer le premier mot de la ligne
+			args_of_commands = trim_copy(tmp.substr(pos + 1, tmp.length())); //stocker le reste des args
+		}
+		else 
+		{
+			cmd_to_find = tmp.substr(0, pos);
+			args_of_commands = "";
+		}
+		cmd_ptr = IRC->recup_cmd(cmd_to_find);
+		if (currentUser->getConnexion() == false && (cmd_ptr != &cmd_user && cmd_ptr != &cmd_nick && cmd_ptr != &cmd_pass
+				&& cmd_ptr != &cmd_NULL))
+		{
+			IRC->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
+							send_replies(451, currentUser, IRC)));
+			return ;
+		}
+		if (cmd_ptr != &cmd_NULL)
+			IRC->recup_cmd(cmd_to_find)(IRC, currentUser, args_of_commands);
+		commands.erase(commands.begin());
 	}
-	else 
-	{
-		cmd_to_find = tmp.substr(0, pos);
-		args_of_commands = "";
-	}
-	cmd_ptr = IRC->recup_cmd(cmd_to_find);
-	if (currentUser->getConnexion() == false && (cmd_ptr != &cmd_user && cmd_ptr != &cmd_nick && cmd_ptr != &cmd_pass
-			&& cmd_ptr != &cmd_NULL))
-	{
-		IRC->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
-						send_replies(451, currentUser, IRC)));
-		return ;
-	}
-	if (cmd_ptr != &cmd_NULL)
-		IRC->recup_cmd(cmd_to_find)(IRC, currentUser, args_of_commands);
 }

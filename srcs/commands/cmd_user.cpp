@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 09:31:55 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/08 18:00:30 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 10:10:02 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static bool		check_args(IrcServer *serv, user *currentUser, std::string args)
 void    cmd_user( IrcServer *serv, user	*currentUser, std::string & args )
 {
 	std::vector<std::string>	split_args;
+	
 
 	if (check_args(serv, currentUser, args) == true)
 	{
@@ -89,6 +90,5 @@ void    cmd_user( IrcServer *serv, user	*currentUser, std::string & args )
 		currentUser->setRealName(split_args[1]);
 		split_args = ft_split(args, " ");
 		currentUser->setUserName(split_args[0]);
-		currentUser->setMode(split_args[1]);
 	}
 }

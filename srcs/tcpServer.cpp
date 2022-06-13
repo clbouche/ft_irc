@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/06/09 11:34:20 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 15:14:25 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ void							tcpServer::write_data(std::map<int, user*> *usersMap)
 			if(_clientSocket[i] == 0 )
 			{
 				_clientSocket[i] = new_socket;
-				std::cout << "Adding to list of sockets as " << i << std::endl;
 				user	*newUser = new user(_clientSocket[i], _hostName) ;
 				usersMap->insert(std::make_pair(_clientSocket[i], newUser));
 				break;

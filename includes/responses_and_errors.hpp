@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 14:32:17 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:00:05 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,46 @@
  * @brief RPL 001
  * 
  */
-# define RPL_WELCOME(nick, user, host) ("Welcome to the Internet Relay Network " \
+# define RPL_WELCOME(nick, user, host) (":Welcome to the Internet Relay Network " \
                + nick + "!" + user + "@" + host + "\r\n")
 
 /**
  * @brief RPL 002
  * 
  */
-# define RPL_YOURHOST(servername, ver) ("Your host is " + servername + ", running version " + ver + "\r\n")
+# define RPL_YOURHOST(servername, ver) (":Your host is " + servername + ", running version " + ver + "\r\n")
 
 /**
  * @brief RPL 003
  * 
  */
-# define RPL_CREATED(date) ("This server was created " + date + "\r\n")
+# define RPL_CREATED() (":This server was created 01/06/2022\r\n")
 
 /**
  * @brief RPL 004
  * 
  */
-# define RPL_MYINFO(servername, version, userModes, channelModes) (servername + \
+# define RPL_MYINFO(servername, version, userModes, channelModes) (":" + servername + \
                     " " + version + " " + userModes + " " + channelModes + "\r\n")
 
+/**
+ * @brief ERR 322
+ * 
+ */
+# define RPL_LIST(channel, topic) (channel + " :" + topic + "\r\n")
+
+/**
+ * @brief ERR 323
+ * 
+ */
+# define RPL_LISTEND() (":End of LIST\r\n")
+/**
+ *      - Replies RPL_LIST, RPL_LISTEND mark the actual replies
+           with data and end of the server's response to a LIST
+           command.  If there are no channels available to return,
+           only the end reply MUST be sent.
+ * 
+ */
 
 
 /**
@@ -62,8 +80,30 @@
 # define RPL_TOPIC(channel, topic) (channel + " :" + topic + "\r\n")
 
 
-    //     353     RPL_NAMREPLY
-    //                     "<channel> :[[@|+]<nick> [[@|+]<nick> [...]]]"
+    /**
+     * To reply to a NAMES message, a reply pair consisting
+        of RPL_NAMREPLY and RPL_ENDOFNAMES is sent by the
+        server back to the client.  If there is no channel
+        found as in the query, then only RPL_ENDOFNAMES is
+
+        returned.  The exception to this is when a NAMES
+        message is sent with no parameters and all visible
+        channels and contents are sent back in a series of
+        RPL_NAMEREPLY messages with a RPL_ENDOFNAMES to mark
+        the end.
+     * 
+     */
+/**
+ * @brief RPL 353
+ * 
+ */
+# define RPL_NAMREPLY(channel) ("= " + channel + " :")																// 353
+
+/**
+ * @brief ERR 366
+ * 
+ */
+# define RPL_ENDOFNAMES(channel) (channel + " :End of NAMES list\r\n")
 
     /**
      *  When responding to the MOTD message and the MOTD file
@@ -79,12 +119,6 @@
  * 
  */
 # define RPL_MOTDSTART(server) (":- " + server + " Message of the day - \r\n")
-
-/**
- * @brief RPL 353
- * 
- */
-# define RPL_NAMREPLY(channel) ("= " + channel + " :")																// 353
 
 /**
  * @brief RPL 372 
