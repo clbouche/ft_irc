@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 17:35:18 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/13 11:30:59 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_MYINFO(arg1, arg2, arg3, arg4);
 		case 221:
 			return reply + RPL_UMODEIS(arg1);
+		case 324:
+			return reply + RPL_CHANNELMODEIS(arg1, arg2, arg3);
 		case 331:
 			return reply + RPL_NOTOPIC(arg1);
 		case 332:
@@ -102,6 +104,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_ERRONEUSNICKNAME(arg1);
 		case 433:
 			return reply + ERR_NICKNAMEINUSE(arg1);
+		case 441:
+			return reply + ERR_USERNOTINCHANNEL(arg1, arg2);
 		case 442:
 			return reply + ERR_NOTONCHANNEL(arg1);
 		case 451:

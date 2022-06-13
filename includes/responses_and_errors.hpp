@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/09 16:27:00 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/13 14:32:17 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,21 +254,21 @@
  * nickname collision (registered of a NICK that
  * already exists by another server).
  */
-# define ERR_NICKCOLLISION(nickName) (nickName + "  :Nickname collision KILL\r\n")
+# define ERR_NICKCOLLISION(nickName) (nickName + " :Nickname collision KILL\r\n")
 
 /**
  * @brief ERR 441
  * Returned by the server to indicate that the target
  * user of the command is not on the given channel.
  */
-# define ERR_USERNOTINCHANNEL(nickName, channel) (nickName + channel + "  :They aren't on that channel\r\n")
+# define ERR_USERNOTINCHANNEL(nickName, channel) (nickName + " " + channel + " :They aren't on that channel\r\n")
 
 /**
  * @brief ERR 442
  * Returned by the server to indicate that the target
  * user of the command is not on the given channel.
  */
-# define ERR_NOTONCHANNEL(channel) (channel + "  :You're not on that channel\r\n")
+# define ERR_NOTONCHANNEL(channel) (channel + " :You're not on that channel\r\n")
 
 /**
  * @brief ERR 443
@@ -388,7 +388,7 @@
  * Returned by the server to indicate that a MODE
  * flag does not exist.
  */
-# define ERR_UNKNOWNMODE(flag, target) (flag + ":is unknown mode char to me for " + target + "\r\n")
+# define ERR_UNKNOWNMODE(flag, target) (flag + " :is unknown mode char to me for " + target + "\r\n")
 //         473     ERR_INVITEONLYCHAN
 //                         "<channel> :Cannot join channel (+i)"
 //         474     ERR_BANNEDFROMCHAN
@@ -546,7 +546,12 @@
 
     //     324     RPL_CHANNELMODEIS
     //                     "<channel> <mode> <mode params>"
-
+/**
+ * @brief ERR 324
+ * Error sent to any user trying to view or change the
+ * user mode for a user other than themselves.
+ */
+# define RPL_CHANNELMODEIS(channel, mode, modeParams) (channel + " " + mode + " " + modeParams + "\r\n")
     //     331     RPL_NOTOPIC
     //                     "<channel> :No topic is set"
     //     332     RPL_TOPIC

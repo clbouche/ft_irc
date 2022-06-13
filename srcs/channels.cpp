@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channels.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 14:33:47 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 13:49:43 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 	/* ------------------------ CONSTRUCTORS ----------------------- */	
 	/* ------------------------------------------------------------- */
 
-channels::channels() : _topic("")
+channels::channels() : _mode("+"), _modeParams(""), _topic("")
 {
 }
 
-channels::channels(std::string name, user *chanOperator) : _topic(""), _password(""), 
+channels::channels(std::string name, user *chanOperator) :  _mode("+"), _modeParams(""), _topic(""), _password(""), 
 									_passSet(false), _userLimit(INT32_MAX), _nbUsers(0)
 {
 	// if (CHECK_NAME == ok) // ->> CHECK IF THE NAME RESPECT THE NORM
@@ -52,6 +52,11 @@ std::string	channels::getName()
 std::string	channels::getMode()
 {
 	return (this->_mode);
+}
+
+std::string	channels::getModeParams()
+{
+	return (this->_modeParams);
 }
 
 user		*channels::getOper()
@@ -103,6 +108,58 @@ void		channels::setOper(user *oper)
 void		channels::setTopic(std::string topic)
 {
 	this->_topic = topic;
+}
+
+void		channels::setMode(std::string newMode)
+{
+	size_t	inMode, i = 0;
+
+	while (i < newMode.length())
+	{
+		inMode = this->_mode.find_first_of(newMode.c_str()[i]);
+		if (inMode == std::string::npos)
+			this->_mode += newMode.c_str()[i];
+		i++;
+	}
+}
+
+void		channels::setModeParams(std::string newModeParams)
+{
+	size_t	inModeParams, i = 0;
+
+	while (i < newModeParams.length())
+	{
+		inModeParams = this->_modeParams.find_first_of(newModeParams.c_str()[i]);
+		if (inModeParams == std::string::npos)
+			this->_modeParams += newModeParams.c_str()[i];
+		i++;
+	}
+}
+
+void		channels::removeMode(std::string newMode)
+{
+	size_t	inMode, i = 0;
+
+	while (i < newMode.length())
+	{
+		inMode = this->_mode.find_first_of(newMode.c_str()[i]);
+		if (inMode != std::string::npos)
+			this->_mode.erase(std::remove(this->_mode.begin(),this->_mode.end(),newMode.c_str()[i]));
+		i++;
+	}
+}
+
+void		channels::removeModeParams(std::string newModeParams)
+{
+	size_t	inMode, i = 0;
+
+	while (i < newModeParams.length())
+	{
+		inMode = this->_mode.find_first_of(newModeParams.c_str()[i]);
+		if (inMode != std::string::npos)
+			this->_mode.erase(std::remove(this->_mode.begin(),this->_mode.end(),newModeParams.c_str()[i]));
+		i++;
+	}
 }
 
 void		channels::addUser(user *newUser)

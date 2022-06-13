@@ -6,7 +6,6 @@
 #include "../includes/user.hpp"
 #include "../includes/utils.hpp"
 
-
 static bool check_args(std::string target, std::string *mode, std::string modeParams, user *currentUser, IrcServer *serv)
 {
 	(void)modeParams;
@@ -14,7 +13,7 @@ static bool check_args(std::string target, std::string *mode, std::string modePa
 	(void)currentUser;
 	(void)serv;
 	(void)target;
-	std::string	toRemove;
+	std::string toRemove;
 
 	if (*mode != "")
 	{
@@ -59,8 +58,21 @@ static bool check_target(std::string target, user *currentUser, IrcServer *serv)
 	return (true);
 }
 
-void	channelMode()
+void channelMode(channels *targetChannel, std::string mode, std::string modeParams)
 {
+	if (mode.c_str()[0] == '+')
+	{
+		if (mode.find("o") != std::string::npos)
+			mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
+		targetChannel->setMode(mode);
+	}
+	else if (mode.c_str()[0] == '-')
+	{
+		targetChannel->removeMode(mode);
+	}
+	if (modeParams != "")
+	{
+	}
 }
 
 void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
@@ -81,18 +93,29 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 	// std::cout << "TARGET : {" << target << "}" << std::endl << "MODE : {" << mode << "}" << std::endl << "MODEPARAMS : {" << modeParams << "}" << std::endl;
 	if (check_target(target, currentUser, serv))
 	{
-		if (check_args(target, &mode, modeParams, currentUser, serv))
+		if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 		{
-			if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
+			if (check_args(target, &mode, modeParams, currentUser, serv))
 			{
-				std::cout << RED << "TARGET IS A CHANNEL" << END << std::endl;
-				currentUser->isChanInList(target);
-				// channels *currentChannel
-			// 	currentUser->LISTCHAN.find(target) == serv->currentChannels.end() ? 
-            // ERR_USERNOTINCHANNEL : currentChannel = serv->currentChannels.find(target)->second;
-				// AFICHAGE MODES CHANNEL serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(324, currentUser, serv, currentUser->getMode())));
+				if (serv->currentChannels.find(target) != serv->currentChannels.end())
+				{
+					std::cout << RED << "TARGET IS A CHANNEL" << END << std::endl;
+					if (currentUser->isChanInList(target) == true)
+					{
+						channels *targetChannel = currentUser->findChanInList(target);
+						channelMode(targetChannel, mode, modeParams);
+						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(324, currentUser, serv, targetChannel->getName(), targetChannel->getMode(), targetChannel->getModeParams())));
+					}
+					else
+						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(442, currentUser, serv, target)));
+				}
+				else
+					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(403, currentUser, serv, target)));
 			}
-			else
+		}
+		else
+		{
+			if (check_args(target, &mode, modeParams, currentUser, serv))
 			{
 				user *userTarget = serv->getUserByNick(target);
 				if (userTarget == NULL)
@@ -102,7 +125,8 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 				}
 				if (mode.c_str()[0] == '+')
 				{
-					mode.erase(std::remove(mode.begin(),mode.end(),'o'));
+					if (mode.find("o") != std::string::npos)
+						mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
 					userTarget->setMode(mode);
 				}
 				else if (mode.c_str()[0] == '-')
