@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/10 16:54:22 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/13 13:45:07 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void    IrcServer::create_pointer(void)
     this->_pointer_to_valid_cmd.insert(std::make_pair("MODE", &cmd_mode));
     this->_pointer_to_valid_cmd.insert(std::make_pair("MOTD", &cmd_motd));
     this->_pointer_to_valid_cmd.insert(std::make_pair("NAMES", &cmd_names));
-    // this->_pointer_to_valid_cmd.insert(std::make_pair("NICK", &cmd_nick));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("NOTICE", &cmd_notice));
     // this->_pointer_to_valid_cmd.insert(std::make_pair("OPER", &cmd_oper));
     this->_pointer_to_valid_cmd.insert(std::make_pair("PART", &cmd_part));
@@ -83,10 +82,11 @@ void    IrcServer::create_pointer(void)
     // this->_pointer_to_valid_cmd.insert(std::make_pair("WHO", &cmd_who));
 }
 
-IrcServer::command	IrcServer::recup_cmd ( const std::string & command ) const
+IrcServer::command	IrcServer::recup_cmd ( std::string & command ) const
 {
 	std::map<std::string, IrcServer::command>::const_iterator	it;
-
+	
+	ft_strToupper(command);
 	it = this->_pointer_to_valid_cmd.find(command);
 	if (it != this->_pointer_to_valid_cmd.end())
 		return (it->second);

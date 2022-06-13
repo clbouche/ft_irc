@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/10 16:54:28 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/13 13:43:12 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ class   IrcServer {
 	 * @param cmd command send from the user 
 	 * @return function_for_cmd function associated to the command
 	 */
-	command     recup_cmd(const std::string & args ) const;
+	command     recup_cmd( std::string & args ) const;
 
 	/**
 	 * @brief Get the password of the server

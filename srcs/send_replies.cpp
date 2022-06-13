@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 10:29:03 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 14:29:53 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 		case 2:
 			return reply + RPL_YOURHOST(arg1, arg2);
 		case 3:
-			return reply + RPL_CREATED(arg1);
+			return reply + RPL_CREATED();
 		case 4:
 			return reply + RPL_MYINFO(arg1, arg2, arg3, arg4);
 		case 221:

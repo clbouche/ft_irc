@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 10:23:28 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 14:30:05 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,26 @@
  * @brief RPL 001
  * 
  */
-# define RPL_WELCOME(nick, user, host) ("Welcome to the Internet Relay Network " \
+# define RPL_WELCOME(nick, user, host) (":Welcome to the Internet Relay Network " \
                + nick + "!" + user + "@" + host + "\r\n")
 
 /**
  * @brief RPL 002
  * 
  */
-# define RPL_YOURHOST(servername, ver) ("Your host is " + servername + ", running version " + ver + "\r\n")
+# define RPL_YOURHOST(servername, ver) (":Your host is " + servername + ", running version " + ver + "\r\n")
 
 /**
  * @brief RPL 003
  * 
  */
-# define RPL_CREATED(date) ("This server was created " + date + "\r\n")
+# define RPL_CREATED() (":This server was created 01/06/2022\r\n")
 
 /**
  * @brief RPL 004
  * 
  */
-# define RPL_MYINFO(servername, version, userModes, channelModes) (servername + \
+# define RPL_MYINFO(servername, version, userModes, channelModes) (":" + servername + \
                     " " + version + " " + userModes + " " + channelModes + "\r\n")
 
 /**

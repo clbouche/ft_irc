@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:29:46 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 12:00:47 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 15:13:29 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 bool		check_connexion( user *currentUser, IrcServer *serv)
 {
 	std::string						args = "";
-	const char						*date = DATE;
 	const char						*version = VERSION;
 	const char						*usersmodes = USERSMODES;
 	const char						*channelsmodes = CHANNELSMODES;
@@ -36,8 +35,6 @@ bool		check_connexion( user *currentUser, IrcServer *serv)
 	if (currentUser->getNickName() != "" && currentUser->getUserName() != "" 
 			&& currentUser->getCheckPassword() == true) 
 	{
-		// if(send(sdUser, message, strlen(message), 0) != (ssize_t)strlen(message) )
-		// 	std::cerr << std::strerror(errno) << std::endl;
 		std::cout << "Welcome message sent successfully" << std::endl;
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
 							send_replies(1, currentUser, serv, 
@@ -47,7 +44,7 @@ bool		check_connexion( user *currentUser, IrcServer *serv)
 							send_replies(2, currentUser, serv, 
 								serv->_tcpServer.getHostname(),version)));
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
-							send_replies(3, currentUser, serv, date)));
+							send_replies(3, currentUser, serv)));
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
 							send_replies(4, currentUser, serv, 
 								serv->_tcpServer.getHostname(), version, 
@@ -74,4 +71,79 @@ std::vector<std::string>		ft_split(std::string args, std::string delim)
 		i = delimIndex + delim.size();
 	}
 	return results;
+}
+
+void			ft_strToupper ( std::string & str )
+{
+	for (size_t i = 0; i < str.size(); i++)
+	{
+		str[i] = std::toupper(str[i]);
+	}
+
+}
+
+/**
+ * @brief Remove space from start
+ *
+ * @param s string to trim
+ */
+void	ltrim ( std::string &s )
+{
+	s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+			std::not1(std::ptr_fun<int, int>(std::isspace))));
+}
+
+/**
+ * @brief Remove space from end of the string
+ *
+ * @param s string to rtrim
+ */
+void	rtrim ( std::string &s )
+{
+	s.erase(std::find_if(s.rbegin(), s.rend(),
+			std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+}
+
+/**
+ * @brief Remove space at the beggining and the end of a string
+ *
+ * @param s String to trim
+ */
+void	trim ( std::string &s )
+{
+	ltrim(s);
+	rtrim(s);
+}
+
+/**
+ * @brief Remove space from start
+ *
+ * @param s string to trim
+ */
+std::string	ltrim_copy ( std::string s )
+{
+	ltrim(s);
+	return s;
+}
+
+/**
+ * @brief Remove space from end of the string
+ *
+ * @param s string to rtrim
+ */
+std::string	rtrim_copy ( std::string s )
+{
+	rtrim(s);
+	return s;
+}
+
+/**
+ * @brief Remove space at the beggining and the end of a string
+ *
+ * @param s String to trim
+ */
+std::string	trim_copy ( std::string s )
+{
+	trim(s);
+	return s;
 }
