@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/13 13:49:43 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/13 17:10:28 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ channels::channels(std::string name, user *chanOperator) :  _mode("+"), _modePar
 	// {
 		this->setName(name);
 	// }
-	this->setOper(chanOperator);
+	this->addOper(chanOperator);
 	this->addUser(chanOperator);
 }
 
@@ -59,9 +59,9 @@ std::string	channels::getModeParams()
 	return (this->_modeParams);
 }
 
-user		*channels::getOper()
+std::map<std::string, user *>	&channels::getOper()
 {
-	return (this->_oper);
+	return (this->_operators);
 }
 
 std::map<int, user*>&	channels::getUsers()
@@ -98,11 +98,6 @@ bool				channels::getPassSet()
 void		channels::setName(std::string name)
 {
 	this->_name = name;
-}
-
-void		channels::setOper(user *oper)
-{
-	this->_oper = oper;
 }
 
 void		channels::setTopic(std::string topic)
@@ -164,7 +159,12 @@ void		channels::removeModeParams(std::string newModeParams)
 
 void		channels::addUser(user *newUser)
 {
-	this->_currentUsers.insert(std::make_pair(newUser->getSdUser(), 	newUser));
+	this->_currentUsers.insert(std::make_pair(newUser->getSdUser(),	newUser));
+}
+
+void		channels::addOper(user *newOper)
+{
+	this->_operators.insert(std::make_pair(newOper->getNickName(),	newOper));
 }
 
 bool		channels::UserInChan(user *user)

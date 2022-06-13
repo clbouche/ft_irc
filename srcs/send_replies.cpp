@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 16:00:36 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:21:27 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_BADCHANNELKEY(arg1);
 		case 476:
 			return reply + ERR_BADCHANMASK(arg1);
+		case 482:
+			return reply + ERR_CHANOPRIVSNEEDED(arg1);
 		case 501:
 			return reply + ERR_UMODEUNKNOWNFLAG();
 		case 502:

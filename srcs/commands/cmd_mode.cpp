@@ -75,6 +75,16 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 	}
 }
 
+static	bool	isOper(std::string target, user *currentUser)
+{
+	if (currentUser->isChanInList(target) == true)
+	{
+		if (currentUser->findChanInList(target)->getOper().find(currentUser->getNickName()) == currentUser->findChanInList(target)->getOper().end())
+			return (false);
+	}
+	return (true);
+}
+
 void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 {
 	(void)serv;
@@ -95,23 +105,28 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 	{
 		if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 		{
-			if (check_args(target, &mode, modeParams, currentUser, serv))
+			if (isOper(target, currentUser))
 			{
-				if (serv->currentChannels.find(target) != serv->currentChannels.end())
+				if (check_args(target, &mode, modeParams, currentUser, serv))
 				{
-					std::cout << RED << "TARGET IS A CHANNEL" << END << std::endl;
-					if (currentUser->isChanInList(target) == true)
+					if (serv->currentChannels.find(target) != serv->currentChannels.end())
 					{
-						channels *targetChannel = currentUser->findChanInList(target);
-						channelMode(targetChannel, mode, modeParams);
-						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(324, currentUser, serv, targetChannel->getName(), targetChannel->getMode(), targetChannel->getModeParams())));
+						std::cout << RED << "TARGET IS A CHANNEL" << END << std::endl;
+						if (currentUser->isChanInList(target) == true)
+						{
+							channels *targetChannel = currentUser->findChanInList(target);
+							channelMode(targetChannel, mode, modeParams);
+							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(324, currentUser, serv, targetChannel->getName(), targetChannel->getMode(), targetChannel->getModeParams())));
+						}
+						else
+							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(442, currentUser, serv, target)));
 					}
 					else
-						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(442, currentUser, serv, target)));
+						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(403, currentUser, serv, target)));
 				}
-				else
-					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(403, currentUser, serv, target)));
 			}
+			else
+				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(482, currentUser, serv, target)));
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 16:00:05 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:19:58 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -438,7 +438,12 @@
 
 //         482     ERR_CHANOPRIVSNEEDED
 //                         "<channel> :You're not channel operator"
-
+/**
+ * @brief ERR 482
+ * Returned by the server to indicate that
+ * the user is not operator in channel
+ */
+# define ERR_CHANOPRIVSNEEDED(channel) (channel + " :You're not channel operator\r\n")
 //                 - Any command requiring 'chanop' privileges (such as
 //                   MODE messages) must return this error if the client
 //                   making the attempt is not a chanop on the specified
