@@ -12,6 +12,7 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 	size_t						j = 0;
     size_t pos = args.find_first_of(" ");
     std::string					partMsg;
+	std::string					rpl_partMsg;
 	std::string					chans = args.substr(0, pos);
 
 	if (chans == "")
@@ -45,28 +46,20 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 		}
 		else if (chan->UserInChan(currentUser) == true)
 		{
-			//on doit faire partir le user du channel 
-			//remove users de la list d'users du chan 
-			//remove le chan de la liste de chan du user
 			//si c'etait le dernier utilisateur du chan, suppr le chan de currentChannels
 
-					// std::string	answer = user_answer(user);
+			//refaire en fonction du formatage
+			rpl_partMsg.append(currentUser->getNickName());
+			rpl_partMsg.append(" :");
+			if (partMsg != "")
+				rpl_partMsg.append(partMsg);
+			rpl_partMsg.append("\r\n");
 
-					// answer.append("PART ");
-					// answer.append(chan_name);
-					// if (msg_part != "")
-					// {
-					// 	answer.append(" :");
-					// 	answer.append(msg_part);
-					// }
-					// answer.append("\r\n");
-
-					// chan.second->send_all(serv, answer);
-					// chan.second->kickUser(user);
-					// if (chan.second->getMembersCount() == 0)
-					// {
-					// 	serv->remove_channel(chan_name);
-					// }
+			//envoyer cette reponse a tous les users du chan 
+			//remove users de la list d'users du chan 
+			//remove le chan de la liste de chan du user
+			// if (chan->getNbUsers() == 0)
+				//supprimer le chan
 		}
 		j++;
 	}     

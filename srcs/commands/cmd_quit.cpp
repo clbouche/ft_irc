@@ -10,8 +10,10 @@ void    cmd_quit( IrcServer *serv, user *currentUser, std::string & args )
     (void)serv;
     (void)currentUser;
     (void)args;
-    // size_t          pos = args.find_first_of(" :");
-    // std::string     msg;
-    // pos == std::string::npos ? msg = "left" = args.substr(pos + , args.length());
-
+    std::string     msg;
+    if (args == "" || args.find_first_of(":") == std::string::npos)
+        msg = "left";
+    //retirer l'tilisateur de tous les channels 
+    //supprimer l'appartenance au socket
+    //envoyer le msg aux autres users
 }
