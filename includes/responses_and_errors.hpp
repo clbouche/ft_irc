@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 14:30:05 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:19:58 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,21 +288,21 @@
  * nickname collision (registered of a NICK that
  * already exists by another server).
  */
-# define ERR_NICKCOLLISION(nickName) (nickName + "  :Nickname collision KILL\r\n")
+# define ERR_NICKCOLLISION(nickName) (nickName + " :Nickname collision KILL\r\n")
 
 /**
  * @brief ERR 441
  * Returned by the server to indicate that the target
  * user of the command is not on the given channel.
  */
-# define ERR_USERNOTINCHANNEL(nickName, channel) (nickName + channel + "  :They aren't on that channel\r\n")
+# define ERR_USERNOTINCHANNEL(nickName, channel) (nickName + " " + channel + " :They aren't on that channel\r\n")
 
 /**
  * @brief ERR 442
  * Returned by the server to indicate that the target
  * user of the command is not on the given channel.
  */
-# define ERR_NOTONCHANNEL(channel) (channel + "  :You're not on that channel\r\n")
+# define ERR_NOTONCHANNEL(channel) (channel + " :You're not on that channel\r\n")
 
 /**
  * @brief ERR 443
@@ -417,8 +417,18 @@
 
 //         472     ERR_UNKNOWNMODE
 //                         "<char> :is unknown mode char to me"
-
-
+/**
+ * @brief ERR 472
+ * Returned by the server to indicate that a MODE
+ * flag does not exist.
+ */
+# define ERR_UNKNOWNMODE(flag, target) (flag + " :is unknown mode char to me for " + target + "\r\n")
+//         473     ERR_INVITEONLYCHAN
+//                         "<channel> :Cannot join channel (+i)"
+//         474     ERR_BANNEDFROMCHAN
+//                         "<channel> :Cannot join channel (+b)"
+//         475     ERR_BADCHANNELKEY
+//                         "<channel> :Cannot join channel (+k)"
 //         481     ERR_NOPRIVILEGES
 //                         ":Permission Denied- You're not an IRC operator"
 
@@ -428,7 +438,12 @@
 
 //         482     ERR_CHANOPRIVSNEEDED
 //                         "<channel> :You're not channel operator"
-
+/**
+ * @brief ERR 482
+ * Returned by the server to indicate that
+ * the user is not operator in channel
+ */
+# define ERR_CHANOPRIVSNEEDED(channel) (channel + " :You're not channel operator\r\n")
 //                 - Any command requiring 'chanop' privileges (such as
 //                   MODE messages) must return this error if the client
 //                   making the attempt is not a chanop on the specified
@@ -455,6 +470,14 @@
 //                 - Returned by the server to indicate that a MODE
 //                   message was sent with a nickname parameter and that
 //                   the a mode flag sent was not recognized.
+
+/**
+ * @brief ERR 501
+ * Returned by the server to indicate that a MODE
+ * message was sent with a nickname parameter and that
+ * the a mode flag sent was not recognized.
+ */
+# define ERR_UMODEUNKNOWNFLAG() (":Unknown MODE flag\r\n")
 
 /**
  * @brief ERR 502
@@ -562,7 +585,12 @@
 
     //     324     RPL_CHANNELMODEIS
     //                     "<channel> <mode> <mode params>"
-
+/**
+ * @brief ERR 324
+ * Error sent to any user trying to view or change the
+ * user mode for a user other than themselves.
+ */
+# define RPL_CHANNELMODEIS(channel, mode, modeParams) (channel + " " + mode + " " + modeParams + "\r\n")
     //     331     RPL_NOTOPIC
     //                     "<channel> :No topic is set"
     //     332     RPL_TOPIC

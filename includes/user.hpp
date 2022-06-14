@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 11:38:26 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:57:47 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,23 @@ class user
 		std::list<channels *>	getListOfChans();
 
 		/**
+		 * @brief Get a chan in the list of joined channels
+		 * 
+		 * @return channels * which is the channels with the name target
+		 * @param target the name of the channel we want to find
+		 */
+		channels	*findChanInList(std::string	target);
+
+		/**
+		 * @brief Know if a chan is in the list of joined channels or not
+		 * 
+		 * @return true if user has joined the target channel
+		 * @return false if user has not joined the target channel
+		 * @param target the name of the channel we want to find
+		 */
+		bool	isChanInList(std::string	target);
+
+		/**
 		 * 
 		 * SETTERS
 		 * 
@@ -170,9 +187,15 @@ class user
 
 		/**
 		 * @brief Set the nick name
-		 * @param mode the mode you want to set
+		 * @param mode the mode.s you want to set
 		 */
-		void	setMode(std::string mode);
+		void	setMode(std::string newMode);
+
+		/**
+		 * @brief Remove the nick name
+		 * @param mode the mode.s you want to remove
+		 */
+		void	removeMode(std::string newMode);
 
 		/**
 		 * @brief Set the Good Password object

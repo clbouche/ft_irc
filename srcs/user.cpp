@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 11:39:55 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 10:00:11 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,28 @@
 		return (this->_listOfChans);
 	}
 
+	channels	*user::findChanInList(std::string target)
+	{
+		std::list<channels *>::iterator	it;
+		for (it = this->_listOfChans.begin(); it != this->_listOfChans.end(); it++)
+		{
+			if ((**it).getName() == target)
+				return (*it);
+		}
+		return (NULL);
+	}
+
+	bool	user::isChanInList(std::string	target)
+	{
+		std::list<channels *>::iterator	it;
+		for (it = this->_listOfChans.begin(); it != this->_listOfChans.end(); it++)
+		{
+			if ((**it).getName() == target)
+				return (true);
+		}
+		return (false);
+	}
+
 	/* ------------------------- SETTER ------------------------- */
 
 	void	user::setNickName(std::string nickname)
@@ -125,7 +147,19 @@
 				this->_mode += newMode.c_str()[i];
 			i++;
 		}
-		// this->_mode = mode;
+	}
+
+	void	user::removeMode(std::string newMode)
+	{
+		size_t	inMode, i = 0;
+
+		while (i < newMode.length())
+		{
+			inMode = this->_mode.find_first_of(newMode.c_str()[i]);
+			if (inMode != std::string::npos)
+				this->_mode.erase(std::remove(this->_mode.begin(),this->_mode.end(),newMode.c_str()[i]));
+			i++;
+		}
 	}
 
 	void	user::setCheckPassword(bool check)
