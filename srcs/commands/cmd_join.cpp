@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 15:49:06 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 12:06:38 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 				channels	*newChan = new channels(chan_name, currentUser);
 				serv->currentChannels.insert(std::make_pair(chan_name, newChan));
 				currentUser->setListOfChans(newChan);
-				currentUser->setChannelsJoined(currentUser->getChannelsJoined() + 1);
+				currentUser->IncrementChannelsJoined();
 				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 									send_replies(332, currentUser, serv, chan_name, 
 				newChan->getTopic())));
@@ -208,6 +208,7 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 					user *toAdd = new user(*currentUser);
 					channel->addUser(toAdd);
 					currentUser->setListOfChans(channel);
+					currentUser->IncrementChannelsJoined();
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 							send_replies(332, currentUser, serv, channel->getName(), 
 							channel->getTopic())));

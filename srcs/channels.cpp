@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 11:20:33 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 12:02:31 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,4 +192,16 @@ bool		channels::UserIsBan(user *currentUser)
 	if (it != _banUsers.end())
 		return true;
 	return false;
+}
+
+void		channels::sendToAllUsers (tcpServer *tcp, std::string msg )
+{
+	std::map<int, user *>::iterator	it;
+
+	it = this->_currentUsers.begin();
+	while (it != this->_currentUsers.end())
+	{
+		tcp->add_to_buffer(std::make_pair(it->first, msg));
+		it++;
+	}
 }

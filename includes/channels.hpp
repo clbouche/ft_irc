@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 10:49:27 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 11:49:15 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ class channels
 		void					addOper(user *newOper);
 		bool					UserInChan(user *user);
 		bool					UserIsBan(user *currentUser);
+		void					sendToAllUsers (tcpServer *tcp, std::string msg );
 
 };
 

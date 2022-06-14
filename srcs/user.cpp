@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 11:10:46 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 12:01:10 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,9 +184,14 @@
 
 	void	user::setChannelsJoined(int	nb)
 	{
-		this->_channelsJoined = nb;
+		this->_channelsJoined += nb;
 	}
 	
+	void	user::IncrementChannelsJoined( void )
+	{
+		this->_channelsJoined++;
+	}
+
 	void	user::setListOfChans(channels *chan)
 	{
 		_listOfChans.push_back(chan);
@@ -211,11 +216,11 @@
 			if ((*it) == channel)
 			{
 				_listOfChans.erase(it);
+				this->_channelsJoined--;
 				break;
 			}	
 		}
 
-		this->_channelsJoined--;
 
 		std::cout << "after remove chan" << std::endl;
 		std::list<channels *>::iterator it2;

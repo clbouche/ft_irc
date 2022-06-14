@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 10:30:26 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 12:00:28 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,9 @@ class user
 		 * 
 		 */
 		void	setChannelsJoined(int	nb);
+
+		void	IncrementChannelsJoined( void );
+
 
 		/**
 		 * @brief Set the Channels Joined object

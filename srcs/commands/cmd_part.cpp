@@ -45,20 +45,15 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 		}
 		else if (chan->UserInChan(currentUser) == true)
 		{
-			//refaire en fonction du formatage
-			rpl_partMsg.append(currentUser->getNickName());
-			rpl_partMsg.append(" :");
-			rpl_partMsg.append(partMsg);
-			rpl_partMsg.append("\r\n");
-
+			chan->sendToAllUsers(&serv->_tcpServer, (":" + currentUser->getNickName() + " PART "
+					+ chan_name + " :" + partMsg + "\r\n"));
 			currentUser->removeChan(chan);
 			chan->removeUser(currentUser);
 			if (chan->getNbUsers() == 0)
 			{
-				//delete 
+				delete serv->currentChannels[chan_name];
 				serv->currentChannels.erase(chan_name);
 			}
-			//envoyer cette reponse a tous les users du chan 
 		}
 		j++;
 	}     
