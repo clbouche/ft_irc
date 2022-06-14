@@ -63,31 +63,54 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 	(void)currentUser;
 	// if (modeParams != "")
 	// {
-		std::vector<std::string>	paramsVector;
-		std::string	paramToUse;
-		paramsVector = ft_split(modeParams, " ");
-		paramToUse = trim_copy(paramsVector.front());
-		user *userParam = serv->getUserByNick(paramToUse);
+		std::vector<std::string>	paramsVector= ft_split(modeParams, " ");
+		std::string	paramToUse = "";
+		std::string	toErase = "";
 	// }
 	if (mode.c_str()[0] == '+')
 	{
-		if (mode.find("o") != std::string::npos)
+		// if (mode.find("o") != std::string::npos)
+		// {
+		// 	mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
+		// 	targetChannel->addOper(userParam);
+		// }
+		int i = 0;
+		while (mode.c_str()[i])
 		{
-			mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
-			targetChannel->addOper(userParam);
+			switch (mode.c_str()[i])
+			{
+				case 'o':
+					toErase += 'o';
+					if (paramsVector.size() > 0)
+					{
+						paramToUse = trim_copy(paramsVector.front());
+						user *userParam = serv->getUserByNick(paramToUse);
+						targetChannel->addOper(userParam);
+					}
+			}
+			i++;
+		}
+		if (toErase.size() > 0)
+		{
+			int j = 0;
+			while (toErase.c_str()[j])
+			{
+				mode.erase(std::remove(mode.begin(), mode.end(), toErase.c_str()[j]));
+				j++;
+			}
 		}
 		targetChannel->setMode(mode);
 	}
-	else if (mode.c_str()[0] == '-')
-	{
-		// SWITCH - 
-		if (mode.find("o") != std::string::npos)
-		{
-			mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
-			targetChannel->removeOper(userParam);
-		}
-		targetChannel->removeMode(mode);
-	}
+	// else if (mode.c_str()[0] == '-')
+	// {
+	// 	// SWITCH - 
+	// 	if (mode.find("o") != std::string::npos)
+	// 	{
+	// 		mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
+	// 		targetChannel->removeOper(userParam);
+	// 	}
+	// 	targetChannel->removeMode(mode);
+	// }
 }
 
 // static	bool	isOper(std::string target, user *currentUser)

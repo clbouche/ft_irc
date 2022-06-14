@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_join.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 11:24:06 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:59:09 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,9 +196,6 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 									send_replies(332, currentUser, serv, chan_name, 
 				newChan->getTopic())));
 				cmd_names(serv, currentUser, chan_name);
-				// serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-				// 					send_replies(353, currentUser, serv, chan_name,
-				// 					currentUser->getNickName())));
 
 			}
 			else if (check_chan(serv, currentUser, channel, pass_chan) == true)
@@ -208,16 +205,12 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 				// sinon ajout du user 
 				if (channel->UserInChan(currentUser) == false)
 				{
-					user *toAdd = new user(*currentUser);
-					channel->addUser(toAdd);
+					channel->addUser(currentUser);
 					currentUser->setListOfChans(channel);
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 							send_replies(332, currentUser, serv, channel->getName(), 
 							channel->getTopic())));
 					cmd_names(serv, currentUser, chan_name);
-					// serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-					// 		send_replies(353, currentUser, serv, channel->getName(),
-					// 		currentUser->getNickName())));
 				}
 			}
 		}

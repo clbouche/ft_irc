@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:39:32 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 12:10:50 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:42:28 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void    cmd_topic( IrcServer *serv, user *currentUser, std::string & args )
 	pos == std::string::npos ? topic = "" : topic = args.substr(pos + 2, args.length());
     serv->currentChannels.find(channel) == serv->currentChannels.end()?
             channel_topic = NULL : channel_topic = serv->currentChannels.find(channel)->second;
-    if (check_args(serv, currentUser, args, channel_topic) == true)
+    if (channel_topic != NULL && check_args(serv, currentUser, args, channel_topic) == true)
     {
         if (args.find_first_of(":") == std::string::npos)
 		{
@@ -86,10 +86,19 @@ void    cmd_topic( IrcServer *serv, user *currentUser, std::string & args )
 							send_replies(331, currentUser, serv, channel)));
                 return ;
             }
+            else
+            {
+                serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+                                    send_replies(332, currentUser, serv, channel, 
+                                    channel_topic->getTopic())));                
+            }
         }
-        channel_topic->setTopic(topic);
-        serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-                    send_replies(332, currentUser, serv, channel, 
-                    channel_topic->getTopic())));
+        else 
+        {
+            channel_topic->setTopic(topic);
+            serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+                        send_replies(332, currentUser, serv, channel, 
+                        channel_topic->getTopic())));
+        }
     }
 }
