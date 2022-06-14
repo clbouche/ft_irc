@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 11:38:26 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 10:23:29 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,8 @@ class user
 		 */
 		void	setListOfChans(channels *chan);
 
-		bool	check_connexion( void );
+
+		void	removeChan(channels *channel);
 
 		
 };

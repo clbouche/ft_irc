@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 14:33:47 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 10:21:08 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,18 @@ void		channels::setTopic(std::string topic)
 
 void		channels::addUser(user *newUser)
 {
-	this->_currentUsers.insert(std::make_pair(newUser->getSdUser(), 	newUser));
+	this->_currentUsers.insert(std::make_pair(newUser->getSdUser(), newUser));
+}
+
+bool		channels::removeUser(user *user)
+{
+	if (UserInChan(user))
+	{
+		this->_currentUsers.erase(&user->getNickName());
+		this->_nbUsers--;
+		return (true);
+	}
+	return (false);
 }
 
 bool		channels::UserInChan(user *user)

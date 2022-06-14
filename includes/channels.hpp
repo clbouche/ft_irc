@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 15:20:35 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 10:12:11 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ class channels
 		void					setOper(user *oper);
 		void					setTopic(std::string topic);
 
-		void					addUser(user *newUser);	
+		void					addUser(user *newUser);
+		void					removeUser(user *user);
 		bool					UserInChan(user *user);
 		bool					UserIsBan(user *currentUser);
 

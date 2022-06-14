@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 11:39:55 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 10:24:41 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,3 +160,9 @@
 
 
 	/* ------------------------- OTHERS ------------------------- */
+
+	void	user::removeChan(channels *channel)
+	{
+		this->_
+		this->_channelsJoined--;
+	}
