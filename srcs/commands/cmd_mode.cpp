@@ -101,16 +101,32 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 		}
 		targetChannel->setMode(mode);
 	}
-	// else if (mode.c_str()[0] == '-')
-	// {
-	// 	// SWITCH - 
-	// 	if (mode.find("o") != std::string::npos)
-	// 	{
-	// 		mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
-	// 		targetChannel->removeOper(userParam);
-	// 	}
-	// 	targetChannel->removeMode(mode);
-	// }
+	else if (mode.c_str()[0] == '-')
+	{
+		// SWITCH - 
+		// if (mode.find("o") != std::string::npos)
+		// {
+		// 	mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
+		// 	targetChannel->removeOper(userParam);
+		// }
+		// targetChannel->removeMode(mode);
+		int i = 0;
+		while (mode.c_str()[i])
+		{
+			switch (mode.c_str()[i])
+			{
+				case 'o':
+					toErase += 'o';
+					if (paramsVector.size() > 0)
+					{
+						paramToUse = trim_copy(paramsVector.front());
+						user *userParam = serv->getUserByNick(paramToUse);
+						targetChannel->removeOper(userParam);
+					}
+			}
+			i++;
+		}
+	}
 }
 
 // static	bool	isOper(std::string target, user *currentUser)
