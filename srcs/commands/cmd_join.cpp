@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/14 12:06:38 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 17:05:10 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,8 +205,7 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 				// sinon ajout du user 
 				if (channel->UserInChan(currentUser) == false)
 				{
-					user *toAdd = new user(*currentUser);
-					channel->addUser(toAdd);
+					channel->addUser(currentUser);
 					currentUser->setListOfChans(channel);
 					currentUser->IncrementChannelsJoined();
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),

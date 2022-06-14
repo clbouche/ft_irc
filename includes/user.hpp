@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:55 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 12:00:28 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 17:05:25 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,15 @@ class user
 		 * @param target the name of the channel we want to find
 		 */
 		bool	isChanInList(std::string	target);
+
+		/**
+		 * @brief Know if a chan is in the list of joined channels or not
+		 * 
+		 * @return true if user is oper in the target channel
+		 * @return false if user is not oper in the target channel
+		 * @param target the name of the user we want to find
+		 */
+		bool	isOper(std::string	target);
 
 		/**
 		 * 

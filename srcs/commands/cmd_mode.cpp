@@ -58,32 +58,70 @@ static bool check_target(std::string target, user *currentUser, IrcServer *serv)
 	return (true);
 }
 
-void channelMode(channels *targetChannel, std::string mode, std::string modeParams)
+void channelMode(channels *targetChannel, std::string mode, std::string modeParams, user *currentUser, IrcServer *serv)
 {
+	(void)currentUser;
+	// if (modeParams != "")
+	// {
+		std::vector<std::string>	paramsVector= ft_split(modeParams, " ");
+		std::string	paramToUse = "";
+		std::string	toErase = "";
+	// }
 	if (mode.c_str()[0] == '+')
 	{
-		if (mode.find("o") != std::string::npos)
-			mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
+		// if (mode.find("o") != std::string::npos)
+		// {
+		// 	mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
+		// 	targetChannel->addOper(userParam);
+		// }
+		int i = 0;
+		while (mode.c_str()[i])
+		{
+			switch (mode.c_str()[i])
+			{
+				case 'o':
+					toErase += 'o';
+					if (paramsVector.size() > 0)
+					{
+						paramToUse = trim_copy(paramsVector.front());
+						user *userParam = serv->getUserByNick(paramToUse);
+						targetChannel->addOper(userParam);
+					}
+			}
+			i++;
+		}
+		if (toErase.size() > 0)
+		{
+			int j = 0;
+			while (toErase.c_str()[j])
+			{
+				mode.erase(std::remove(mode.begin(), mode.end(), toErase.c_str()[j]));
+				j++;
+			}
+		}
 		targetChannel->setMode(mode);
 	}
-	else if (mode.c_str()[0] == '-')
-	{
-		targetChannel->removeMode(mode);
-	}
-	if (modeParams != "")
-	{
-	}
+	// else if (mode.c_str()[0] == '-')
+	// {
+	// 	// SWITCH - 
+	// 	if (mode.find("o") != std::string::npos)
+	// 	{
+	// 		mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
+	// 		targetChannel->removeOper(userParam);
+	// 	}
+	// 	targetChannel->removeMode(mode);
+	// }
 }
 
-static	bool	isOper(std::string target, user *currentUser)
-{
-	if (currentUser->isChanInList(target) == true)
-	{
-		if (currentUser->findChanInList(target)->getOper().find(currentUser->getNickName()) == currentUser->findChanInList(target)->getOper().end())
-			return (false);
-	}
-	return (true);
-}
+// static	bool	isOper(std::string target, user *currentUser)
+// {
+// 	if (currentUser->isChanInList(target) == true)
+// 	{
+// 		if (currentUser->findChanInList(target)->getOper().find(currentUser->getNickName()) == currentUser->findChanInList(target)->getOper().end())
+// 			return (false);
+// 	}
+// 	return (true);
+// }
 
 void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 {
@@ -105,7 +143,7 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 	{
 		if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 		{
-			if (isOper(target, currentUser))
+			if (currentUser->isOper(target))
 			{
 				if (check_args(target, &mode, modeParams, currentUser, serv))
 				{
@@ -115,7 +153,7 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 						if (currentUser->isChanInList(target) == true)
 						{
 							channels *targetChannel = currentUser->findChanInList(target);
-							channelMode(targetChannel, mode, modeParams);
+							channelMode(targetChannel, mode, modeParams, currentUser, serv);
 							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(324, currentUser, serv, targetChannel->getName(), targetChannel->getMode(), targetChannel->getModeParams())));
 						}
 						else

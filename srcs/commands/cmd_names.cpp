@@ -56,7 +56,10 @@ void	listAllChannels(IrcServer *serv, user *currentUser)
 			user 		*user = ite->second;
 			if (user->getMode().find("i") == std::string::npos)
 			{
-				rpl_nicknames.append("@");
+				if (user->isOper(chan->getName()))
+					rpl_nicknames.append("@");
+				else
+					rpl_nicknames.append(" ");
 				rpl_nicknames.append(user->getNickName());
 				rpl_nicknames.append(" ");
 			}
@@ -90,7 +93,10 @@ void	listSelectedChans(IrcServer *serv, user *currentUser, std::vector<std::stri
 				user 		*user = ite->second;
 				if (user->getMode().find("i") == std::string::npos)
 				{
-					rpl_nicknames.append("@");
+					if (user->isOper(chan->getName()))
+						rpl_nicknames.append("@");
+					else
+						rpl_nicknames.append(" ");
 					rpl_nicknames.append(user->getNickName());
 					rpl_nicknames.append(" ");
 				}

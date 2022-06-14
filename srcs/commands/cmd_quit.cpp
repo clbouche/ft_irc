@@ -7,9 +7,6 @@
 
 void    cmd_quit( IrcServer *serv, user *currentUser, std::string & args )
 {
-	(void)serv;
-	(void)args;
-	(void)currentUser;
     std::string							quitMsg;
     std::string							sendToPart;
     std::list<channels *>				listOfChans = currentUser->getListOfChans();
@@ -26,8 +23,9 @@ void    cmd_quit( IrcServer *serv, user *currentUser, std::string & args )
 	}
 	sendToPart.append(quitMsg);
 	cmd_part(serv, currentUser, sendToPart);
-	serv->deleteUser(currentUser->getSdUser());
-	// serv->_tcpServer.closeConnection(currentUser->getSdUser());
+	serv->_tcpServer.closeConnection(currentUser->getSdUser());
+	// serv->deleteUser(currentUser->getSdUser());
 
+	//envoyer a tous les users le depart de chaque chan : pq part le fait pas wsh??
     //supprimer l'appartenance au socket
 }
