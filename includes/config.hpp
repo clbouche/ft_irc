@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:46 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/08 14:53:35 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 13:51:31 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@
 # define CHANNEL_PREFIX			"&#+!" // channel name can only begin with one of those characters
 # define DATE					"02.06.2022"
 # define VERSION				"1.0"
-# define USERSMODES				"aiwroOs"
-# define CHANNELSMODES			"OovaimnpsrtklbeI"
-
-
+# define USERSMODES				"io"
+# define CHANNELSMODES			"kobilv"
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 15:09:47 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 17:35:30 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void    loop(IrcServer *server)
 		{
 			if (server->getServerPassword() == "")
 				server->getUser(buff.first)->setCheckPassword(true);
-			std::cout << buff.second << std::endl;
 			parse_cmd(buff.second, server, server->getUser(buff.first));
 			if (server->getUser(buff.first)->getWelcomeMsg() == false)
 			{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_replies.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 14:29:53 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:21:27 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_LIST(arg1, arg2);
 		case 323:
 			return reply + RPL_LISTEND();
+		case 324:
+			return reply + RPL_CHANNELMODEIS(arg1, arg2, arg3);
 		case 331:
 			return reply + RPL_NOTOPIC(arg1);
 		case 332:
@@ -112,6 +114,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_ERRONEUSNICKNAME(arg1);
 		case 433:
 			return reply + ERR_NICKNAMEINUSE(arg1);
+		case 441:
+			return reply + ERR_USERNOTINCHANNEL(arg1, arg2);
 		case 442:
 			return reply + ERR_NOTONCHANNEL(arg1);
 		case 451:
@@ -122,6 +126,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_ALREADYREGISTRED();
 		case 471:
 			return reply + ERR_CHANNELISFULL(arg1);
+		case 472:
+			return reply + ERR_UNKNOWNMODE(arg1, arg2);
 		case 473:
 			return reply + ERR_INVITEONLYCHAN(arg1);
 		case 474:
@@ -130,6 +136,10 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_BADCHANNELKEY(arg1);
 		case 476:
 			return reply + ERR_BADCHANMASK(arg1);
+		case 482:
+			return reply + ERR_CHANOPRIVSNEEDED(arg1);
+		case 501:
+			return reply + ERR_UMODEUNKNOWNFLAG();
 		case 502:
 			return reply + ERR_USERSDONTMATCH();
 	
