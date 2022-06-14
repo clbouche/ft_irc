@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 10:31:56 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 11:20:33 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,17 +160,16 @@ void		channels::removeModeParams(std::string newModeParams)
 void		channels::addUser(user *newUser)
 {
 	this->_currentUsers.insert(std::make_pair(newUser->getSdUser(), newUser));
+	this->_nbUsers++;
 }
 
-bool		channels::removeUser(user *user)
-{
+void		channels::removeUser(user *user)
+{	
 	if (UserInChan(user))
 	{
-		this->_currentUsers.erase(&user->getNickName());
+		this->_currentUsers.erase(user->getSdUser());
 		this->_nbUsers--;
-		return (true);
 	}
-	return (false);
 }
 
 void		channels::addOper(user *newOper)

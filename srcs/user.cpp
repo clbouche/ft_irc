@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 10:30:42 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 11:10:46 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,30 @@
 
 	void	user::removeChan(channels *channel)
 	{
-		this->_
+
+		std::cout << "before remove chan" << std::endl;
+		std::list<channels *>::iterator it1;
+		for ( it1 = this->_listOfChans.begin(); it1 != this->_listOfChans.end(); it1++ )
+			std::cout << "[" << (**it1).getName() << "]" << std::endl;
+		std::cout << "channeljoined : [" << _channelsJoined << "]" << std::endl;
+
+		
+		std::list<channels *>::iterator it;
+		for (it = this->_listOfChans.begin(); it != this->_listOfChans.end(); it++)
+		{
+			if ((*it) == channel)
+			{
+				_listOfChans.erase(it);
+				break;
+			}	
+		}
+
 		this->_channelsJoined--;
+
+		std::cout << "after remove chan" << std::endl;
+		std::list<channels *>::iterator it2;
+		for ( it2 = this->_listOfChans.begin(); it2 != this->_listOfChans.end(); it2++ )
+			std::cout << "[" << (**it2).getName() << "]" << std::endl;
+		std::cout << "channeljoined : [" << _channelsJoined << "]" << std::endl;
+
 	}
