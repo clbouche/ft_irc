@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/13 17:10:36 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/14 10:48:49 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ class channels
 		void					removeModeParams(std::string mode);
 
 		void					addOper(user *newOper);
+		void					removeOper(user *newOper);
 		void					addUser(user *newUser);
 		bool					UserInChan(user *user);
 		bool					UserIsBan(user *currentUser);

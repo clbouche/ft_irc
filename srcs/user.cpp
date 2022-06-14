@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:40:05 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/13 10:00:11 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/14 14:50:15 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,17 @@
 		}
 		return (false);
 	}
+
+	bool	user::isOper(std::string	target)
+	{
+		if (this->isChanInList(target) == true)
+		{
+			if (this->findChanInList(target)->getOper().find(this->getNickName()) == this->findChanInList(target)->getOper().end())
+				return (false);
+		}
+		return (true);
+	}
+
 
 	/* ------------------------- SETTER ------------------------- */
 

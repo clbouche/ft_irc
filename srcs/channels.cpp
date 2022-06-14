@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/13 17:10:28 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/14 10:53:44 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,11 @@ void		channels::addUser(user *newUser)
 void		channels::addOper(user *newOper)
 {
 	this->_operators.insert(std::make_pair(newOper->getNickName(),	newOper));
+}
+
+void		channels::removeOper(user *oldOper)
+{
+	this->_operators.erase(oldOper->getNickName());
 }
 
 bool		channels::UserInChan(user *user)
