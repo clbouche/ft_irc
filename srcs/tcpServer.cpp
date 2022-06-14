@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/06/13 15:14:25 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:29:28 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,8 @@ std::pair<int, std::string>		tcpServer::listen_data(void)
 				//Somebody disconnected , get his details and print
 				getpeername(sd , (struct sockaddr*)&_address , \
 					(socklen_t*)&_addrlen);
-				std::cout << "Host disconnected, ip " << inet_ntoa(_address.sin_addr) << " , port " << ntohs(_address.sin_port) << std::endl;
+				std::cout	<< "Host disconnected, ip " << inet_ntoa(_address.sin_addr) 
+							<< " , port " << ntohs(_address.sin_port) << std::endl;
 
 				//Close the socket and mark as 0 in list for reuse
 				close( sd );
@@ -209,3 +210,53 @@ std::string						tcpServer::getHostname(void)
 {
 	return (this->_hostname);
 }
+
+void						tcpServer::closeConnection(int fd)
+{
+	int		_addrlen  = sizeof(_address);
+	
+	for (int i = 0; i < MAX_CLIENTS; i++)
+	{
+		if (this->_clientSocket[i] == fd)
+		{
+			getpeername(fd, (struct sockaddr*)&_address, (socklen_t*)&_addrlen);
+			std::cout	<< "Host disconnected, ip " << inet_ntoa(_address.sin_addr) 
+						<< " , port " << ntohs(_address.sin_port) << std::endl;
+			close (fd);
+			_clientSocket[i] = 0;
+			break;
+		}
+	}
+}
+
+
+// void					TCPServer::close_connection ( const int & fd )
+// {
+// 	socklen_t	addr_len = sizeof(_address);
+
+// 	for (size_t i = 0; i < MAX_CLIENTS_CONNECTION; i++)
+// 	{
+// 		if (this->_clients_socket[i] == fd)
+// 		{
+// 			getpeername(fd, (struct sockaddr *)&_address, &addr_len);
+// 			#if IPV6 == 1
+// 				char	ip[INET6_ADDRSTRLEN];
+// 				inet_ntop(AF_INET6, &(_address.sin6_addr), ip, INET6_ADDRSTRLEN);
+// 				std::cout	<< "Host disconnected." << std::endl
+// 							<< "\tsocket fd : " << fd << std::endl
+// 							<< "\tip : " << ip << std::endl
+// 							<< "\tport : " << ntohs(_address.sin6_port) << std::endl;
+// 			# else
+// 				char	ip[INET_ADDRSTRLEN];
+// 				inet_ntop(AF_INET, &(_address.sin_addr), ip, INET_ADDRSTRLEN);
+// 				std::cout	<< "New connection." << std::endl
+// 							<< "\tsocket fd : " << fd << std::endl
+// 							<< "\tip : " << ip << std::endl
+// 							<< "\tport : " << ntohs(_address.sin_port) << std::endl;
+// 			#endif
+// 			close(fd);
+// 			this->_clients_socket[i] = 0;
+// 			break;
+// 		}
+// 	}
+// }

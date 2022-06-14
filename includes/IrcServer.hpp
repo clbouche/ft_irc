@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 13:43:12 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 14:33:29 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ class   IrcServer {
 	user 	*getUser(int fd);
 
 	/**
+	 * @brief Get the password of the server
+	 * 
+	 */
+	std::string		getServerPassword( void );
+
+	/**
 	 * @brief Get the Channel object
 	 * 
 	 * @param name recup the channel with name
@@ -114,12 +120,7 @@ class   IrcServer {
 	 */
 	command     recup_cmd( std::string & args ) const;
 
-	/**
-	 * @brief Get the password of the server
-	 * 
-	 */
-	std::string		getServerPassword( void );
-
+	void		deleteUser(int fd);
 
 };
 

@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 13:45:07 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 14:35:20 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ user	*IrcServer::getUserByNick(std::string nick)
 		it++;
 	}
 	return (NULL);
+}
+
+std::string		IrcServer::getServerPassword( void )
+{
+	return (this->_server_password);
 }
 
 // channels	*IrcServer::getChannel(std::string name)
@@ -94,7 +99,8 @@ IrcServer::command	IrcServer::recup_cmd ( std::string & command ) const
 		return (&cmd_NULL);
 }
 			
-std::string		IrcServer::getServerPassword( void )
+void				IrcServer::deleteUser ( int fd)
 {
-	return (this->_server_password);
+	usersMap.erase(fd);
+	delete usersMap[fd];
 }

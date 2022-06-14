@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:52 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/09 11:39:10 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:28:11 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ class tcpServer
 		 * 
 		 */
 		std::string						getHostname(void);
+
+		void							closeConnection(int fd);
 
 
 };
