@@ -81,15 +81,21 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					if (paramsVector.size() > 0)
 					{
 						paramToUse = trim_copy(paramsVector.front());
-						user *userParam = serv->getUserByNick(paramToUse);
-						if (userParam == NULL)
+						// user *userParam = serv->getUserByNick(paramToUse);
+						if (serv->getUserByNick(paramToUse) != NULL && targetChannel->getUsers().find(serv->getUserByNick(paramToUse)->getSdUser()) != targetChannel->getUsers().end())
 						{
-							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(441, currentUser, serv, paramToUse, targetChannel->getName())));
-							break ;
+							user *userParam = serv->getUserByNick(paramToUse);
+							// if (userParam == NULL)
+							// {
+							// 	serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(441, currentUser, serv, paramToUse, targetChannel->getName())));
+							// 	break ;
+							// }
+							privmsg = userParam->getSdUser();
+							targetChannel->addOper(userParam);
+							paramsVector.erase(paramsVector.begin());
 						}
-						privmsg = userParam->getSdUser();
-						targetChannel->addOper(userParam);
-						paramsVector.erase(paramsVector.begin());
+						else
+								serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(441, currentUser, serv, paramToUse, targetChannel->getName())));
 					}
 				case 'k':
 					if (paramsVector.size() > 0)
@@ -136,6 +142,7 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 						paramToUse = trim_copy(paramsVector.front());
 						user *userParam = serv->getUserByNick(paramToUse);
 						targetChannel->removeOper(userParam);
+						paramsVector.erase(paramsVector.begin());
 					}
 			}
 			i++;
