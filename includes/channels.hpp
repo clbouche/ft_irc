@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 10:48:49 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/15 14:43:28 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ class channels
 		void					setTopic(std::string topic);
 		void					setMode(std::string mode);
 		void					setModeParams(std::string mode);
+		void					setPassword(std::string mode);
+		void					setPassSet(bool isPass);
 		
 		void					removeMode(std::string mode);
 		void					removeModeParams(std::string mode);

@@ -48,6 +48,48 @@ static bool check_args(std::string target, std::string *mode, std::string modePa
 	return (true);
 }
 
+static bool check_args_chan(std::string target, std::string *mode, std::string modeParams, user *currentUser, IrcServer *serv)
+{
+	(void)modeParams;
+	(void)mode;
+	(void)currentUser;
+	(void)serv;
+	(void)target;
+	std::string toRemove;
+
+	if (*mode != "")
+	{
+		size_t i = 0;
+		while (i < mode->length())
+		{
+			if (i == 0)
+			{
+				if (strchr("+-", mode->c_str()[0]) == NULL)
+					return (false);
+				i++;
+			}
+			if (strchr(CHANNELSMODES, mode->c_str()[i]) == NULL)
+			{
+				std::string errorFlag;
+				errorFlag += mode->c_str()[i]; // send_replies() need a string as an argument
+				toRemove += errorFlag;
+				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(472, currentUser, serv, errorFlag, target)));
+			}
+			i++;
+		}
+		if (toRemove.size() > 0)
+		{
+			i = 0;
+			while (toRemove.c_str()[i])
+			{
+				mode->erase(std::remove(mode->begin(), mode->end(), toRemove.c_str()[i]));
+				i++;
+			}
+		}
+	}
+	return (true);
+}
+
 static bool check_target(std::string target, user *currentUser, IrcServer *serv)
 {
 	if (target == "")
@@ -66,11 +108,6 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 	int	privmsg = 0;
 	if (mode.c_str()[0] == '+')
 	{
-		// if (mode.find("o") != std::string::npos)
-		// {
-		// 	mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
-		// 	targetChannel->addOper(userParam);
-		// }
 		int i = 0;
 		while (mode.c_str()[i])
 		{
@@ -81,15 +118,9 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					if (paramsVector.size() > 0)
 					{
 						paramToUse = trim_copy(paramsVector.front());
-						// user *userParam = serv->getUserByNick(paramToUse);
 						if (serv->getUserByNick(paramToUse) != NULL && targetChannel->getUsers().find(serv->getUserByNick(paramToUse)->getSdUser()) != targetChannel->getUsers().end())
 						{
 							user *userParam = serv->getUserByNick(paramToUse);
-							// if (userParam == NULL)
-							// {
-							// 	serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(441, currentUser, serv, paramToUse, targetChannel->getName())));
-							// 	break ;
-							// }
 							privmsg = userParam->getSdUser();
 							targetChannel->addOper(userParam);
 							paramsVector.erase(paramsVector.begin());
@@ -101,7 +132,9 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					if (paramsVector.size() > 0)
 					{
 						paramToUse = trim_copy(paramsVector.front());
-						std::cout << RED << "PARAMS TO USE{" << paramToUse << "}" << END << std::endl;
+						targetChannel->setPassword(paramToUse);
+						targetChannel->setPassSet(true);
+						paramsVector.erase(paramsVector.begin());
 					}
 			}
 			i++;
@@ -144,10 +177,17 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 						targetChannel->removeOper(userParam);
 						paramsVector.erase(paramsVector.begin());
 					}
+				case 'k':
+					if (targetChannel->getPassword().size() > 0)
+					{
+						targetChannel->setPassword("");
+						targetChannel->setPassSet(false);
+					}
 			}
 			i++;
 		}
 	}
+	std::cout << YELLOW <<" PASS: {" << targetChannel->getPassword() << "}" << END <<std::endl;
 }
 
 void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
@@ -174,7 +214,7 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 			{
 				if (currentUser->isOper(target))
 				{
-					if (check_args(target, &mode, modeParams, currentUser, serv))
+					if (check_args_chan(target, &mode, modeParams, currentUser, serv))
 					{
 						if (serv->currentChannels.find(target) != serv->currentChannels.end())
 						{

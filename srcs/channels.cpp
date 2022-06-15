@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 10:53:44 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/15 14:44:14 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,16 @@ void		channels::setModeParams(std::string newModeParams)
 			this->_modeParams += newModeParams.c_str()[i];
 		i++;
 	}
+}
+
+void		channels::setPassword(std::string newPassword)
+{
+	this->_password = newPassword;
+}
+
+void		channels::setPassSet(bool isPass)
+{
+	this->_passSet = isPass;
 }
 
 void		channels::removeMode(std::string newMode)
