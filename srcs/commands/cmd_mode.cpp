@@ -48,6 +48,13 @@ static bool check_args(std::string target, std::string *mode, std::string modePa
 	return (true);
 }
 
+bool is_number(const std::string& s)
+{
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
+
 static bool check_args_chan(std::string target, std::string *mode, std::string modeParams, user *currentUser, IrcServer *serv)
 {
 	(void)modeParams;
@@ -136,6 +143,32 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 						targetChannel->setPassSet(true);
 						paramsVector.erase(paramsVector.begin());
 					}
+				case 'l':
+					if (paramsVector.size() > 0)
+					{
+						paramToUse = trim_copy(paramsVector.front());
+						if (is_number(paramToUse))
+						{
+							targetChannel->setNbUsers(std::atoi(paramToUse.c_str()));
+							paramsVector.erase(paramsVector.begin());
+						}
+					}
+				case 'b':
+					toErase += 'b';
+					if (paramsVector.size() > 0)
+					{
+						paramToUse = trim_copy(paramsVector.front());
+						if (targetChannel->UserIsBanNick(paramToUse) == false)
+							targetChannel->addBan(paramToUse);
+						else
+							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(667, currentUser, serv, paramToUse, targetChannel->getName())));
+						paramsVector.erase(paramsVector.begin());
+					}
+					else
+					{
+						// parcourir vector serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName(), BANNED)));
+						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName())));
+					}
 			}
 			i++;
 		}
@@ -183,11 +216,27 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 						targetChannel->setPassword("");
 						targetChannel->setPassSet(false);
 					}
+				case 'l':
+						targetChannel->setNbUsers(INT32_MAX);
+				case 'b':
+					if (paramsVector.size() > 0)
+					{
+						paramToUse = trim_copy(paramsVector.front());
+						if (targetChannel->UserIsBanNick(paramToUse) == false)
+							targetChannel->getBanList().erase(std::find(targetChannel->getBanList().begin(), targetChannel->getBanList().end(), paramToUse));
+						else
+							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(667, currentUser, serv, paramToUse, targetChannel->getName())));
+						paramsVector.erase(paramsVector.begin());
+					}
+					else
+					{
+						// parcourir vector serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName(), BANNED)));
+						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName())));
+					}
 			}
 			i++;
 		}
 	}
-	std::cout << YELLOW <<" PASS: {" << targetChannel->getPassword() << "}" << END <<std::endl;
 }
 
 void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)

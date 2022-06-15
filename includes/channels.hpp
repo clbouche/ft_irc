@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/15 14:43:28 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:38:55 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ class channels
 		std::map<int, user*>&			getUsers();
 		std::string						getTopic();
 		std::string						getPassword();
+		std::vector<std::string>		getBanList();
 		int								getUserLimit();
 		int								getNbUsers();
 		bool							getPassSet();
@@ -59,13 +60,17 @@ class channels
 		void					setModeParams(std::string mode);
 		void					setPassword(std::string mode);
 		void					setPassSet(bool isPass);
+		void					setNbUsers(int newLimit);
 		
 		void					removeMode(std::string mode);
 		void					removeModeParams(std::string mode);
+		void					removeOper(user *newOper);
 
 		void					addOper(user *newOper);
-		void					removeOper(user *newOper);
 		void					addUser(user *newUser);
+		void					addBan(std::string	newBan);
+
+		bool					UserIsBanNick(std::string nick);
 		bool					UserInChan(user *user);
 		bool					UserIsBan(user *currentUser);
 

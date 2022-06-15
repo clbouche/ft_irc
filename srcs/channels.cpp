@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/15 14:44:14 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:38:27 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ std::string			channels::getPassword()
 	return (this->_password);
 }
 
+std::vector<std::string>	channels::getBanList()
+{
+	return (this->_banUsers);
+}
+
 
 int					channels::getUserLimit()
 {
@@ -141,6 +146,11 @@ void		channels::setPassSet(bool isPass)
 	this->_passSet = isPass;
 }
 
+void		channels::setNbUsers(int newLimit)
+{
+	this->_userLimit = newLimit;
+}
+
 void		channels::removeMode(std::string newMode)
 {
 	size_t	inMode, i = 0;
@@ -177,6 +187,11 @@ void		channels::addOper(user *newOper)
 	this->_operators.insert(std::make_pair(newOper->getNickName(),	newOper));
 }
 
+void		channels::addBan(std::string newBan)
+{
+	this->_banUsers.push_back(newBan);
+}
+
 void		channels::removeOper(user *oldOper)
 {
 	this->_operators.erase(oldOper->getNickName());
@@ -194,6 +209,16 @@ bool		channels::UserIsBan(user *currentUser)
 	std::vector<std::string>::iterator	it;
 	
 	it = std::find(_banUsers.begin(), _banUsers.end(), currentUser->getNickName());
+	if (it != _banUsers.end())
+		return true;
+	return false;
+}
+
+bool		channels::UserIsBanNick(std::string nick)
+{
+	std::vector<std::string>::iterator	it;
+	
+	it = std::find(_banUsers.begin(), _banUsers.end(), nick);
 	if (it != _banUsers.end())
 		return true;
 	return false;
