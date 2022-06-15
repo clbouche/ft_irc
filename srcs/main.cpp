@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 17:35:30 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/15 10:55:20 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,41 @@
 #include "../includes/user.hpp"
 #include "../includes/commands.hpp"
 
+sig_atomic_t	g_looping = true;
+int				g_main_socket;
+
 void    loop(IrcServer *server)
 {
 	std::pair<int, std::string>		buff;
 	std::string						args = "";
 	
-	while(TRUE)
+	while(g_looping)
 	{ 
 		server->_tcpServer.waiting_activity();
 		server->_tcpServer.write_data(&(server->usersMap));
 		buff = server->_tcpServer.listen_data();
-		if (buff.first != 0)
+		if (g_looping && buff.first != 0)
 		{
 			if (server->getServerPassword() == "")
 				server->getUser(buff.first)->setCheckPassword(true);
 			parse_cmd(buff.second, server, server->getUser(buff.first));
-			if (server->getUser(buff.first)->getWelcomeMsg() == false)
+			if (server->getUser(buff.first) != 0 && server->getUser(buff.first)->getWelcomeMsg() == false)
 			{
 				server->getUser(buff.first)->setWelcomeMsg(
 					check_connexion(server->getUser(buff.first), server));
 			}
 		}
-		server->_tcpServer.send_buff();
+		if (g_looping)
+			server->_tcpServer.send_buff();
 	}
+}
+
+// Signal handler to catch SIGTERM.
+void sigterm(int signo) {
+	(void)signo;
+	std::cout << "sigterm" << std::endl;
+	g_looping = false;
+	send(g_main_socket, "\r\n", 2, MSG_NOSIGNAL);
 }
 
 int main(int argc, char **argv)
@@ -62,6 +74,14 @@ int main(int argc, char **argv)
 	}
 	IrcServer   server(port, pass);
 	
+	g_main_socket = server._tcpServer.getMainSocket();
+	struct sigaction s;
+	s.sa_handler = sigterm;
+	sigemptyset(&s.sa_mask);
+	s.sa_flags = 0;
+	sigaction(SIGINT, &s, NULL);
+
+
 	loop(&server);
 
 	return 0;

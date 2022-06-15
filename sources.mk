@@ -23,12 +23,10 @@ SOURCES		+=                          		\
 		srcs/commands/cmd_list.cpp         	\
 		srcs/commands/cmd_motd.cpp         	\
 		srcs/commands/cmd_names.cpp        	\
-		srcs/commands/cmd_oper.cpp         	\
 		srcs/commands/cmd_kick.cpp         	\
 		srcs/commands/cmd_notice.cpp       	\
 		srcs/commands/cmd_topic.cpp        	\
 		srcs/commands/cmd_ping.cpp         	\
-		srcs/commands/cmd_who.cpp          	\
 		srcs/commands/cmd_pass.cpp         	\
 		srcs/commands/cmd_nick.cpp         	\
 		srcs/commands/cmd_quit.cpp         	\

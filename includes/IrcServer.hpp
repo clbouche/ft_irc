@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:28:17 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/14 14:33:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/15 14:57:06 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ class   IrcServer {
 	 * 
 	 */
 	IrcServer( int port, std::string password);
+	~IrcServer ( void );
+
 
 	/**
 	 * @brief Get the User object 

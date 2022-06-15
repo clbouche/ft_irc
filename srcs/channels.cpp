@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 17:05:18 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:20:50 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ channels::channels() : _mode("+"), _modeParams(""), _topic("")
 channels::channels(std::string name, user *chanOperator) :  _mode("+"), _modeParams(""), _topic(""), _password(""), 
 									_passSet(false), _userLimit(INT32_MAX), _nbUsers(0)
 {
-	// if (CHECK_NAME == ok) // ->> CHECK IF THE NAME RESPECT THE NORM
+	// if (CHECK_NAME == ok) // ->> CHECK IF THE NAME RESPECT THE NORM // je crois que c fait dans join
 	// {
 		this->setName(name);
 	// }
@@ -38,6 +38,7 @@ channels::channels(std::string name, user *chanOperator) :  _mode("+"), _modePar
 
 channels::~channels()
 {
+
 }
 
 	/* ------------------------------------------------------------- */
@@ -189,6 +190,19 @@ bool		channels::UserInChan(user *user)
 	return false;
 }
 
+bool		channels::UserInChan ( const std::string & userToFind ) const
+{
+	std::map<int, user *>::const_iterator	it;
+
+	for (it = _currentUsers.begin() ; it != _currentUsers.end(); it++)
+	{
+		if ( it->second->getNickName() == userToFind)
+			return true;
+	}
+	return false;
+}
+
+
 bool		channels::UserIsBan(user *currentUser)
 {
 	std::vector<std::string>::iterator	it;
@@ -209,4 +223,16 @@ void		channels::sendToAllUsers (tcpServer *tcp, std::string msg )
 		tcp->add_to_buffer(std::make_pair(it->first, msg));
 		it++;
 	}
+}
+
+bool			channels::checkOperator(user *currentUser)
+{
+	std::map<std::string, user *>::iterator	it;
+
+	for (it = _operators.begin(); it != _operators.end(); it++)
+	{
+		if (it->second->getNickName() == currentUser->getNickName())
+			return (true);
+	}
+	return (false);		
 }

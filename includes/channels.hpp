@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/14 17:06:06 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:55:20 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,23 @@ class channels
 		bool							getPassSet();
 
 
-		void					setName(std::string name);
-		void					setTopic(std::string topic);
-		void					setMode(std::string mode);
-		void					setModeParams(std::string mode);
+		void							setName(std::string name);
+		void							setTopic(std::string topic);
+		void							setMode(std::string mode);
+		void							setModeParams(std::string mode);
+				
+		void							removeMode(std::string mode);
+		void							removeModeParams(std::string mode);
 		
-		void					removeMode(std::string mode);
-		void					removeModeParams(std::string mode);
-
-		void					removeOper(user *newOper);
-		void					addUser(user *newUser);
-		void					removeUser(user *user);
-		void					addOper(user *newOper);
-		bool					UserInChan(user *user);
-		bool					UserIsBan(user *currentUser);
-		void					sendToAllUsers (tcpServer *tcp, std::string msg );
+		void							removeOper(user *newOper);
+		void							addUser(user *newUser);
+		void							removeUser(user *user);
+		void							addOper(user *newOper);
+		bool							UserInChan(user *user);
+		bool							UserInChan ( const std::string & user ) const;
+		bool							UserIsBan(user *currentUser);
+		void							sendToAllUsers (tcpServer *tcp, std::string msg );
+		bool							checkOperator(user *currentUser);
 
 };
 

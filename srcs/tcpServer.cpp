@@ -6,13 +6,15 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/06/14 16:29:28 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/15 15:10:44 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/headers.hpp"
 #include"../includes/tcpServer.hpp"
 #include "../includes/user.hpp"
+
+extern sig_atomic_t	g_looping;
 
 	/* ------------------------------------------------------------- */
 	/* ------------------------ CONSTRUCTORS ----------------------- */	
@@ -114,7 +116,7 @@ void							tcpServer::write_data(std::map<int, user*> *usersMap)
 
 	//If something happened on the master socket ,
 	//then its an incoming connection
-	if (FD_ISSET(_masterSocket, &_readfds))
+	if (g_looping && FD_ISSET(_masterSocket, &_readfds))
 	{
 		if ((new_socket = accept(_masterSocket,
 				(struct sockaddr *)&_address, (socklen_t*)&_addrlen))<0)
@@ -138,7 +140,7 @@ void							tcpServer::write_data(std::map<int, user*> *usersMap)
 			{
 				_clientSocket[i] = new_socket;
 				user	*newUser = new user(_clientSocket[i], _hostName) ;
-				usersMap->insert(std::make_pair(_clientSocket[i], newUser));
+				(*usersMap)[new_socket] = newUser;
 				break;
 			}
 		}
@@ -180,6 +182,8 @@ std::pair<int, std::string>		tcpServer::listen_data(void)
 			else
 			{
 				//set the string terminating NULL byte on the end of the data read
+				if (buffer[0] == '\004')
+					buffer[0] = '\0';
 				buffer[valread] = '\0';
 				return (std::make_pair(sd, std::string(buffer)));
 			}
@@ -227,6 +231,11 @@ void						tcpServer::closeConnection(int fd)
 			break;
 		}
 	}
+}
+
+int							tcpServer::getMainSocket(void) const
+{
+	return (this->_masterSocket);
 }
 
 

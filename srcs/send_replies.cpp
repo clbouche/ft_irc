@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_replies.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 16:21:27 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:07:22 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_USERNOTINCHANNEL(arg1, arg2);
 		case 442:
 			return reply + ERR_NOTONCHANNEL(arg1);
+		case 443:
+			return reply + ERR_USERONCHANNEL(arg1, arg2);
 		case 451:
 			return reply + ERR_NOTREGISTERED();
 		case 461:
