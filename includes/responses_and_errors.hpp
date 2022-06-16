@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 15:00:00 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:18:58 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -845,16 +845,6 @@
 
     //                     - To answer a query about a client's own mode,
     //                       RPL_UMODEIS is sent back.
-<<<<<<< HEAD
-/**
- * @brief ERR 221
- *         - To answer a query about a client's own mode,
- *          RPL_UMODEIS is sent back.
- */
-# define RPL_UMODEIS(userModes) (userModes +"\r\n")
-=======
-
->>>>>>> Fastcommands
     //     251     RPL_LUSERCLIENT
     //                     ":There are <integer> users and <integer> \
     //                      invisible on <integer> servers"

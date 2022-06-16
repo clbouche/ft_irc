@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 09:31:51 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:28:19 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,27 @@ void    loop(IrcServer *server)
 {
 	std::pair<int, std::string>		buff;
 	std::string						args = "";
+	std::string						oldBuff = "";
 	
 	while(g_looping)
 	{ 
 		server->_tcpServer.waiting_activity();
 		server->_tcpServer.write_data(&(server->usersMap));
 		buff = server->_tcpServer.listen_data();
-		if (g_looping && buff.first != 0)
+		buff.second = oldBuff.append(buff.second);
+		if (buff.second.find('\n') != std::string::npos)
 		{
-			if (server->getServerPassword() == "")
-				server->getUser(buff.first)->setCheckPassword(true);
-			parse_cmd(buff.second, server, server->getUser(buff.first));
-			if (server->getUser(buff.first) != 0 && server->getUser(buff.first)->getWelcomeMsg() == false)
+			oldBuff = "";
+			if (g_looping && buff.first != 0)
 			{
-				server->getUser(buff.first)->setWelcomeMsg(
-					check_connexion(server->getUser(buff.first), server));
+				if (server->getServerPassword() == "")
+					server->getUser(buff.first)->setCheckPassword(true);
+				parse_cmd(buff.second, server, server->getUser(buff.first));
+				if (server->getUser(buff.first) != 0 && server->getUser(buff.first)->getWelcomeMsg() == false)
+				{
+					server->getUser(buff.first)->setWelcomeMsg(
+						check_connexion(server->getUser(buff.first), server));
+				}
 			}
 		}
 		if (g_looping)
@@ -44,7 +50,6 @@ void    loop(IrcServer *server)
 	}
 }
 
-// Signal handler to catch SIGTERM.
 void sigterm(int signo) {
 	(void)signo;
 	g_looping = false;
@@ -59,11 +64,6 @@ int main(int argc, char **argv)
 	if (argc >= 2 && argc < 4)
 	{
 		port = (argc >= 2) ? std::atoi(argv[1]) : PORT;
-		// 	if (port <= 0 || port > 0xffff)
-		// 	{
-		// 		std::cerr << "Invalid port number\n";
-		// 		return false;
-		// 	}
 		pass = (argc == 3) ? argv[2] : "";
 	}
 	else
