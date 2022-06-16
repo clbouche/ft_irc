@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channels.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/16 14:56:55 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/16 15:00:28 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class channels
 		std::map<int, user *>			_currentUsers;
 		std::map<std::string, user *>	_operators;
 		std::vector<std::string>		_banUsers;
+		std::vector<std::string>		_InvitList;
 		bool							_passSet;
 		int								_userLimit;
 		int								_nbUsers;
@@ -69,13 +70,16 @@ class channels
 		void							addOper(user *newOper);
 		void							addUser(user *newUser);
 		void							addBan(std::string	newBan);
+		void							addInvit(std::string	newInvit);
 
 		bool							UserIsBanNick(std::string nick);
 		bool							UserInChan(user *user);
 		bool							UserInChan ( const std::string & user ) const;
 		bool							UserIsBan(user *currentUser);
+		bool							UserIsInvite(user *currentUser);
 		void							sendToAllUsers (tcpServer *tcp, std::string msg );
 		bool							checkOperator(user *currentUser);
+
 };
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channels.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/16 14:57:24 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:59:52 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ bool				channels::getPassSet()
 {
 	return (this->_passSet);
 }
+
 
 void		channels::setName(std::string name)
 {
@@ -203,6 +204,17 @@ void		channels::addBan(std::string newBan)
 	this->_banUsers.push_back(newBan);
 }
 
+void		channels::addInvit(std::string	newInvit)
+{
+	std::vector<std::string>::iterator		it;
+
+	for(it = _InvitList.begin(); it != _InvitList.end(); it++)
+	{
+		if (it == _InvitList.end())
+			this->_InvitList.push_back(newInvit);
+	}
+}
+
 void		channels::removeOper(user *oldOper)
 {
 	this->_operators.erase(oldOper->getNickName());
@@ -238,6 +250,16 @@ bool		channels::UserIsBan(user *currentUser)
 	return false;
 }
 
+bool			channels::UserIsInvite(user *currentUser)
+{
+	std::vector<std::string>::iterator	it;
+	it = std::find(_InvitList.begin(), _InvitList.end(), currentUser->getNickName());
+	if (it != _InvitList.end())
+		return false;
+	return true;
+}
+
+
 void		channels::sendToAllUsers (tcpServer *tcp, std::string msg )
 {
 	std::map<int, user *>::iterator	it;
@@ -262,7 +284,7 @@ bool			channels::checkOperator(user *currentUser)
 	return (false);		
 }
 
-bool		channels::UserIsBanNick(std::string nick)
+bool				channels::UserIsBanNick(std::string nick)
 {
 	std::vector<std::string>::iterator	it;
 	
