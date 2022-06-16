@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/16 10:55:26 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:57:24 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ std::string			channels::getPassword()
 	return (this->_password);
 }
 
-std::vector<std::string>	channels::getBanList()
+std::vector<std::string> &	channels::getBanList()
 {
 	return (this->_banUsers);
 }

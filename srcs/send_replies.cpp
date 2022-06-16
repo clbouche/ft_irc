@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 10:50:54 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:57:55 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + RPL_NAMREPLY(arg1);
 		case 366:
 			return reply + RPL_ENDOFNAMES(arg1);
+		case 367:
+			return reply + RPL_BANLIST(arg1, arg2);
+		case 368:
+			return reply + RPL_ENDOFBANLIST(arg1);
 		case 372:
 			return reply + RPL_MOTD(arg1);
 		case 375:

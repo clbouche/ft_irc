@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/15 17:48:10 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:22:54 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -830,7 +830,7 @@
  *         - To answer a query about a client's own mode,
  *          RPL_UMODEIS is sent back.
  */
-# define RPL_UMODEIS(userModes) ("Your user mode is [" + userModes + "]\r\n")
+# define RPL_UMODEIS(userModes) (userModes +"\r\n")
     //     251     RPL_LUSERCLIENT
     //                     ":There are <integer> users and <integer> \
     //                      invisible on <integer> servers"

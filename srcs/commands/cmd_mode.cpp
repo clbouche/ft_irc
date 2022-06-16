@@ -166,10 +166,10 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					}
 					else
 					{
-						std::vector<std::string>::iterator	it;
+						std::vector<std::string>::const_iterator	it;
 						for(it = targetChannel->getBanList().begin(); it != targetChannel->getBanList().end(); it++)
 						{
-							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName(), it->data())));
+							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(367, currentUser, serv, targetChannel->getName(), *it)));
 						}
 						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName())));
 					}
@@ -198,6 +198,8 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 		{
 			switch (mode.c_str()[i])
 			{
+				case 'i':
+					targetChannel->removeMode("i");
 				case 'o':
 					toErase += 'o';
 					if (paramsVector.size() > 0)
@@ -219,15 +221,19 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					if (paramsVector.size() > 0)
 					{
 						paramToUse = trim_copy(paramsVector.front());
-						if (targetChannel->UserIsBanNick(paramToUse) == false)
+						if (targetChannel->UserIsBanNick(paramToUse) == true)
 							targetChannel->getBanList().erase(std::find(targetChannel->getBanList().begin(), targetChannel->getBanList().end(), paramToUse));
 						else
-							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(667, currentUser, serv, paramToUse, targetChannel->getName())));
+							std::cout << RED << "USER NOT REMOVED FROM BAN LIST" << END << std::endl;
 						paramsVector.erase(paramsVector.begin());
 					}
 					else
 					{
-						// parcourir vector serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName(), BANNED)));
+						std::vector<std::string>::const_iterator	it;
+						for(it = targetChannel->getBanList().begin(); it != targetChannel->getBanList().end(); it++)
+						{
+							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(367, currentUser, serv, targetChannel->getName(), *it)));
+						}
 						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName())));
 					}
 			}
@@ -269,7 +275,11 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 							{
 								channels *targetChannel = currentUser->findChanInList(target);
 								channelMode(targetChannel, mode, modeParams, currentUser, serv);
-								serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(324, currentUser, serv, targetChannel->getName(), targetChannel->getMode(), targetChannel->getModeParams())));
+								// sens msg to all users in chan
+								std::map<int, user *>::iterator it;
+								for (it = targetChannel->getUsers().begin(); it != targetChannel->getUsers().end(); it++)
+									serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), send_replies(324, currentUser, serv, targetChannel->getName(), targetChannel->getMode(), targetChannel->getModeParams())));
+									// serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
 							}
 							else
 								serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(442, currentUser, serv, target)));

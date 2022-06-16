@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:03:10 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/13 14:52:35 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/16 11:47:35 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 	std::string target = args.substr(0, pos);
 	std::string msg_to_check;
 	pos == std::string::npos ? msg_to_check = "" : msg_to_check = args.substr(pos + 1, args.length());
-	// std::string msg_to_check = args.substr(pos + 1, args.length());
-	// check if args are right
 	if (check_args(target, msg_to_check, currentUser, serv))
 	{
 		std::string msg = "PRIVMSG " + target + " :" + msg_to_check + "\r\n";
@@ -76,10 +74,3 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 		}
 	}
 }
-/*
-			ERR_NORECIPIENT                 ERR_NOTEXTTOSEND
-			ERR_CANNOTSENDTOCHAN            ERR_NOTOPLEVEL
-			ERR_WILDTOPLEVEL                ERR_TOOMANYTARGETS
-			ERR_NOSUCHNICK✅
-			RPL_AWAY
-*/
