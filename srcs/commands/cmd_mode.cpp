@@ -166,7 +166,11 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					}
 					else
 					{
-						// parcourir vector serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName(), BANNED)));
+						std::vector<std::string>::iterator	it;
+						for(it = targetChannel->getBanList().begin(); it != targetChannel->getBanList().end(); it++)
+						{
+							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName(), it->data())));
+						}
 						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName())));
 					}
 			}
@@ -189,13 +193,6 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 	}
 	else if (mode.c_str()[0] == '-')
 	{
-		// SWITCH - 
-		// if (mode.find("o") != std::string::npos)
-		// {
-		// 	mode.erase(std::remove(mode.begin(), mode.end(), 'o'));
-		// 	targetChannel->removeOper(userParam);
-		// }
-		// targetChannel->removeMode(mode);
 		int i = 0;
 		while (mode.c_str()[i])
 		{
