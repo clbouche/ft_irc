@@ -166,10 +166,10 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					}
 					else
 					{
-						std::vector<std::string>::iterator	it;
+						std::vector<std::string>::const_iterator	it;
 						for(it = targetChannel->getBanList().begin(); it != targetChannel->getBanList().end(); it++)
 						{
-							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName(), it->data())));
+							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(367, currentUser, serv, targetChannel->getName(), *it)));
 						}
 						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName())));
 					}
@@ -219,15 +219,19 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					if (paramsVector.size() > 0)
 					{
 						paramToUse = trim_copy(paramsVector.front());
-						if (targetChannel->UserIsBanNick(paramToUse) == false)
+						if (targetChannel->UserIsBanNick(paramToUse) == true)
 							targetChannel->getBanList().erase(std::find(targetChannel->getBanList().begin(), targetChannel->getBanList().end(), paramToUse));
 						else
-							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(667, currentUser, serv, paramToUse, targetChannel->getName())));
+							std::cout << RED << "USER NOT REMOVED FROM BAN LIST" << END << std::endl;
 						paramsVector.erase(paramsVector.begin());
 					}
 					else
 					{
-						// parcourir vector serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName(), BANNED)));
+						std::vector<std::string>::const_iterator	it;
+						for(it = targetChannel->getBanList().begin(); it != targetChannel->getBanList().end(); it++)
+						{
+							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(367, currentUser, serv, targetChannel->getName(), *it)));
+						}
 						serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(368, currentUser, serv, targetChannel->getName())));
 					}
 			}
