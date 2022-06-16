@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 09:50:24 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:21:15 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@
  */
 # define RPL_MYINFO(servername, version, userModes, channelModes) (":" + servername + \
                     " " + version + " " + userModes + " " + channelModes + "\r\n")
+
+
+/**
+ * @brief ERR 221
+ *         - To answer a query about a client's own mode,
+ *          RPL_UMODEIS is sent back.
+ */
+# define RPL_UMODEIS(userModes) (userModes + "\r\n")
 
 /**
  * @brief ERR 322
@@ -676,18 +684,27 @@
     //               replies back using the RPL_LINKS numeric and mark the
     //               end of the list using an RPL_ENDOFLINKS reply.
 
-    //     367     RPL_BANLIST
-    //                     "<channel> <banid>"
+        // 367     RPL_BANLIST
+        //                 "<channel> <banid>"
+/**
+ * @brief ERR 367
+ */
+# define RPL_BANLIST(channel, banned) (" :" + channel + " " + banned + "\r\n")
+
     //     368     RPL_ENDOFBANLIST
 
     //                     "<channel> :End of channel ban list"
 
-    //             - When listing the active 'bans' for a given channel,
-    //               a server is required to send the list back using the
-    //               RPL_BANLIST and RPL_ENDOFBANLIST messages.  A separate
-    //               RPL_BANLIST is sent for each active banid.  After the
-    //               banids have been listed (or if none present) a
-    //               RPL_ENDOFBANLIST must be sent.
+/**
+ * @brief ERR 368
+ * - When listing the active 'bans' for a given channel,
+ *   a server is required to send the list back using the
+ *   RPL_BANLIST and RPL_ENDOFBANLIST messages.  A separate
+ *   RPL_BANLIST is sent for each active banid.  After the
+ *   banids have been listed (or if none present) a
+ *   RPL_ENDOFBANLIST must be sent.
+ */
+# define RPL_ENDOFBANLIST(channel) (" " + channel + "\r\n")
 
     //     371     RPL_INFO
     //                     ":<string>"
@@ -828,12 +845,7 @@
 
     //                     - To answer a query about a client's own mode,
     //                       RPL_UMODEIS is sent back.
-/**
- * @brief ERR 221
- *         - To answer a query about a client's own mode,
- *          RPL_UMODEIS is sent back.
- */
-# define RPL_UMODEIS(userModes) ("Your user mode is [" + userModes + "]\r\n")
+
     //     251     RPL_LUSERCLIENT
     //                     ":There are <integer> users and <integer> \
     //                      invisible on <integer> servers"

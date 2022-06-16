@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/16 10:43:43 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 11:10:42 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ std::string			channels::getPassword()
 	return (this->_password);
 }
 
+std::vector<std::string>	channels::getBanList()
+{
+	return (this->_banUsers);
+}
+
 
 int					channels::getUserLimit()
 {
@@ -133,6 +138,21 @@ void		channels::setModeParams(std::string newModeParams)
 	}
 }
 
+void		channels::setPassword(std::string newPassword)
+{
+	this->_password = newPassword;
+}
+
+void		channels::setPassSet(bool isPass)
+{
+	this->_passSet = isPass;
+}
+
+void		channels::setNbUsers(int newLimit)
+{
+	this->_userLimit = newLimit;
+}
+
 void		channels::removeMode(std::string newMode)
 {
 	size_t	inMode, i = 0;
@@ -177,6 +197,22 @@ void		channels::removeUser(user *user)
 void		channels::addOper(user *newOper)
 {
 	this->_operators.insert(std::make_pair(newOper->getNickName(),	newOper));
+}
+
+void		channels::addBan(std::string newBan)
+{
+	this->_banUsers.push_back(newBan);
+}
+
+void		channels::addInvit(std::string	newInvit)
+{
+	std::vector<std::string>::iterator		it;
+
+	for(it = _InvitList.begin(); it != _InvitList.end(); it++)
+	{
+		if (it == _InvitList.end())
+			this->_InvitList.push_back(newInvit);
+	}
 }
 
 void		channels::removeOper(user *oldOper)
@@ -248,13 +284,12 @@ bool			channels::checkOperator(user *currentUser)
 	return (false);		
 }
 
-void				channels::removeBanUser(user *currentUser)
+bool				channels::UserIsBanNick(std::string nick)
 {
-	std::vector<std::string>::iterator it;
-
-	for(it = _banUsers.begin(); it != _banUsers.end(); it++)
-	{
-		if ((*it)->getNickName() == currentUser->getNickName())
-			_banUsers.erase(it);
-	}
+	std::vector<std::string>::iterator	it;
+	
+	it = std::find(_banUsers.begin(), _banUsers.end(), nick);
+	if (it != _banUsers.end())
+		return true;
+	return false;
 }
