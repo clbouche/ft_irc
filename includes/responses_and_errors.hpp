@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 14:22:54 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/16 15:00:00 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@
 # define RPL_MYINFO(servername, version, userModes, channelModes) (":" + servername + \
                     " " + version + " " + userModes + " " + channelModes + "\r\n")
 
+
+/**
+ * @brief ERR 221
+ *         - To answer a query about a client's own mode,
+ *          RPL_UMODEIS is sent back.
+ */
+# define RPL_UMODEIS(userModes) (userModes + "\r\n")
+
 /**
  * @brief ERR 322
  * 
@@ -78,6 +86,18 @@
  * 
  */
 # define RPL_TOPIC(channel, topic) (channel + " :" + topic + "\r\n")
+
+/**
+ *  Returned by the server to indicate that the
+    attempted INVITE message was successful and is
+    being passed onto the end client.
+ */
+
+/**
+ * @brief RPL 341
+ * 
+ */
+# define RPL_INVITING(channel, nick) (channel + " " + nick + "\r\n")
 
 
     /**
@@ -825,12 +845,16 @@
 
     //                     - To answer a query about a client's own mode,
     //                       RPL_UMODEIS is sent back.
+<<<<<<< HEAD
 /**
  * @brief ERR 221
  *         - To answer a query about a client's own mode,
  *          RPL_UMODEIS is sent back.
  */
 # define RPL_UMODEIS(userModes) (userModes +"\r\n")
+=======
+
+>>>>>>> Fastcommands
     //     251     RPL_LUSERCLIENT
     //                     ":There are <integer> users and <integer> \
     //                      invisible on <integer> servers"

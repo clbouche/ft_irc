@@ -35,14 +35,17 @@ bool		check_args( IrcServer *serv, user *currentUser, channels *channel, std::st
 						send_replies(441, currentUser, serv, nameOfUserToKick, chan_name)));
 		return false;
 	}
+	else if (channel->checkOperator(currentUser) == false)
+	{
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+						send_replies(482, currentUser, serv, chan_name)));
+		return false;	
+	}
 	return true;
 }
 
 void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 {
-
-	//ne pas oublier de gerer le commentaire a la fin 
-	//avec find_last_of(" ") comme ca on recupere tout le reste dans rpl_msg
 	std::string		tmp_args;
 	size_t			pos = args.find_first_of(" ");
     std::string		chans = args.substr(0, pos);
@@ -94,8 +97,9 @@ void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 				if (ite != mapOfUsers.end() && ite->second->getNickName() == NameOfUserToKick )
 				{
 					userToKick = ite->second;
-					channel->sendToAllUsers(&serv->_tcpServer, (":" + userToKick->getNickName() + " KICK "
-							+ chan_name + " :" + rpl_kickMsg + "\r\n"));
+					channel->sendToAllUsers(&serv->_tcpServer, (":" + userToKick->getNickName() + "!" + 
+								userToKick->getUserName() + "@" + userToKick->getHostNameUser() + " KICK "
+							+ chan_name + " " + userToKick->getNickName() + " :" + rpl_kickMsg + "\r\n"));
 					userToKick->removeChan(channel);
 					channel->removeUser(userToKick);
 					if (channel->getNbUsers() == 0)

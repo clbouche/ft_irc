@@ -41,13 +41,6 @@
  */
 bool        check_args(IrcServer *serv, user *currentUser, channels *chan, std::string nicknameToInvite)
 {
-    //si le channel est en mode invite-only, le user qui veut invite doit avoir les droits
-    if (!chan->checkOperator(currentUser) && chan->getMode().find("i"))
-    {
-        serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
-                    send_replies(482, currentUser, serv, chan->getName())));
-        return false;
-    }
     //si le user qu'on souhaite inviter n'existe pas 
     if (serv->getUserByNick(nicknameToInvite) == NULL)
     {
@@ -56,6 +49,14 @@ bool        check_args(IrcServer *serv, user *currentUser, channels *chan, std::
 		return false;
 
     }
+    //si le user qui veut ajouter quelqu'un n'est pas dans le channel
+    if (chan->UserInChan(currentUser) == false)
+    {
+        serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
+                    send_replies(442, currentUser, serv, nicknameToInvite,
+                    chan->getName())));
+        return false;
+	}
     //si le user est deja dans le channel 
     if (chan->UserInChan(nicknameToInvite) == true)
     {
@@ -64,14 +65,14 @@ bool        check_args(IrcServer *serv, user *currentUser, channels *chan, std::
                     chan->getName())));
         return false;
     }
-    //si le user qui veut ajouter quelqu'un n'est pas dans le channel
-    if (chan->UserInChan(currentUser) == false)
+    //si le channel est en mode invite-only, le user qui veut invite doit avoir les droits
+    if (chan->getMode().find("i") != std::string::npos && chan->checkOperator(currentUser) == false)
     {
+		std::cout << "mode of chan is [" << chan->getMode() << "]" << std::endl;
         serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
-                    send_replies(443, currentUser, serv, nicknameToInvite,
-                    chan->getName())));
+                    send_replies(482, currentUser, serv, chan->getName())));
         return false;
-	}
+    }
     return true;
 }
 
@@ -88,6 +89,7 @@ void    cmd_invite( IrcServer *serv, user *currentUser, std::string & args )
         return ;
     }
     channels        *chan;
+    user            *userToInvite;
     std::string     nicknameToInvite = split_args[0];
     std::string     channelInvitation = split_args[1];
 
@@ -96,11 +98,24 @@ void    cmd_invite( IrcServer *serv, user *currentUser, std::string & args )
     
     if (chan != NULL && check_args(serv, currentUser, chan, nicknameToInvite) == true)
     {
-		//il faut aller chercher le user dans le serveur 
-		//pas oublier de changer le bool BAN a false 
-		//envoyer le message au mec qui a ete invite 
-		//envoyer un accuse de reception au mec qui a invite 
-		
-	}
+        userToInvite = serv->getUserByNick(nicknameToInvite);
+        if (chan->getMode().find("i"))
+        {
+			chan->addInvit(userToInvite->getNickName());
+
+
+        }
+		if (chan->UserIsBan(userToInvite))
+		{
+			chan->getBanList().erase(std::find(chan->getBanList().begin(), 
+					chan->getBanList().end(), userToInvite->getNickName()));
+		}
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+							send_replies(341, currentUser, serv, chan->getName(),
+							userToInvite->getNickName())));
+		serv->_tcpServer.add_to_buffer(std::make_pair(userToInvite->getSdUser(), 
+							send_replies(341, currentUser, serv, chan->getName(),
+							userToInvite->getNickName())));
+    }
 }
     
