@@ -101,8 +101,6 @@ void    cmd_invite( IrcServer *serv, user *currentUser, std::string & args )
 		//envoyer le message au mec qui a ete invite 
 		//envoyer un accuse de reception au mec qui a invite 
 		
-		}
-    }
+	}
 }
-
     

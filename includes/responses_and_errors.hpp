@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 16:19:58 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:48:10 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -664,18 +664,27 @@
     //               replies back using the RPL_LINKS numeric and mark the
     //               end of the list using an RPL_ENDOFLINKS reply.
 
-    //     367     RPL_BANLIST
-    //                     "<channel> <banid>"
+        // 367     RPL_BANLIST
+        //                 "<channel> <banid>"
+/**
+ * @brief ERR 367
+ */
+# define RPL_BANLIST(channel, banned) (" :" + channel + " " + banned + "\r\n")
+
     //     368     RPL_ENDOFBANLIST
 
     //                     "<channel> :End of channel ban list"
 
-    //             - When listing the active 'bans' for a given channel,
-    //               a server is required to send the list back using the
-    //               RPL_BANLIST and RPL_ENDOFBANLIST messages.  A separate
-    //               RPL_BANLIST is sent for each active banid.  After the
-    //               banids have been listed (or if none present) a
-    //               RPL_ENDOFBANLIST must be sent.
+/**
+ * @brief ERR 368
+ * - When listing the active 'bans' for a given channel,
+ *   a server is required to send the list back using the
+ *   RPL_BANLIST and RPL_ENDOFBANLIST messages.  A separate
+ *   RPL_BANLIST is sent for each active banid.  After the
+ *   banids have been listed (or if none present) a
+ *   RPL_ENDOFBANLIST must be sent.
+ */
+# define RPL_ENDOFBANLIST(channel) (" " + channel + "\r\n")
 
     //     371     RPL_INFO
     //                     ":<string>"

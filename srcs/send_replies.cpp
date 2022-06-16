@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_replies.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/15 17:07:22 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 10:50:54 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_UMODEUNKNOWNFLAG();
 		case 502:
 			return reply + ERR_USERSDONTMATCH();
+		case 667:
+			return reply + ": " + arg2 + " ban list already contains " + arg1 + "\r\n";
 	
 	}
 	return (reply);

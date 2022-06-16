@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channels.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/15 17:20:50 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 10:55:26 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ std::string			channels::getPassword()
 	return (this->_password);
 }
 
+std::vector<std::string>	channels::getBanList()
+{
+	return (this->_banUsers);
+}
+
 
 int					channels::getUserLimit()
 {
@@ -132,6 +137,21 @@ void		channels::setModeParams(std::string newModeParams)
 	}
 }
 
+void		channels::setPassword(std::string newPassword)
+{
+	this->_password = newPassword;
+}
+
+void		channels::setPassSet(bool isPass)
+{
+	this->_passSet = isPass;
+}
+
+void		channels::setNbUsers(int newLimit)
+{
+	this->_userLimit = newLimit;
+}
+
 void		channels::removeMode(std::string newMode)
 {
 	size_t	inMode, i = 0;
@@ -176,6 +196,11 @@ void		channels::removeUser(user *user)
 void		channels::addOper(user *newOper)
 {
 	this->_operators.insert(std::make_pair(newOper->getNickName(),	newOper));
+}
+
+void		channels::addBan(std::string newBan)
+{
+	this->_banUsers.push_back(newBan);
 }
 
 void		channels::removeOper(user *oldOper)
@@ -235,4 +260,14 @@ bool			channels::checkOperator(user *currentUser)
 			return (true);
 	}
 	return (false);		
+}
+
+bool		channels::UserIsBanNick(std::string nick)
+{
+	std::vector<std::string>::iterator	it;
+	
+	it = std::find(_banUsers.begin(), _banUsers.end(), nick);
+	if (it != _banUsers.end())
+		return true;
+	return false;
 }
