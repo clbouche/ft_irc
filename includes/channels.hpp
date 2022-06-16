@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/16 15:00:28 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:29:39 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ class channels
 		bool							UserInChan ( const std::string & user ) const;
 		bool							UserIsBan(user *currentUser);
 		bool							UserIsInvite(user *currentUser);
+		
 		void							sendToAllUsers (tcpServer *tcp, std::string msg );
 		bool							checkOperator(user *currentUser);
 

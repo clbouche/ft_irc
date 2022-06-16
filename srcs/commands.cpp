@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:28 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 15:09:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:33:34 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,6 @@
 #include "../includes/IrcServer.hpp"
 #include "../includes/user.hpp"
 #include "../includes/utils.hpp"
-
- 
-void    cmd_NULL( IrcServer *serv, user	*currentUser, std::string & args )
-{
-	(void)serv;
-	(void)currentUser;
-	(void)args;
-	std::cout << "cmd not found" << std::endl;
-}
-
 
 /**
  * @brief Permet de delimiter la commande (pour l'envoyer a la bonne fonction)
@@ -66,8 +56,8 @@ void    parse_cmd(std::string args, IrcServer *IRC, user *currentUser)
 							send_replies(451, currentUser, IRC)));
 			return ;
 		}
-		if (cmd_ptr != &cmd_NULL)
-			IRC->recup_cmd(cmd_to_find)(IRC, currentUser, args_of_commands);
+		//if (cmd_ptr != &cmd_NULL)
+		IRC->recup_cmd(cmd_to_find)(IRC, currentUser, args_of_commands);
 		commands.erase(commands.begin());
 	}
 }

@@ -22,7 +22,7 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 		return ;
 	}
 
-    pos == std::string::npos ? partMsg = " left " : partMsg = args.substr(pos + 1, args.size());
+    pos == std::string::npos ? partMsg = "" : partMsg = args.substr(pos + 1, args.size());
     std::vector<std::string>	split_chans = ft_split(chans, ",");
 
 	std::vector<std::string>::iterator		it;
@@ -45,10 +45,11 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 		}
 		else if (chan->UserInChan(currentUser) == true)
 		{
-			chan->sendToAllUsers(&serv->_tcpServer, (":" + currentUser->getNickName() + " PART "
-					+ chan_name + " :" + partMsg + "\r\n"));
-			currentUser->removeChan(chan);
+			chan->sendToAllUsers(&serv->_tcpServer, (":" + currentUser->getNickName() + "!" + 
+							currentUser->getUserName() + "@" + currentUser->getHostNameUser() + " PART "
+							+ chan_name + " :" + partMsg + "\r\n"));		
 			chan->removeUser(currentUser);
+			currentUser->removeChan(chan);
 			if (chan->getNbUsers() == 0)
 			{
 				delete serv->currentChannels[chan_name];
@@ -58,3 +59,4 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 		j++;
 	}     
 }
+

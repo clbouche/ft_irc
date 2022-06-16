@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/15 16:20:11 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:31:02 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,7 @@ IrcServer::command	IrcServer::recup_cmd ( std::string & command ) const
 	it = this->_pointer_to_valid_cmd.find(command);
 	if (it != this->_pointer_to_valid_cmd.end())
 		return (it->second);
-	else
-		return (&cmd_NULL);
+	return (&cmd_NULL);
 }
 			
 void				IrcServer::deleteUser ( int fd)

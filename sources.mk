@@ -28,6 +28,7 @@ SOURCES		+=                          		\
 		srcs/commands/cmd_topic.cpp        	\
 		srcs/commands/cmd_ping.cpp         	\
 		srcs/commands/cmd_pass.cpp         	\
+		srcs/commands/cmd_null.cpp         	\
 		srcs/commands/cmd_nick.cpp         	\
 		srcs/commands/cmd_quit.cpp         	\
 		srcs/commands/cmd_invite.cpp       	\
