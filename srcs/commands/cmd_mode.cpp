@@ -198,6 +198,8 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 		{
 			switch (mode.c_str()[i])
 			{
+				case 'i':
+					targetChannel->removeMode("i");
 				case 'o':
 					toErase += 'o';
 					if (paramsVector.size() > 0)
@@ -273,7 +275,11 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 							{
 								channels *targetChannel = currentUser->findChanInList(target);
 								channelMode(targetChannel, mode, modeParams, currentUser, serv);
-								serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(324, currentUser, serv, targetChannel->getName(), targetChannel->getMode(), targetChannel->getModeParams())));
+								// sens msg to all users in chan
+								std::map<int, user *>::iterator it;
+								for (it = targetChannel->getUsers().begin(); it != targetChannel->getUsers().end(); it++)
+									serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), send_replies(324, currentUser, serv, targetChannel->getName(), targetChannel->getMode(), targetChannel->getModeParams())));
+									// serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
 							}
 							else
 								serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(442, currentUser, serv, target)));
