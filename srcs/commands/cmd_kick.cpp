@@ -40,9 +40,6 @@ bool		check_args( IrcServer *serv, user *currentUser, channels *channel, std::st
 
 void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 {
-
-	//ne pas oublier de gerer le commentaire a la fin 
-	//avec find_last_of(" ") comme ca on recupere tout le reste dans rpl_msg
 	std::string		tmp_args;
 	size_t			pos = args.find_first_of(" ");
     std::string		chans = args.substr(0, pos);

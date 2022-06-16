@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/14 17:05:10 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 10:40:34 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ bool		check_chan(IrcServer *serv, user *currentUser, channels *channel, std::str
 		return false;
 	}
 	//si l'utilisateur n'a pas ete invite a entrer dans le channel
-	if (channel->getMode().find_first_of('i') != std::string::npos)
+	if (channel->getMode().find_first_of('i') != std::string::npos && channel->userIsInvite(currentUser) == false)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 			send_replies(473, currentUser, serv, channel->getName())));

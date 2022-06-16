@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/15 17:20:50 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 10:43:43 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ bool				channels::getPassSet()
 {
 	return (this->_passSet);
 }
+
 
 void		channels::setName(std::string name)
 {
@@ -213,6 +214,16 @@ bool		channels::UserIsBan(user *currentUser)
 	return false;
 }
 
+bool			channels::UserIsInvite(user *currentUser)
+{
+	std::vector<std::string>::iterator	it;
+	it = std::find(_InvitList.begin(), _InvitList.end(), currentUser->getNickName());
+	if (it != _InvitList.end())
+		return false;
+	return true;
+}
+
+
 void		channels::sendToAllUsers (tcpServer *tcp, std::string msg )
 {
 	std::map<int, user *>::iterator	it;
@@ -235,4 +246,15 @@ bool			channels::checkOperator(user *currentUser)
 			return (true);
 	}
 	return (false);		
+}
+
+void				channels::removeBanUser(user *currentUser)
+{
+	std::vector<std::string>::iterator it;
+
+	for(it = _banUsers.begin(); it != _banUsers.end(); it++)
+	{
+		if ((*it)->getNickName() == currentUser->getNickName())
+			_banUsers.erase(it);
+	}
 }

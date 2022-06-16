@@ -88,6 +88,7 @@ void    cmd_invite( IrcServer *serv, user *currentUser, std::string & args )
         return ;
     }
     channels        *chan;
+    user            *userToInvite;
     std::string     nicknameToInvite = split_args[0];
     std::string     channelInvitation = split_args[1];
 
@@ -96,12 +97,21 @@ void    cmd_invite( IrcServer *serv, user *currentUser, std::string & args )
     
     if (chan != NULL && check_args(serv, currentUser, chan, nicknameToInvite) == true)
     {
-		//il faut aller chercher le user dans le serveur 
-		//pas oublier de changer le bool BAN a false 
-		//envoyer le message au mec qui a ete invite 
-		//envoyer un accuse de reception au mec qui a invite 
-		
-		}
+        userToInvite = serv->getUserByNick(nicknameToInvite);
+        if (chan->getMode().find("i"))
+        {
+			
+
+
+        }
+		if (chan->UserIsBan(userToInvite))
+			chan->removeBanUser(userToInvite);
+        serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+							send_replies(341, currentUser, serv, chan->getName(),
+							userToInvite->getNickName())));
+		serv->_tcpServer.add_to_buffer(std::make_pair(userToInvite->getSdUser(), 
+							send_replies(341, currentUser, serv, chan->getName(),
+							userToInvite->getNickName())));
     }
 }
 
