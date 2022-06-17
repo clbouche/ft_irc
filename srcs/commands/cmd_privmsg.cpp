@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_privmsg.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:03:10 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/16 11:47:35 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/17 16:26:04 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 	pos == std::string::npos ? msg_to_check = "" : msg_to_check = args.substr(pos + 1, args.length());
 	if (check_args(target, msg_to_check, currentUser, serv))
 	{
-		std::string msg = "PRIVMSG " + target + " :" + msg_to_check + "\r\n";
+		std::string msg_privmsg = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), currentUser->getHostNameUser());
+		
 
 		if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 		{
@@ -50,10 +51,14 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 			{
 				for (it = chanToSend->getUsers().begin(); it != chanToSend->getUsers().end(); it++)
 				{
-					if (it->second->getNickName() != currentUser->getNickName())
-					{
-						serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
-					}
+					chanToSend->sendToAllUsers(&serv->_tcpServer, (msg_privmsg + "PRIVMSG "
+							+ chanToSend->getName() + " " + target + " :"
+							+ msg_to_check + "\r\n"));
+					
+					// if (it->second->getNickName() != currentUser->getNickName())
+					// {
+					// 	serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
+					// }
 				}
 			}
 			else
@@ -66,7 +71,8 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 			{
 				if (it->second->getNickName() == target)
 				{
-					serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
+					serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), (msg_privmsg + "PRIVMSG "
+							+ target + " : " + msg_to_check + "\r\n")));
 					return;
 				}
 			}

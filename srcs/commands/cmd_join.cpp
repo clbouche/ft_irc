@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 13:36:40 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:29:07 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 	channels		*channel;
 	std::string		chan_name;
 	std::string		pass_chan;
-	std::string		rpl_join;
 	size_t 			j = 0;
 	size_t			pos = args.find_first_of(" ");
 	std::string		chans = args.substr(0, pos);
@@ -171,6 +170,7 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 	}
 	
 	std::string		passwords;
+	std::string		msg_join;
 	pos == std::string::npos ? passwords = "" : passwords = args.substr(pos + 1, args.size());
 	std::vector<std::string>		split_channels = ft_split(chans, ",");
 	std::vector<std::string>		split_passwords = ft_split(passwords, ",");
@@ -209,8 +209,10 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 					channel->addUser(currentUser);
 					currentUser->setListOfChans(channel);
 					currentUser->IncrementChannelsJoined();
-					channel->sendToAllUsers(&serv->_tcpServer, (":" + currentUser->getNickName() 
-							+ " JOIN " + channel->getName() + "\r\n"));
+					msg_join = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), 
+												currentUser->getHostNameUser());
+					channel->sendToAllUsers(&serv->_tcpServer, (msg_join + "JOIN " 
+							+ channel->getName() + "\r\n"));
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 							send_replies(332, currentUser, serv, channel->getName(), 
 							channel->getTopic())));

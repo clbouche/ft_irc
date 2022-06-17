@@ -61,10 +61,11 @@ void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 	tmp_args = args.substr(pos + 1, args.size());
 	size_t						tmpPos = tmp_args.find_first_of(" ");
     std::string		            users;
-	std::string					rpl_kickMsg;
+	std::string					commentKick;
+	std::string					msg_kick;
 
 	pos == std::string::npos ? users = "" : users = args.substr(pos + 1, tmpPos);
-	tmpPos == std::string::npos ? rpl_kickMsg = "left" : rpl_kickMsg = tmp_args.substr(tmpPos + 1, tmp_args.size());
+	tmpPos == std::string::npos ? commentKick = "left" : commentKick = tmp_args.substr(tmpPos + 1, tmp_args.size());
 	std::string test = tmp_args.substr(tmpPos + 1, tmp_args.size());
 	
 	std::vector<std::string>		split_channels = ft_split(chans, ",");
@@ -97,9 +98,9 @@ void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 				if (ite != mapOfUsers.end() && ite->second->getNickName() == NameOfUserToKick )
 				{
 					userToKick = ite->second;
-					channel->sendToAllUsers(&serv->_tcpServer, (":" + userToKick->getNickName() + "!" + 
-								userToKick->getUserName() + "@" + userToKick->getHostNameUser() + " KICK "
-							+ chan_name + " " + userToKick->getNickName() + " :" + rpl_kickMsg + "\r\n"));
+					channel->sendToAllUsers(&serv->_tcpServer, (msg_kick + "KICK "
+							+ chan_name + " " + userToKick->getNickName() + " :" 
+							+ commentKick + "\r\n"));
 					userToKick->removeChan(channel);
 					channel->removeUser(userToKick);
 					if (channel->getNbUsers() == 0)

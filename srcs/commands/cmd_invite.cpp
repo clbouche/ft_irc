@@ -100,11 +100,7 @@ void    cmd_invite( IrcServer *serv, user *currentUser, std::string & args )
     {
         userToInvite = serv->getUserByNick(nicknameToInvite);
         if (chan->getMode().find("i"))
-        {
 			chan->addInvit(userToInvite->getNickName());
-
-
-        }
 		if (chan->UserIsBan(userToInvite))
 		{
 			chan->getBanList().erase(std::find(chan->getBanList().begin(), 

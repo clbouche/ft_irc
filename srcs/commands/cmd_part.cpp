@@ -10,8 +10,8 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 	size_t 						pos = args.find_first_of(" ");
 	channels					*chan;
 	std::string					chan_name;
-    std::string					partMsg;
-	std::string					rpl_partMsg;
+    std::string					commentPart;
+	std::string					msg_part;
 	std::string					chans = args.substr(0, pos);
 	size_t						j = 0;
 
@@ -22,7 +22,7 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 		return ;
 	}
 
-    pos == std::string::npos ? partMsg = "" : partMsg = args.substr(pos + 1, args.size());
+    pos == std::string::npos ? commentPart = "" : commentPart = args.substr(pos + 1, args.size());
     std::vector<std::string>	split_chans = ft_split(chans, ",");
 
 	std::vector<std::string>::iterator		it;
@@ -47,9 +47,9 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 		{
 			if (chan->checkOperator(currentUser) == true)
 				chan->removeOper(currentUser);
-			chan->sendToAllUsers(&serv->_tcpServer, (":" + currentUser->getNickName() + "!" + 
-							currentUser->getUserName() + "@" + currentUser->getHostNameUser() + " PART "
-							+ chan_name + " :" + partMsg + "\r\n"));
+			msg_part = formatMsgsUsers(currentUser->getNickName(),currentUser->getUserName(), currentUser->getHostNameUser());
+			chan->sendToAllUsers(&serv->_tcpServer, (msg_part + "PART "
+							+ chan_name + " :" + commentPart + "\r\n"));
 			chan->removeUser(currentUser);
 			currentUser->removeChan(chan);
 			if (chan->getNbUsers() == 0)

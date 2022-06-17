@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:49:53 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/17 10:39:55 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:20:08 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ std::string					ft_to_string(int value)
 	}
 
 	return (sign + output);
+}
+
+
+std::string	formatMsgsUsers(const std::string & nickname, const std::string & username, const std::string & hostname)
+{
+	std::string		msg;
+
+	msg.append(":");
+	msg.append(nickname);
+	msg.append("!");
+	msg.append(username);
+	msg.append("@");
+	msg.append(hostname);
+	msg.append(" ");
+	return (msg);
 }
 
 std::string		send_replies(const int code, user *user, IrcServer *serv, std::string arg1, std::string arg2, std::string arg3, std::string arg4)
