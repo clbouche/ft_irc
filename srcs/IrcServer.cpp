@@ -105,6 +105,8 @@ void    IrcServer::create_pointer(void)
     this->_pointer_to_valid_cmd.insert(std::make_pair("QUIT", &cmd_quit));
     this->_pointer_to_valid_cmd.insert(std::make_pair("TOPIC", &cmd_topic));
     this->_pointer_to_valid_cmd.insert(std::make_pair("USER", &cmd_user));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("WHO", &cmd_who));
+    this->_pointer_to_valid_cmd.insert(std::make_pair("WHOIS", &cmd_who));
 }
 
 IrcServer::command	IrcServer::recup_cmd ( std::string & command ) const

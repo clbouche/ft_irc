@@ -34,9 +34,10 @@ void	cmd_ping(IrcServer *serv, user *currentUser, std::string &args);
 void    cmd_privmsg( IrcServer *serv, user *currentUser, std::string & args);
 void	cmd_quit(IrcServer *serv, user *currentUser, std::string &args);
 void	cmd_topic(IrcServer *serv, user *currentUser, std::string &args);
-void    cmd_user(IrcServer *serv, user	*currentUser, std::string & args);
+void    cmd_user(IrcServer *serv, user	*currentUser, std::string &args);
+void    cmd_who( IrcServer *serv, user	*currentUser, std::string &args);
 
-void    cmd_NULL( IrcServer *serv, user	*currentUser, std::string & args );
+void    cmd_NULL( IrcServer *serv, user	*currentUser, std::string &args);
 
 
 
