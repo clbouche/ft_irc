@@ -22,7 +22,7 @@ void cmd_notice(IrcServer *serv, user *currentUser, std::string &args)
 	pos == std::string::npos ? msg_to_check = "" : msg_to_check = args.substr(pos + 1, args.length());
 	if (check_args(target, msg_to_check))
 	{
-		std::string msg = "PRIVMSG " + target + " :" + msg_to_check + "\r\n";
+		std::string msg_notice = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), currentUser->getHostNameUser());
 
 		if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 		{
@@ -34,7 +34,9 @@ void cmd_notice(IrcServer *serv, user *currentUser, std::string &args)
 				{
 					if (it->second->getNickName() != currentUser->getNickName())
 					{
-						serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
+					chanToSend->sendToAllUsers(&serv->_tcpServer, (msg_notice + "PRIVMSG "
+							+ chanToSend->getName() + " " + target + " :"
+							+ msg_to_check + "\r\n"));
 					}
 				}
 			}
@@ -46,7 +48,8 @@ void cmd_notice(IrcServer *serv, user *currentUser, std::string &args)
 			{
 				if (it->second->getNickName() == target)
 				{
-					serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
+					serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), (msg_notice + "PRIVMSG "
+							+ target + " : " + msg_to_check + "\r\n")));
 					return;
 				}
 			}

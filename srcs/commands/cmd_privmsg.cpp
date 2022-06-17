@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:03:10 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/17 16:26:04 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/17 16:45:10 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,6 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 					chanToSend->sendToAllUsers(&serv->_tcpServer, (msg_privmsg + "PRIVMSG "
 							+ chanToSend->getName() + " " + target + " :"
 							+ msg_to_check + "\r\n"));
-					
-					// if (it->second->getNickName() != currentUser->getNickName())
-					// {
-					// 	serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
-					// }
 				}
 			}
 			else
