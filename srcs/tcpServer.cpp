@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/06/16 18:27:26 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/17 10:18:34 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ std::pair<int, std::string>		tcpServer::listen_data(void)
 		{
 			//Check if it was for closing , and also read the
 			//incoming message
+			memset(&buffer, 0, 1025);
 			if ((valread = read( sd , buffer, 1024)) == 0)
 			{
 				//Somebody disconnected , get his details and print
@@ -182,8 +183,8 @@ std::pair<int, std::string>		tcpServer::listen_data(void)
 			else
 			{
 				//set the string terminating NULL byte on the end of the data read
-				// if (buffer[0] == '\004')
-					// buffer[0] = '\0';
+				if (buffer[0] == '\004')
+					buffer[0] = '\0';
 				buffer[valread] = '\0';
 				return (std::make_pair(sd, std::string(buffer)));
 			}

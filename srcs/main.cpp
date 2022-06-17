@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:15:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 09:31:51 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/17 10:09:31 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int main(int argc, char **argv)
 	sigemptyset(&s.sa_mask);
 	s.sa_flags = 0;
 	sigaction(SIGINT, &s, NULL);
-
 
 	loop(&server);
 

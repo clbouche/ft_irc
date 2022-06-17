@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/16 14:59:52 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/17 10:24:51 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ bool			channels::checkOperator(user *currentUser)
 		if (it->second->getNickName() == currentUser->getNickName())
 			return (true);
 	}
-	return (false);		
+	return (false);	
 }
 
 bool				channels::UserIsBanNick(std::string nick)

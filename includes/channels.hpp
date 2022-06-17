@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/16 16:29:39 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/17 10:23:25 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ class channels
 		
 		void							removeMode(std::string mode);
 		void							removeModeParams(std::string mode);
-		void							removeOper(user *newOper);
+		void							removeOper(user *oldOper);
 		void							removeUser(user *user);
 
 		void							addOper(user *newOper);
