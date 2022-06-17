@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:25:28 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 17:33:34 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:12:13 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void    parse_cmd(std::string args, IrcServer *IRC, user *currentUser)
 							send_replies(451, currentUser, IRC)));
 			return ;
 		}
-		//if (cmd_ptr != &cmd_NULL)
 		IRC->recup_cmd(cmd_to_find)(IRC, currentUser, args_of_commands);
 		commands.erase(commands.begin());
 	}

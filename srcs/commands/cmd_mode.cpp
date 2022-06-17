@@ -270,7 +270,6 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 					{
 						if (serv->currentChannels.find(target) != serv->currentChannels.end())
 						{
-							std::cout << RED << "TARGET IS A CHANNEL" << END << std::endl;
 							if (currentUser->isChanInList(target) == true)
 							{
 								channels *targetChannel = currentUser->findChanInList(target);
