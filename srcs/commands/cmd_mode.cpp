@@ -159,7 +159,12 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					{
 						paramToUse = trim_copy(paramsVector.front());
 						if (targetChannel->UserIsBanNick(paramToUse) == false)
+						{
 							targetChannel->addBan(paramToUse);
+							std::map<int, user *>::iterator it;
+							for (it = targetChannel->getUsers().begin(); it != targetChannel->getUsers().end(); it++)
+								serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), send_replies(998, currentUser, serv, formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), currentUser->getHostNameUser()), paramToUse)));
+						}
 						else
 							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(667, currentUser, serv, paramToUse, targetChannel->getName())));
 						paramsVector.erase(paramsVector.begin());
@@ -255,7 +260,6 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 	pos == std::string::npos ? mode = "" : mode = args.substr(pos + 1 - mode.length(), tmpPos);
 	tmpPos == std::string::npos ? modeParams = "" : modeParams = tmp.substr(tmpPos + 1, tmp.length());
 
-	// std::cout << "TARGET : {" << target << "}" << std::endl << "MODE : {" << mode << "}" << std::endl << "MODEPARAMS : {" << modeParams << "}" << std::endl;
 	if (check_target(target, currentUser, serv))
 	{
 		if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
