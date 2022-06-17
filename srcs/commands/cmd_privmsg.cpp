@@ -47,7 +47,7 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 		{
 			channels *chanToSend = serv->currentChannels.find(target)->second;
 			std::map<int, user *>::iterator it;
-			if (chanToSend->UserInChan(currentUser) == true)
+			if (chanToSend->UserInChan(currentUser) == true || (chanToSend->getMode().find('i') == std::string::npos && chanToSend->UserIsBan(currentUser) == false))
 			{
 				for (it = chanToSend->getUsers().begin(); it != chanToSend->getUsers().end(); it++)
 				{
