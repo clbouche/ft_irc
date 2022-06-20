@@ -470,7 +470,7 @@
  * Error sent to any user trying to view or change the
  * user mode for a user other than themselves.
  */
-# define RPL_BANUSER(arg1, arg2) (arg1 + " MODE +b " + arg2 + "\r\n")
+# define RPL_BANUSER(arg1, arg2) (arg1 + "MODE +b " + arg2 + "\r\n")
 
 
 #endif
