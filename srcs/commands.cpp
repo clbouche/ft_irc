@@ -32,6 +32,8 @@ void    parse_cmd(std::string args, IrcServer *IRC, user *currentUser)
 	std::string						args_of_commands, cmd_to_find;
 	IrcServer::command				cmd_ptr;
 	
+	std::cout << currentUser->getNickName()  << " says " <<  args << std::endl;
+
 	commands = ft_split(args, "\n");
 	while(commands.size())
 	{

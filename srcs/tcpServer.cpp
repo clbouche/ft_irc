@@ -198,13 +198,14 @@ void							tcpServer::add_to_buffer ( std::pair<int, std::string> buff )
 	this->_buff_out.insert(buff);
 }
 
-
+#define out(x) std::cout << x << std::endl;
 void							tcpServer::send_buff (void)
 {
 	std::map<int, std::string>::iterator	it = _buff_out.begin();
 
 	while (it != _buff_out.end())
 	{
+		out("Answer is" + it->second)
 		send(it->first, it->second.c_str(), std::strlen(it->second.c_str()), MSG_NOSIGNAL);
 		it++;
 	}

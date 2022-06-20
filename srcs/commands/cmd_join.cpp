@@ -168,7 +168,7 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 		 					send_replies(461, currentUser, serv, "JOIN")));
 		return ;
 	}
-	
+
 	std::string		passwords;
 	std::string		msg_join;
 	pos == std::string::npos ? passwords = "" : passwords = args.substr(pos + 1, args.size());
