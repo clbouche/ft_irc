@@ -169,6 +169,8 @@ std::string		send_replies(const int code, user *user, IrcServer *serv, std::stri
 			return reply + ERR_USERSDONTMATCH();
 		case 667:
 			return reply + ": " + arg2 + " ban list already contains " + arg1 + "\r\n";
+		case 998:
+			return RPL_BANUSER(arg1, arg2);
 	
 	}
 	return (reply);

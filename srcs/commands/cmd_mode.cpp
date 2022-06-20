@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_mode.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 15:07:25 by clbouche          #+#    #+#             */
+/*   Updated: 2022/06/20 15:18:22 by clbouche         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../includes/headers.hpp"
 #include "../includes/commands.hpp"
@@ -159,7 +171,14 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					{
 						paramToUse = trim_copy(paramsVector.front());
 						if (targetChannel->UserIsBanNick(paramToUse) == false)
+						{
 							targetChannel->addBan(paramToUse);
+							std::map<int, user *>::iterator it;
+							std::string	msg_ban = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(),
+										currentUser->getHostNameUser());
+							targetChannel->sendToAllUsers(&serv->_tcpServer, (msg_ban + " MODE " + 
+									targetChannel->getName() + " +b " + paramToUse + "\r\n"));
+						}
 						else
 							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(667, currentUser, serv, paramToUse, targetChannel->getName())));
 						paramsVector.erase(paramsVector.begin());
@@ -223,8 +242,6 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 						paramToUse = trim_copy(paramsVector.front());
 						if (targetChannel->UserIsBanNick(paramToUse) == true)
 							targetChannel->getBanList().erase(std::find(targetChannel->getBanList().begin(), targetChannel->getBanList().end(), paramToUse));
-						else
-							std::cout << RED << "USER NOT REMOVED FROM BAN LIST" << END << std::endl;
 						paramsVector.erase(paramsVector.begin());
 					}
 					else
@@ -257,7 +274,6 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 	pos == std::string::npos ? mode = "" : mode = args.substr(pos + 1 - mode.length(), tmpPos);
 	tmpPos == std::string::npos ? modeParams = "" : modeParams = tmp.substr(tmpPos + 1, tmp.length());
 
-	// std::cout << "TARGET : {" << target << "}" << std::endl << "MODE : {" << mode << "}" << std::endl << "MODEPARAMS : {" << modeParams << "}" << std::endl;
 	if (check_target(target, currentUser, serv))
 	{
 		if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
@@ -274,11 +290,9 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 							{
 								channels *targetChannel = currentUser->findChanInList(target);
 								channelMode(targetChannel, mode, modeParams, currentUser, serv);
-								// sens msg to all users in chan
 								std::map<int, user *>::iterator it;
 								for (it = targetChannel->getUsers().begin(); it != targetChannel->getUsers().end(); it++)
 									serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), send_replies(324, currentUser, serv, targetChannel->getName(), targetChannel->getMode(), targetChannel->getModeParams())));
-									// serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), msg.c_str()));
 							}
 							else
 								serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(442, currentUser, serv, target)));
@@ -287,6 +301,8 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(403, currentUser, serv, target)));
 					}
 				}
+				else if (mode == "")
+					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(324, currentUser, serv, target, serv->currentChannels.find(target)->second->getMode(), serv->currentChannels.find(target)->second->getModeParams())));
 				else
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(482, currentUser, serv, target)));
 				}
@@ -297,8 +313,10 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 		{
 			if (check_args(target, &mode, modeParams, currentUser, serv))
 			{
-				user *userTarget = serv->getUserByNick(target);
-				if (userTarget == NULL)
+				user *userTarget = NULL;
+				if (target == currentUser->getNickName())
+					userTarget = serv->getUserByNick(target);
+				else
 				{
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(502, currentUser, serv)));
 					return;
