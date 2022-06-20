@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:03:10 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/17 16:45:10 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/20 13:57:55 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static bool check_args(std::string target, std::string msg_to_check, user *curre
 
 void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 {
-	size_t pos = args.find_first_of(" ");
-	std::string target = args.substr(0, pos);
+	size_t pos = args.find_first_of(":");
+	std::string target = args.substr(0, pos - 1);
 	std::string msg_to_check;
 	pos == std::string::npos ? msg_to_check = "" : msg_to_check = args.substr(pos + 1, args.length());
 	if (check_args(target, msg_to_check, currentUser, serv))
@@ -51,9 +51,11 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 			{
 				for (it = chanToSend->getUsers().begin(); it != chanToSend->getUsers().end(); it++)
 				{
-					chanToSend->sendToAllUsers(&serv->_tcpServer, (msg_privmsg + "PRIVMSG "
-							+ chanToSend->getName() + " " + target + " :"
-							+ msg_to_check + "\r\n"));
+					if (it->second->getNickName() != currentUser->getNickName())
+					{	
+						serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), (msg_privmsg + "PRIVMSG "
+							+ target + " :" + msg_to_check + "\r\n"))); 
+					}
 				}
 			}
 			else
@@ -67,7 +69,7 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 				if (it->second->getNickName() == target)
 				{
 					serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), (msg_privmsg + "PRIVMSG "
-							+ target + " : " + msg_to_check + "\r\n")));
+							 + msg_to_check + "\r\n")));
 					return;
 				}
 			}
