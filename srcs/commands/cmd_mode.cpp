@@ -299,8 +299,10 @@ void cmd_mode(IrcServer *serv, user *currentUser, std::string &args)
 		{
 			if (check_args(target, &mode, modeParams, currentUser, serv))
 			{
-				user *userTarget = serv->getUserByNick(target);
-				if (userTarget == NULL)
+				user *userTarget = NULL;
+				if (target == currentUser->getNickName())
+					userTarget = serv->getUserByNick(target);
+				else
 				{
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(502, currentUser, serv)));
 					return;
