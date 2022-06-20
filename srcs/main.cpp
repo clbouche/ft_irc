@@ -28,7 +28,8 @@ void    loop(IrcServer *server)
 	{ 
 		server->_tcpServer.waiting_activity();
 		server->_tcpServer.write_data(&(server->usersMap));
-		buff = server->_tcpServer.listen_data();
+		if (g_looping == true)
+			buff = server->_tcpServer.listen_data();
 		buff.second = oldBuff.append(buff.second);
 		if (buff.second.find('\n') != std::string::npos)
 		{
