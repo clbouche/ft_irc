@@ -1,6 +1,7 @@
 {
 	"version": "0.2.0",
 	"configurations": [
+	
 	  {
 		"name": "Build and debug project",
 		"type": "cppdbg",
@@ -20,7 +21,7 @@
 		  }
 		],
 		"preLaunchTask": "C/C++: Build project",
-		"miDebuggerPath": "/usr/bin/gdb"
+		// "miDebuggerPath": "/usr/bin/gdb"
 	  }
 	]
   }

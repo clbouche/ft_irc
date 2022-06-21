@@ -103,14 +103,13 @@ void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 					msg_kick.append(chan_name);
 					msg_kick.append(" ");
 					msg_kick.append(userToKick->getNickName());
-					msg_kick.append(" :");
+					msg_kick.append(" ");
 					if (commentKick != "")
 						msg_kick.append(commentKick);
 					else
-						msg_kick.append(userToKick->getNickName());
+						msg_kick.append(currentUser->getNickName());
 					msg_kick.append("\r\n");
 					channel->sendToAllUsersInChan(&serv->_tcpServer, msg_kick);
-					// cmd_part(serv, userToKick, chan_name);
 					userToKick->removeChan(channel);
 					channel->removeUser(userToKick);
 					if (channel->getNbUsers() == 0)
