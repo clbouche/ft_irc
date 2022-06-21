@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:04:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 17:31:02 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:42:36 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,15 @@ void				IrcServer::deleteUser ( int fd)
 {
 	delete usersMap[fd];
 	usersMap.erase(fd);
+}
+
+void		IrcServer::sendToAllUsersInServ(std::string msg)
+{
+	std::map<int, user * >::const_iterator	it;
+
+	for (it = usersMap.begin(); it != usersMap.end(); it++)
+	{
+		if (it->second->getConnexion() == true)
+			this->_tcpServer.add_to_buffer(std::make_pair(it->first, msg));
+	}
 }

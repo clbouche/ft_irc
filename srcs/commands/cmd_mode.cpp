@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_mode.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 15:07:25 by clbouche          #+#    #+#             */
+/*   Updated: 2022/06/21 11:31:31 by claclou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../includes/headers.hpp"
 #include "../includes/commands.hpp"
@@ -162,8 +174,10 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 						{
 							targetChannel->addBan(paramToUse);
 							std::map<int, user *>::iterator it;
-							for (it = targetChannel->getUsers().begin(); it != targetChannel->getUsers().end(); it++)
-								serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), send_replies(998, currentUser, serv, formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), currentUser->getHostNameUser()), paramToUse)));
+							std::string	msg_ban = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(),
+										currentUser->getHostNameUser());
+							targetChannel->sendToAllUsersInChan(&serv->_tcpServer, (msg_ban + " MODE " + 
+									targetChannel->getName() + " +b " + paramToUse + "\r\n"));
 						}
 						else
 							serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(667, currentUser, serv, paramToUse, targetChannel->getName())));

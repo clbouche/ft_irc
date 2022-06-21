@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:18:32 by claclou           #+#    #+#             */
-/*   Updated: 2022/06/17 12:25:44 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/20 12:41:32 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,6 @@ void							tcpServer::add_to_buffer ( std::pair<int, std::string> buff )
 	this->_buff_out.insert(buff);
 }
 
-#define out(x) std::cout << x << std::endl;
 void							tcpServer::send_buff (void)
 {
 	std::map<int, std::string>::iterator	it = _buff_out.begin();

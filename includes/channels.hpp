@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channels.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:39:29 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/17 10:23:25 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:31:31 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ class channels
 		bool							UserIsBan(user *currentUser);
 		bool							UserIsInvite(user *currentUser);
 		
-		void							sendToAllUsers (tcpServer *tcp, std::string msg );
+		void							sendToAllUsersInChan (tcpServer *tcp, std::string msg );
 		bool							checkOperator(user *currentUser);
 
 };

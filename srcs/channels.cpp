@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channels.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:31:24 by elaachac          #+#    #+#             */
-/*   Updated: 2022/06/17 10:24:51 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:31:31 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ bool			channels::UserIsInvite(user *currentUser)
 }
 
 
-void		channels::sendToAllUsers (tcpServer *tcp, std::string msg )
+void		channels::sendToAllUsersInChan (tcpServer *tcp, std::string msg )
 {
 	std::map<int, user *>::iterator	it;
 

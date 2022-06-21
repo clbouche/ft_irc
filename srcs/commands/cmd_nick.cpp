@@ -86,8 +86,12 @@ static bool		check_args(IrcServer *serv, user *currentUser, std::string args)
 
 void    cmd_nick( IrcServer *serv, user	*currentUser, std::string & args )
 {
+	std::string		msg_nick;
+	std::string		old_nick = currentUser->getNickName();
 	if (check_args(serv, currentUser, args) == true)
 	{
+		msg_nick = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), currentUser->getHostNameUser());
 		currentUser->setNickName(args);
+		serv->sendToAllUsersInServ(msg_nick + "NICK " + args + "\r\n");
 	}
 }

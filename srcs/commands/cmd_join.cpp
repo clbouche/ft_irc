@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_join.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/17 15:29:07 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:31:31 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ bool		check_chan(IrcServer *serv, user *currentUser, channels *channel, std::str
 		return false;
 	}
 	//si l'utilisateur n'a pas ete invite a entrer dans le channel
-	if (channel->getMode().find_first_of('i') != std::string::npos && channel->UserIsInvite(currentUser) == false)
+	int i = channel->getMode().find('i');
+	if (channel->getMode().find('i') != std::string::npos && channel->UserIsInvite(currentUser) == false)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 			send_replies(473, currentUser, serv, channel->getName())));
@@ -211,7 +212,7 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 					currentUser->IncrementChannelsJoined();
 					msg_join = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), 
 												currentUser->getHostNameUser());
-					channel->sendToAllUsers(&serv->_tcpServer, (msg_join + "JOIN " 
+					channel->sendToAllUsersInChan(&serv->_tcpServer, (msg_join + "JOIN " 
 							+ channel->getName() + "\r\n"));
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 							send_replies(332, currentUser, serv, channel->getName(), 

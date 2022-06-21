@@ -34,7 +34,7 @@ void cmd_notice(IrcServer *serv, user *currentUser, std::string &args)
 				{
 					if (it->second->getNickName() != currentUser->getNickName())
 					{
-					chanToSend->sendToAllUsers(&serv->_tcpServer, (msg_notice + "PRIVMSG "
+					chanToSend->sendToAllUsersInChan(&serv->_tcpServer, (msg_notice + "PRIVMSG "
 							+ chanToSend->getName() + " " + target + " :"
 							+ msg_to_check + "\r\n"));
 					}
