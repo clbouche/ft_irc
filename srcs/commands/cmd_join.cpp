@@ -6,7 +6,7 @@
 /*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/21 11:31:31 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:49:44 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,9 +193,11 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 				serv->currentChannels.insert(std::make_pair(chan_name, newChan));
 				currentUser->setListOfChans(newChan);
 				currentUser->IncrementChannelsJoined();
-				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-									send_replies(332, currentUser, serv, chan_name, 
-				newChan->getTopic())));
+				msg_join = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), 
+							currentUser->getHostNameUser());
+				newChan->sendToAllUsersInChan(&serv->_tcpServer, (msg_join + "JOIN " 
+						+ newChan->getName() + "\r\n"));
+				cmd_topic(serv, currentUser, chan_name);
 				cmd_names(serv, currentUser, chan_name);
 
 			}
@@ -213,9 +215,7 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 												currentUser->getHostNameUser());
 					channel->sendToAllUsersInChan(&serv->_tcpServer, (msg_join + "JOIN " 
 							+ channel->getName() + "\r\n"));
-					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-							send_replies(332, currentUser, serv, channel->getName(), 
-							channel->getTopic())));
+					cmd_topic(serv, currentUser, chan_name);
 					cmd_names(serv, currentUser, chan_name);
 				}
 			}

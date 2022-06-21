@@ -48,8 +48,15 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 			if (chan->checkOperator(currentUser) == true)
 				chan->removeOper(currentUser);
 			msg_part = formatMsgsUsers(currentUser->getNickName(),currentUser->getUserName(), currentUser->getHostNameUser());
-			chan->sendToAllUsersInChan(&serv->_tcpServer, (msg_part + "PART "
-							+ chan_name + " :" + commentPart + "\r\n"));
+			msg_part.append("PART ");
+			msg_part.append(chan_name);
+			if (msg_part != "")
+			{
+				msg_part.append(" :");
+				msg_part.append(msg_part);
+			}
+			msg_part.append("\r\n");
+			chan->sendToAllUsersInChan(&serv->_tcpServer, msg_part);
 			chan->removeUser(currentUser);
 			currentUser->removeChan(chan);
 			if (chan->getNbUsers() == 0)
