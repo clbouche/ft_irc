@@ -68,7 +68,6 @@ bool        check_args(IrcServer *serv, user *currentUser, channels *chan, std::
     //si le channel est en mode invite-only, le user qui veut invite doit avoir les droits
     if (chan->getMode().find("i") != std::string::npos && chan->checkOperator(currentUser) == false)
     {
-		std::cout << "mode of chan is [" << chan->getMode() << "]" << std::endl;
         serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), 
                     send_replies(482, currentUser, serv, chan->getName())));
         return false;

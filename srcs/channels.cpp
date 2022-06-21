@@ -254,7 +254,7 @@ bool			channels::UserIsInvite(user *currentUser)
 {
 	std::vector<std::string>::iterator	it;
 	it = std::find(_InvitList.begin(), _InvitList.end(), currentUser->getNickName());
-	if (it != _InvitList.end())
+	if (it == _InvitList.end())
 		return false;
 	return true;
 }

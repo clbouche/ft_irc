@@ -120,7 +120,9 @@ bool		check_chan(IrcServer *serv, user *currentUser, channels *channel, std::str
 		return false;
 	}
 	//si l'utilisateur n'a pas ete invite a entrer dans le channel
-	if (channel->getMode().find_first_of('i') != std::string::npos && channel->UserIsInvite(currentUser) == false)
+	int i = channel->getMode().find('i');
+	std::cout << BLUE2 << "i =" << i << END << std::endl;
+	if (channel->getMode().find('i') != std::string::npos && channel->UserIsInvite(currentUser) == false)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 			send_replies(473, currentUser, serv, channel->getName())));
@@ -168,7 +170,7 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 		 					send_replies(461, currentUser, serv, "JOIN")));
 		return ;
 	}
-	
+
 	std::string		passwords;
 	std::string		msg_join;
 	pos == std::string::npos ? passwords = "" : passwords = args.substr(pos + 1, args.size());
