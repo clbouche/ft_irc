@@ -53,9 +53,11 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 				{
 					for (it = chanToSend->getUsers().begin(); it != chanToSend->getUsers().end(); it++)
 					{
-						chanToSend->sendToAllUsersInChan(&serv->_tcpServer, (msg_privmsg + "PRIVMSG "
-								+ chanToSend->getName() + " " + target + " :"
-								+ msg_to_check + "\r\n"));
+						if (it->second->getNickName() != currentUser->getNickName())
+						{	
+							serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), (msg_privmsg + "PRIVMSG "
+								+ target + " :" + msg_to_check + "\r\n"))); 
+						}
 					}
 				}
 				else

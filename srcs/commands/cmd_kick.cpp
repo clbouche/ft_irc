@@ -98,9 +98,18 @@ void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 				if (ite != mapOfUsers.end() && ite->second->getNickName() == NameOfUserToKick )
 				{
 					userToKick = ite->second;
-					channel->sendToAllUsersInChan(&serv->_tcpServer, (msg_kick + "KICK "
-							+ chan_name + " " + userToKick->getNickName() + " :" 
-							+ commentKick + "\r\n"));
+					msg_kick = formatMsgsUsers(userToKick->getNickName(), userToKick->getUserName(), userToKick->getHostNameUser());
+					msg_kick.append("KICK ");
+					msg_kick.append(chan_name);
+					msg_kick.append(" ");
+					msg_kick.append(userToKick->getNickName());
+					msg_kick.append(" :");
+					if (commentKick != "")
+						msg_kick.append(commentKick);
+					else
+						msg_kick.append(userToKick->getNickName());
+					msg_kick.append("\r\n");
+					channel->sendToAllUsersInChan(&serv->_tcpServer, msg_kick);
 					userToKick->removeChan(channel);
 					channel->removeUser(userToKick);
 					if (channel->getNbUsers() == 0)
