@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_topic.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:39:32 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/13 16:42:28 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:54:21 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void    cmd_topic( IrcServer *serv, user *currentUser, std::string & args )
 	std::string		channel = args.substr(0, pos);
     channels        *channel_topic;
 	std::string		topic;
+    std::string     msg_topic;
 	pos == std::string::npos ? topic = "" : topic = args.substr(pos + 2, args.length());
     serv->currentChannels.find(channel) == serv->currentChannels.end()?
             channel_topic = NULL : channel_topic = serv->currentChannels.find(channel)->second;
@@ -96,9 +97,13 @@ void    cmd_topic( IrcServer *serv, user *currentUser, std::string & args )
         else 
         {
             channel_topic->setTopic(topic);
+            
             serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
                         send_replies(332, currentUser, serv, channel, 
-                        channel_topic->getTopic())));
+            channel_topic->getTopic())));
+            msg_topic = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), currentUser->getHostNameUser());
+            channel_topic->sendToAllUsersInChan(&serv->_tcpServer, (msg_topic + "TOPIC " + channel_topic->getName() + " :" 
+					+ topic + "\r\n"));
         }
     }
 }
