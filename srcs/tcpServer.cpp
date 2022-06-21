@@ -205,7 +205,7 @@ void							tcpServer::send_buff (void)
 
 	while (it != _buff_out.end())
 	{
-		out("Answer is" + it->second)
+		std::cout << RED << "Answer is " << END << it->second << std::endl;
 		send(it->first, it->second.c_str(), std::strlen(it->second.c_str()), MSG_NOSIGNAL);
 		it++;
 	}
