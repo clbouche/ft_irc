@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_mode.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:07:25 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/20 15:18:22 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:31:31 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 							std::map<int, user *>::iterator it;
 							std::string	msg_ban = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(),
 										currentUser->getHostNameUser());
-							targetChannel->sendToAllUsers(&serv->_tcpServer, (msg_ban + " MODE " + 
+							targetChannel->sendToAllUsersInChan(&serv->_tcpServer, (msg_ban + " MODE " + 
 									targetChannel->getName() + " +b " + paramToUse + "\r\n"));
 						}
 						else

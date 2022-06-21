@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_join.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/17 15:29:07 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:31:31 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 					currentUser->IncrementChannelsJoined();
 					msg_join = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), 
 												currentUser->getHostNameUser());
-					channel->sendToAllUsers(&serv->_tcpServer, (msg_join + "JOIN " 
+					channel->sendToAllUsersInChan(&serv->_tcpServer, (msg_join + "JOIN " 
 							+ channel->getName() + "\r\n"));
 					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 							send_replies(332, currentUser, serv, channel->getName(), 
