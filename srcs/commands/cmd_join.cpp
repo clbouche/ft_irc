@@ -6,7 +6,7 @@
 /*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/21 14:49:44 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/21 15:02:19 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,8 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 							currentUser->getHostNameUser());
 				newChan->sendToAllUsersInChan(&serv->_tcpServer, (msg_join + "JOIN " 
 						+ newChan->getName() + "\r\n"));
-				cmd_topic(serv, currentUser, chan_name);
+				if (newChan->getTopic() != "")
+					cmd_topic(serv, currentUser, chan_name);
 				cmd_names(serv, currentUser, chan_name);
 
 			}
@@ -215,7 +216,8 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 												currentUser->getHostNameUser());
 					channel->sendToAllUsersInChan(&serv->_tcpServer, (msg_join + "JOIN " 
 							+ channel->getName() + "\r\n"));
-					cmd_topic(serv, currentUser, chan_name);
+					if (channel->getTopic() != "")
+						cmd_topic(serv, currentUser, chan_name);
 					cmd_names(serv, currentUser, chan_name);
 				}
 			}

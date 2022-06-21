@@ -50,10 +50,10 @@ void    cmd_part( IrcServer *serv, user *currentUser, std::string & args )
 			msg_part = formatMsgsUsers(currentUser->getNickName(),currentUser->getUserName(), currentUser->getHostNameUser());
 			msg_part.append("PART ");
 			msg_part.append(chan_name);
-			if (msg_part != "")
+			if (commentPart != "")
 			{
 				msg_part.append(" :");
-				msg_part.append(msg_part);
+				msg_part.append(commentPart);
 			}
 			msg_part.append("\r\n");
 			chan->sendToAllUsersInChan(&serv->_tcpServer, msg_part);
