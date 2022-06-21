@@ -45,21 +45,26 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 
 		if (strchr(CHANNEL_PREFIX, target.c_str()[0]) != NULL)
 		{
-			channels *chanToSend = serv->currentChannels.find(target)->second;
-			std::map<int, user *>::iterator it;
-			if (chanToSend->UserInChan(currentUser) == true || (chanToSend->getMode().find('i') == std::string::npos && chanToSend->UserIsBan(currentUser) == false))
+			if (serv->currentChannels.find(target) != serv->currentChannels.end())
 			{
-				for (it = chanToSend->getUsers().begin(); it != chanToSend->getUsers().end(); it++)
+				channels *chanToSend = serv->currentChannels.find(target)->second;
+				std::map<int, user *>::iterator it;
+				if (chanToSend->getName() != "" && (chanToSend->UserInChan(currentUser) == true || (chanToSend->getMode().find('i') == std::string::npos && chanToSend->UserIsBan(currentUser) == false)))
 				{
-					if (it->second->getNickName() != currentUser->getNickName())
-					{	
-						serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), (msg_privmsg + "PRIVMSG "
-							+ target + " :" + msg_to_check + "\r\n"))); 
+					for (it = chanToSend->getUsers().begin(); it != chanToSend->getUsers().end(); it++)
+					{
+						if (it->second->getNickName() != currentUser->getNickName())
+						{	
+							serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), (msg_privmsg + "PRIVMSG "
+								+ target + " :" + msg_to_check + "\r\n"))); 
+						}
 					}
 				}
+				else
+					serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(404, currentUser, serv, target)));
 			}
 			else
-				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(404, currentUser, serv, target)));
+				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(401, currentUser, serv, target)));
 		}
 		else
 		{
