@@ -65,7 +65,7 @@ void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 	std::string					msg_kick;
 
 	pos == std::string::npos ? users = "" : users = args.substr(pos + 1, tmpPos);
-	tmpPos == std::string::npos ? commentKick = "left" : commentKick = tmp_args.substr(tmpPos + 1, tmp_args.size());
+	tmpPos == std::string::npos ? commentKick = "" : commentKick = tmp_args.substr(tmpPos + 1, tmp_args.size());
 	std::string test = tmp_args.substr(tmpPos + 1, tmp_args.size());
 	
 	std::vector<std::string>		split_channels = ft_split(chans, ",");
@@ -109,14 +109,11 @@ void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 					else
 						msg_kick.append(currentUser->getNickName());
 					msg_kick.append("\r\n");
+					cmd_part(serv, userToKick, chan_name);
 					channel->sendToAllUsersInChan(&serv->_tcpServer, msg_kick);
-					userToKick->removeChan(channel);
-					channel->removeUser(userToKick);
-					if (channel->getNbUsers() == 0)
-					{
-						delete serv->currentChannels[chan_name];
-						serv->currentChannels.erase(chan_name);
-					}
+
+
+					
 				}
 			}
 		}
