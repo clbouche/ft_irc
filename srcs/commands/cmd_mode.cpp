@@ -147,6 +147,7 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 						else
 								serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(), send_replies(441, currentUser, serv, paramToUse, targetChannel->getName())));
 					}
+					break ;
 				case 'k':
 					if (paramsVector.size() > 0)
 					{
@@ -155,6 +156,7 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 						targetChannel->setPassSet(true);
 						paramsVector.erase(paramsVector.begin());
 					}
+					break ;
 				case 'l':
 					if (paramsVector.size() > 0)
 					{
@@ -165,6 +167,7 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 							paramsVector.erase(paramsVector.begin());
 						}
 					}
+					break ;
 				case 'b':
 					toErase += 'b';
 					if (paramsVector.size() > 0)
@@ -219,6 +222,7 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 			{
 				case 'i':
 					targetChannel->removeMode("i");
+					break ;
 				case 'o':
 					toErase += 'o';
 					if (paramsVector.size() > 0)
@@ -228,14 +232,17 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 						targetChannel->removeOper(userParam);
 						paramsVector.erase(paramsVector.begin());
 					}
+					break ;
 				case 'k':
 					if (targetChannel->getPassword().size() > 0)
 					{
 						targetChannel->setPassword("");
 						targetChannel->setPassSet(false);
 					}
+					break ;
 				case 'l':
 						targetChannel->setNbUsers(INT32_MAX);
+						break ;
 				case 'b':
 					if (paramsVector.size() > 0)
 					{
