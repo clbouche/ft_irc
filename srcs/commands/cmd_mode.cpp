@@ -200,7 +200,15 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 		}
 		if (privmsg > 0)
 		{
-			serv->_tcpServer.add_to_buffer(std::make_pair(privmsg, "PRIVMSG " + targetChannel->getName() + " : mode " + mode + " " + serv->getUser(privmsg)->getNickName() + "\r\n"));
+			std::string		rpl_mode = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), currentUser->getHostNameUser());
+			targetChannel->sendToAllUsersInChan(&serv->_tcpServer, (rpl_mode +
+				" MODE " + targetChannel->getName() + mode + " " +
+				serv->getUser(privmsg)->getNickName() + "\r\n"));
+				// std::map<int, user *>::iterator it;
+				// for (it = targetChannel->getUsers().begin(); it != targetChannel->getUsers().end(); it++)
+				// 	serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), currentUser->getHostNameUser()) +
+				// 		" MODE " + targetChannel->getName() + " " + mode + " " +
+				// 		serv->getUser(privmsg)->getNickName() + "\r\n"));
 		}
 		if (toErase.size() > 0)
 		{
