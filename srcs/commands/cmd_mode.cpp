@@ -202,7 +202,7 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 		{
 			std::string		rpl_mode = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), currentUser->getHostNameUser());
 			targetChannel->sendToAllUsersInChan(&serv->_tcpServer, (rpl_mode +
-				" MODE " + targetChannel->getName() + mode + " " +
+				" MODE " + targetChannel->getName() + " " + mode + " " +
 				serv->getUser(privmsg)->getNickName() + "\r\n"));
 				// std::map<int, user *>::iterator it;
 				// for (it = targetChannel->getUsers().begin(); it != targetChannel->getUsers().end(); it++)
