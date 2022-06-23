@@ -71,10 +71,10 @@ void cmd_privmsg(IrcServer *serv, user *currentUser, std::string &args)
 			std::map<int, user *>::iterator it;
 			for (it = serv->usersMap.begin(); it != serv->usersMap.end(); it++)
 			{
-				if (it->second->getNickName() == target)
+				if (it->second && it->second->getNickName() == target)
 				{
 					serv->_tcpServer.add_to_buffer(std::make_pair(it->second->getSdUser(), (msg_privmsg + "PRIVMSG "
-							 + msg_to_check + "\r\n")));
+							+ target + " :" + msg_to_check + "\r\n")));
 					return;
 				}
 			}
