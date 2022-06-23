@@ -84,9 +84,7 @@ void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 		serv->currentChannels.find(chan_name) == serv->currentChannels.end() ? 
 			channel = NULL : channel = serv->currentChannels.find(chan_name)->second;
 			
-		if (check_args(serv, currentUser, channel, chan_name, NameOfUserToKick)
-				&& channel->UserInChan(currentUser) 
-				&& channel->UserInChan(NameOfUserToKick))
+		if (check_args(serv, currentUser, channel, chan_name, NameOfUserToKick))
 		{
 			std::map<int, user *>		mapOfUsers;
 			user						*userToKick;
