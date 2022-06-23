@@ -238,6 +238,7 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					{
 						targetChannel->setPassword("");
 						targetChannel->setPassSet(false);
+						targetChannel->removeMode("k");
 					}
 					break ;
 				case 'l':
