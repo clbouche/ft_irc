@@ -132,7 +132,7 @@ void		IrcServer::sendToAllUsersInServ(std::string msg)
 
 	for (it = usersMap.begin(); it != usersMap.end(); it++)
 	{
-		if (it->second->getConnexion() == true)
+		if (it->second && (it->second->getConnexion() == true))
 			this->_tcpServer.add_to_buffer(std::make_pair(it->first, msg));
 	}
 }

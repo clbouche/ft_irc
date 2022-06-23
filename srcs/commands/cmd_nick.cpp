@@ -47,7 +47,7 @@ bool	checkNicknameInUse(IrcServer *serv, user *currentUser, std::string args)
 
 	for (std::map<int, user *>::iterator it = serv->usersMap.begin() ; it != serv->usersMap.end() ; it++)
 	{
-		if (&(*it->second) != &(*currentUser))
+		if ( it->second && (&(*it->second) != &(*currentUser)))
 		{
 			checkNickName = it->second->getNickName();
 			if (args == checkNickName)

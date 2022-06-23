@@ -206,13 +206,7 @@ void		channels::addBan(std::string newBan)
 
 void		channels::addInvit(std::string	newInvit)
 {
-	std::vector<std::string>::iterator		it;
-
-	for(it = _InvitList.begin(); it != _InvitList.end(); it++)
-	{
-		if (it == _InvitList.end())
-			this->_InvitList.push_back(newInvit);
-	}
+	_InvitList.push_back(newInvit);
 }
 
 void		channels::removeOper(user *oldOper)
