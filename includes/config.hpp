@@ -26,6 +26,6 @@
 # define DATE					"02.06.2022"
 # define VERSION				"1.0"
 # define USERSMODES				"io"
-# define CHANNELSMODES			"kobilv"
+# define CHANNELSMODES			"kobil"
 
 #endif

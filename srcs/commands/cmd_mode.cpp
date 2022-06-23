@@ -246,11 +246,11 @@ void channelMode(channels *targetChannel, std::string mode, std::string modePara
 					{
 						targetChannel->setPassword("");
 						targetChannel->setPassSet(false);
-						targetChannel->removeMode("k");
 					}
 					break ;
 				case 'l':
 						targetChannel->setNbUsers(INT32_MAX);
+						targetChannel->removeMode("l");
 						break ;
 				case 'b':
 					if (paramsVector.size() > 0)
