@@ -45,46 +45,44 @@ void	listAllChans(IrcServer *serv, user *currentUser)
 			send_replies(323, currentUser, serv)));
 }
 
+static void		listSelectedChans(IrcServer *serv, user *currentUser, std::vector<std::string> listOfChans)
+{
+	std::map<int, user *>::iterator		ite;
+	std::string							rpl_list;
+
+	for (size_t i = 0; i < listOfChans.size(); i++)
+	{
+		channels		*chan;
+		serv->currentChannels.find(listOfChans[i]) == serv->currentChannels.end() ?
+				chan = NULL : chan = serv->currentChannels.find(listOfChans[i])->second;
+		if (chan != NULL)
+		{
+			serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+						send_replies(322, currentUser, serv, chan->getName(),
+						chan->getTopic())));
+		}
+		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
+							send_replies(323, currentUser, serv)));
+	}
+}
+
 void    cmd_list( IrcServer *serv, user *currentUser, std::string & args )
 {
-	std::vector<std::string>		split_args = ft_split(args, " ");
-	std::string						chan_name;
-	channels						*chan;
-	size_t							j = 0;
-
     //si LIST n'a pas d'argument, on liste toutes les channels + topics
-	if (split_args.size() == 0)
-    {
+	if (args == "")
         listAllChans(serv, currentUser);
-		return ;
-    }
-	if (split_args.size() == 2)
+	else
 	{
+		std::vector<std::string>		split_args = ft_split(args, " ");
+		std::vector<std::string>		listOfChans;
 		//si le nom donne n'est pas le serveur actuel, ERR
-		if (serv->_tcpServer.getHostname() != split_args[1])
+		if (split_args.size() > 1 && serv->_tcpServer.getHostname() != split_args[1])
 		{
 			serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 				send_replies(402, currentUser, serv, split_args[1])));
 			return ;
 		}
+		listOfChans = ft_split(args, ",");
+		listSelectedChans(serv, currentUser, listOfChans);
 	}
-	//si le serveur est correct ou qu'il n'a pas ete cite :
-	std::vector<std::string>						split_chans = ft_split(split_args[0], ",");
-	std::vector<std::string>::iterator				it;
-	std::map<std::string, channels *>::iterator		ite;
-
-	for(it = split_chans.begin(); it != split_chans.end(); it++)
-	{
-		chan_name = split_chans[j];
-		serv->currentChannels.find(chan_name) == serv->currentChannels.end() ? 
-				chan = NULL : chan = serv->currentChannels.find(chan_name)->second;
-			if (chan != NULL)
-			{
-				serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-							send_replies(322, currentUser, serv, chan->getName(),
-							chan->getTopic())));
-			}
-	}
-	serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-							send_replies(323, currentUser, serv)));
 }

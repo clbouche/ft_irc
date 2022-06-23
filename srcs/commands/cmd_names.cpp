@@ -72,7 +72,7 @@ void	listAllChannels(IrcServer *serv, user *currentUser)
 	}
 }
 
-void	listSelectedChans(IrcServer *serv, user *currentUser, std::vector<std::string> listOfChans)
+static void	listSelectedChans(IrcServer *serv, user *currentUser, std::vector<std::string> listOfChans)
 {
     std::map<int, user *>::iterator		ite;
 	std::string							rpl_nicknames;		
