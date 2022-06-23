@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   responses_and_errors.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:30 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/16 17:18:58 by elaachac         ###   ########.fr       */
+/*   Updated: 2022/06/23 11:30:57 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,7 +354,7 @@
  * Returned when a client tries to invite a user to a
  * channel they are already on.
  */
-# define ERR_USERONCHANNEL(user, channel) (user + channel + "  :is already on channel\r\n")
+# define ERR_USERONCHANNEL(user, channel) (user + " " + channel + " :is already on channel\r\n")
 
 /**
  * @brief ERR 444
@@ -362,7 +362,7 @@
  * user was unable to be performed since they were not
  * logged in.
  */
-# define ERR_NOLOGIN(user) (user + "  :User not logged in\r\n")
+# define ERR_NOLOGIN(user) (user + " :User not logged in\r\n")
 
 /**
  * @brief ERR 445

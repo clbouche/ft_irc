@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_topic.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:39:32 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/21 12:54:21 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/23 11:20:58 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,17 @@
 static bool     check_args(IrcServer *serv, user *currentUser, std::string args, channels *channel)
 {
     std::vector<std::string>	split_args = ft_split(args, " ");
-    if (split_args.size() == 0)
+    if (args == "")
     {
         serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 		 					send_replies(461, currentUser, serv, "TOPIC")));
 		return false;
     }
-	if (channel->UserInChan(currentUser) == false)
+    if (channel == NULL)
+    {
+        return false;
+    }
+    if (channel->UserInChan(currentUser) == false)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 							send_replies(442, currentUser, serv, channel->getName())));
@@ -77,7 +81,7 @@ void    cmd_topic( IrcServer *serv, user *currentUser, std::string & args )
 	pos == std::string::npos ? topic = "" : topic = args.substr(pos + 2, args.length());
     serv->currentChannels.find(channel) == serv->currentChannels.end()?
             channel_topic = NULL : channel_topic = serv->currentChannels.find(channel)->second;
-    if (channel_topic != NULL && check_args(serv, currentUser, args, channel_topic) == true)
+    if (check_args(serv, currentUser, args, channel_topic) == true)
     {
         if (args.find_first_of(":") == std::string::npos)
 		{

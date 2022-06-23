@@ -49,6 +49,10 @@ bool        check_args(IrcServer *serv, user *currentUser, channels *chan, std::
 		return false;
 
     }
+    if (chan == NULL)
+    {
+        return false;
+    }
     //si le user qui veut ajouter quelqu'un n'est pas dans le channel
     if (chan->UserInChan(currentUser) == false)
     {
@@ -95,7 +99,7 @@ void    cmd_invite( IrcServer *serv, user *currentUser, std::string & args )
     serv->currentChannels.find(channelInvitation) == serv->currentChannels.end() ? 
         chan = NULL : chan = serv->currentChannels.find(channelInvitation)->second;
     
-    if (chan != NULL && check_args(serv, currentUser, chan, nicknameToInvite) == true)
+    if (check_args(serv, currentUser, chan, nicknameToInvite) == true)
     {
         userToInvite = serv->getUserByNick(nicknameToInvite);
         if (chan->getMode().find("i"))
@@ -105,12 +109,14 @@ void    cmd_invite( IrcServer *serv, user *currentUser, std::string & args )
 			chan->getBanList().erase(std::find(chan->getBanList().begin(), 
 					chan->getBanList().end(), userToInvite->getNickName()));
 		}
+        //envoie au user qui invite
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
-							send_replies(341, currentUser, serv, chan->getName(),
-							userToInvite->getNickName())));
+							send_replies(341, currentUser, serv, userToInvite->getNickName(),
+							chan->getName())));
+        //envoie au user invite
 		serv->_tcpServer.add_to_buffer(std::make_pair(userToInvite->getSdUser(), 
-							send_replies(341, currentUser, serv, chan->getName(),
-							userToInvite->getNickName())));
+							send_replies(341, currentUser, serv, userToInvite->getNickName(),
+							chan->getName())));
     }
 }
     
