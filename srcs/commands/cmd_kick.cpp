@@ -49,9 +49,10 @@ void    cmd_kick( IrcServer *serv, user *currentUser, std::string & args )
 	std::string		tmp_args;
 	size_t			pos = args.find_first_of(" ");
     std::string		chans = args.substr(0, pos);
+	std::vector<std::string>		split_args = ft_split(args, " ");
 
     //si KICK n'a pas de nom de channel a quitter pour le user
-	if (chans == "")
+	if (split_args.size() < 2)
 	{
 		serv->_tcpServer.add_to_buffer(std::make_pair(currentUser->getSdUser(),
 		 					send_replies(461, currentUser, serv, "KICK")));

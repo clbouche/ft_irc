@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_join.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:18:16 by clbouche          #+#    #+#             */
-/*   Updated: 2022/06/21 15:02:19 by claclou          ###   ########.fr       */
+/*   Updated: 2022/06/27 14:47:46 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,11 @@ void    cmd_join( IrcServer *serv, user	*currentUser, std::string & args )
 				channels	*newChan = new channels(chan_name, currentUser);
 				serv->currentChannels.insert(std::make_pair(chan_name, newChan));
 				currentUser->setListOfChans(newChan);
+				if (pass_chan != "")
+				{
+					newChan->setPassword(pass_chan);
+					newChan->setPassSet(true);
+				}
 				currentUser->IncrementChannelsJoined();
 				msg_join = formatMsgsUsers(currentUser->getNickName(), currentUser->getUserName(), 
 							currentUser->getHostNameUser());
